@@ -99,8 +99,6 @@ public class BombermanApp extends GameApplication {
                 .buildAndAttach();
     }
 
-
-
     private void initializeMap() {
         for (int row = 0; row < MAP_HEIGHT; row++) {
             for (int col = 0; col < MAP_WIDTH; col++) {
