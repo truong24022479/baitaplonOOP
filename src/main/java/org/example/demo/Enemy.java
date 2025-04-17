@@ -10,6 +10,7 @@ public abstract class Enemy extends Component {
     protected int[][] map;
     protected int MAP_WIDTH;
     protected int MAP_HEIGHT;
+    public static final double ENEMY_SPEED=15;
 
 
     public void initMap(int[][] map, int tileSize, int mapWidth, int mapHeight) {
@@ -19,14 +20,18 @@ public abstract class Enemy extends Component {
         this.MAP_HEIGHT = mapHeight;
     }
 
-    @Override
-    public void onUpdate(double tpf) {
+
+//    public boolean canMove(int tileX, int tileY) {
+//        return tileX >= 0 && tileX < MAP_WIDTH && tileY >= 0 && tileY < MAP_HEIGHT
+//                && map[tileY][tileX] == 0;
+//    }
+    public boolean canMove(double tileX, double tileY) {
+        int dy = (int) tileY;
+        int dx = (int) tileX;
+        return tileX >= 0 && tileX < MAP_WIDTH && tileY >= 0 && tileY < MAP_HEIGHT
+                && map[dy][dx] == 0;
     }
 
-    public boolean canMove(int tileX, int tileY) {
-        return tileX >= 0 && tileX < MAP_WIDTH && tileY >= 0 && tileY < MAP_HEIGHT
-               && map[tileY][tileX] == 0;
-    }
 
 
 }

@@ -133,7 +133,33 @@ public class BombermanApp extends GameApplication {
                     .type(EntityType.ENEMY)
                     .at(y * TILE_SIZE, x * TILE_SIZE)
                     .viewWithBBox(enemyView)
-                    .with(new Balloon())
+                    .with(new Balloon() {{
+                         initMap(map, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT);
+                    }})
+                    .buildAndAttach();
+        }
+
+        int numOfOneals = 1;
+        for (int i = 0; i < numOfOneals; i++) {
+            int x, y;
+            do {
+                x = random.nextInt(MAP_HEIGHT);
+                y = random.nextInt(MAP_WIDTH);
+            } while (map[x][y] != 0 || (x == 1 && y == 1) || (x == 1 && y == 2) || (x == 2 && y == 1)); // Ensure valid, non-player start spot
+
+            ImageView enemyView = controller.getEnemyImageView();
+
+            enemyView.setFitWidth(TILE_SIZE);
+            enemyView.setFitHeight(TILE_SIZE);
+            enemyView.setPreserveRatio(false);
+
+            entityBuilder()
+                    .type(EntityType.ENEMY)
+                    .at(y * TILE_SIZE, x * TILE_SIZE)
+                    .viewWithBBox(enemyView)
+                    .with(new Oneal() {{
+                        initMap(map, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT);
+                    }})
                     .buildAndAttach();
         }
     }
