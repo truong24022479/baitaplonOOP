@@ -1,12 +1,7 @@
 package org.example.demo;
 
-
-import javax.swing.*;
-
-public class HelloApplication {
-
-
+public class HelloApplication extends BombermanApp{
      public static void main(String[] args) {
-        BombermanApp.main(args);
+        launch(args);
     }
 }

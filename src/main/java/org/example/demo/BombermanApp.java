@@ -20,7 +20,6 @@ import java.util.Random;
 import static com.almasb.fxgl.dsl.FXGL.*;
 
 
-
 public class BombermanApp extends GameApplication {
     private Entity player;
     private int[][] map;
@@ -28,9 +27,7 @@ public class BombermanApp extends GameApplication {
     public static final int MAP_WIDTH = 15;
     public static final int MAP_HEIGHT = 15;
     private static final int PLAYER_SPEED = 1;
-
-
-
+    private static final int MOVE_ERROR = 10;
     private KeyHandle keyH = new KeyHandle();
     private static GamePlay controller;
 
@@ -43,23 +40,18 @@ public class BombermanApp extends GameApplication {
     }
 
     protected void initUI() {
-        try {
-            // Tải file FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/game_play.fxml"));
-            Parent root = loader.load();
-
-            // Lấy Controller
-            GamePlay controller = loader.getController();
-            ImageView playerImageView = controller.getPlayerImageView();
-            ImageView enemyImageView = controller.getEnemyImageView();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Không thể tải file game_play.fxml: " + e.getMessage());
-        }
+        GameInitializerMap.initUI();
     }
 
-    @Override
+//    @Override
+//    protected void initGame() {
+//        GameInitializerMap.initUI();    // 👈 GỌI TRƯỚC để load FXML và gán controller
+//        GameInitializerMap.initGame();  // 👈 Sau đó mới dùng controller
+//    }
+//    private void initializeMap(){
+//        GameInitializerMap.initializeMap();
+//    }
+
     protected void initGame() {
         getGameScene().setBackgroundColor(Color.BLACK);
         map = new int[MAP_HEIGHT][MAP_WIDTH];
@@ -134,7 +126,7 @@ public class BombermanApp extends GameApplication {
                     .at(y * TILE_SIZE, x * TILE_SIZE)
                     .viewWithBBox(enemyView)
                     .with(new Balloon() {{
-                         initMap(map, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT);
+                        initMap(map, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT);
                     }})
                     .buildAndAttach();
         }
@@ -180,6 +172,13 @@ public class BombermanApp extends GameApplication {
         map[1][2] = 0;
         map[2][1] = 0;
     }
+
+    
+
+    public int[][] getMap() {
+    return map;
+}
+
     @Override
     protected void initInput() {
         FXGL.getInput().clearAll(); // Xóa tất cả binding cũ
@@ -233,7 +232,6 @@ public class BombermanApp extends GameApplication {
         }, KeyCode.D);
     }
 
-
     @Override
     protected void onUpdate(double tpf) {
         double dx = 0, dy = 0;
@@ -245,17 +243,35 @@ public class BombermanApp extends GameApplication {
     }
 
     private void movePlayer(double dx, double dy) {
-        double newX = player.getX() + dx;
-        double newY = player.getY() + dy;
+        double newX = player.getX();
+        double newY = player.getY();
+
+        if (dx != 0 && dy == 0) {
+            double targetRow = Math.round(newY / TILE_SIZE);
+            double alignedY = targetRow * TILE_SIZE;
+            if (Math.abs(alignedY - newY) <= MOVE_ERROR) {
+                newY = alignedY;
+            }
+            newX += dx;
+        } else if (dy != 0 && dx == 0) {
+            double targetCol = Math.round(newX / TILE_SIZE);
+            double alignedX = targetCol * TILE_SIZE;
+            if (Math.abs(alignedX - newX) <= MOVE_ERROR) {
+                newX = alignedX;
+            }
+            newY += dy;
+        } else {
+            newX += dx;
+            newY += dy;
+        }
 
         int leftTile = (int) (newX / TILE_SIZE);
         int rightTile = (int) ((newX + TILE_SIZE - 1) / TILE_SIZE);
         int topTile = (int) (newY / TILE_SIZE);
         int bottomTile = (int) ((newY + TILE_SIZE - 1) / TILE_SIZE);
 
-        if (leftTile < 0 || rightTile >= MAP_WIDTH || topTile < 0 || bottomTile >= MAP_HEIGHT) {
+        if (leftTile < 0 || rightTile >= MAP_WIDTH || topTile < 0 || bottomTile >= MAP_HEIGHT)
             return;
-        }
 
         for (int ty = topTile; ty <= bottomTile; ty++) {
             for (int tx = leftTile; tx <= rightTile; tx++) {
@@ -268,12 +284,4 @@ public class BombermanApp extends GameApplication {
         player.setPosition(newX, newY);
     }
 
-    public int[][] getMap() {
-        return map;
-    }
-
-
-    public static void main(String[] args) {
-        launch(args);
-    }
 }
