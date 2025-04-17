@@ -43,6 +43,7 @@ public class BombermanApp extends GameApplication {
         GameInitializerMap.initUI();
     }
 
+/// /////////////////
 //    @Override
 //    protected void initGame() {
 //        GameInitializerMap.initUI();    // 👈 GỌI TRƯỚC để load FXML và gán controller
@@ -173,7 +174,8 @@ public class BombermanApp extends GameApplication {
         map[2][1] = 0;
     }
 
-    
+//////////////////
+
 
     public int[][] getMap() {
     return map;

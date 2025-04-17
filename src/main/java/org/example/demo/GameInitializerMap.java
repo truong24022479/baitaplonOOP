@@ -46,7 +46,7 @@ public class GameInitializerMap {
         }
     }
 
-//sua init game
+//////////sua init game
     public static void initGame() {
         if (controller == null) {
             System.out.println("⚠️ Controller is null! Bạn đã gọi initUI() chưa?");
@@ -96,6 +96,23 @@ public class GameInitializerMap {
         spawnEnemies();
     }
 
+    public static void initializeMap() {
+        for (int row = 0; row < MAP_HEIGHT; row++) {
+            for (int col = 0; col < MAP_WIDTH; col++) {
+                if (row == 0 || row == MAP_HEIGHT - 1 || col == 0 || col == MAP_WIDTH - 1) {
+                    map[row][col] = 1;
+                } else if (row % 2 == 0 && col % 2 == 0) {
+                    map[row][col] = 1;
+                } else {
+                    map[row][col] = (Math.random() > 0.7) ? 2 : 0;
+                }
+            }
+        }
+        map[1][1] = map[1][2] = map[2][1] = 0;
+    }
+
+/// //////////////
+
     private static void spawnEnemies() {
         Random random = new Random();
         int numOfBalloons = 5;
@@ -125,21 +142,6 @@ public class GameInitializerMap {
                 .viewWithBBox(enemyView)
                 .with((Component) aiComponent)
                 .buildAndAttach();
-    }
-
-    public static void initializeMap() {
-        for (int row = 0; row < MAP_HEIGHT; row++) {
-            for (int col = 0; col < MAP_WIDTH; col++) {
-                if (row == 0 || row == MAP_HEIGHT - 1 || col == 0 || col == MAP_WIDTH - 1) {
-                    map[row][col] = 1;
-                } else if (row % 2 == 0 && col % 2 == 0) {
-                    map[row][col] = 1;
-                } else {
-                    map[row][col] = (Math.random() > 0.7) ? 2 : 0;
-                }
-            }
-        }
-        map[1][1] = map[1][2] = map[2][1] = 0;
     }
 
 }
