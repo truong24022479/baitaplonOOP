@@ -19,10 +19,10 @@ import java.util.Random;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 
-
+/// ///////////////////long
 public class BombermanApp extends GameApplication {
     private Entity player;
-    private int[][] map;
+    public static int[][] map;
     public static final int TILE_SIZE = 32;
     public static final int MAP_WIDTH = 15;
     public static final int MAP_HEIGHT = 15;
@@ -43,18 +43,9 @@ public class BombermanApp extends GameApplication {
         GameInitializerMap.initUI();
     }
 
-/// /////////////////
-//    @Override
-//    protected void initGame() {
-//        GameInitializerMap.initUI();    // 👈 GỌI TRƯỚC để load FXML và gán controller
-//        GameInitializerMap.initGame();  // 👈 Sau đó mới dùng controller
-//    }
-//    private void initializeMap(){
-//        GameInitializerMap.initializeMap();
-//    }
 
     protected void initGame() {
-        getGameScene().setBackgroundColor(Color.BLACK);
+        getGameScene().setBackgroundColor(Color.DEEPPINK);
         map = new int[MAP_HEIGHT][MAP_WIDTH];
         initializeMap();
 
@@ -105,32 +96,32 @@ public class BombermanApp extends GameApplication {
                 .viewWithBBox(playerView)
                 .buildAndAttach();
 
-
+        GameInitializerMap.spawnBalloom();
         // Tao ke dich
-        Random random = new Random();
-        int numOfBalloons = 5;
-        for (int i = 0; i < numOfBalloons; i++) {
-            int x, y;
-            do {
-                x = random.nextInt(MAP_HEIGHT);
-                y = random.nextInt(MAP_WIDTH);
-            } while (map[x][y] != 0 || (x == 1 && y == 1) || (x == 1 && y == 2) || (x == 2 && y == 1)); // Ensure valid, non-player start spot
-
-            ImageView enemyView = controller.getEnemyImageView();
-
-            enemyView.setFitWidth(TILE_SIZE);
-            enemyView.setFitHeight(TILE_SIZE);
-            enemyView.setPreserveRatio(false);
-
-            entityBuilder()
-                    .type(EntityType.ENEMY)
-                    .at(y * TILE_SIZE, x * TILE_SIZE)
-                    .viewWithBBox(enemyView)
-                    .with(new Balloon() {{
-                        initMap(map, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT);
-                    }})
-                    .buildAndAttach();
-        }
+         Random random = new Random();
+//        int numOfBalloons = 5;
+//        for (int i = 0; i < numOfBalloons; i++) {
+//            int x, y;
+//            do {
+//                x = random.nextInt(MAP_HEIGHT);
+//                y = random.nextInt(MAP_WIDTH);
+//            } while (map[x][y] != 0 || (x == 1 && y == 1) || (x == 1 && y == 2) || (x == 2 && y == 1)); // Ensure valid, non-player start spot
+//
+//            ImageView enemyView = controller.getEnemyImageView();
+//
+//            enemyView.setFitWidth(TILE_SIZE);
+//            enemyView.setFitHeight(TILE_SIZE);
+//            enemyView.setPreserveRatio(false);
+//
+//            entityBuilder()
+//                    .type(EntityType.ENEMY)
+//                    .at(y * TILE_SIZE, x * TILE_SIZE)
+//                    .viewWithBBox(enemyView)
+//                    .with(new Balloon() {{
+//                        initMap(map, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT);
+//                    }})
+//                    .buildAndAttach();
+//        }
 
         int numOfOneals = 1;
         for (int i = 0; i < numOfOneals; i++) {
@@ -174,8 +165,7 @@ public class BombermanApp extends GameApplication {
         map[2][1] = 0;
     }
 
-//////////////////
-
+    
 
     public int[][] getMap() {
     return map;
