@@ -1,5 +1,9 @@
 package org.example.demo;
 
+import com.almasb.fxgl.dsl.FXGL;
+import com.almasb.fxgl.entity.Entity;
+/// /////phong
+
 public class Bomb {
     private int x, y; // Tọa độ bom
     private int timer; // Thời gian đếm ngược (giây)
@@ -23,7 +27,9 @@ public class Bomb {
         new Thread(() -> {
             try {
                 Thread.sleep(timer * 1000); // Đếm ngược theo giây
-                explode(); // Gọi phương thức phát nổ
+                javafx.application.Platform.runLater(() -> {
+                    explode(); // Gọi phương thức phát nổ
+                });
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 System.err.println("Luồng bị gián đoạn: " + e.getMessage());
@@ -44,7 +50,7 @@ public class Bomb {
             for (int dy = -explosionRadius; dy <= explosionRadius; dy++) {
                 int nx = x + dx;
                 int ny = y + dy;
-
+/// /////////////
                 // Kiểm tra trong phạm vi bản đồ
                 if (nx >= 0 && nx < map[0].length && ny >= 0 && ny < map.length) {
                     if (map[ny][nx] == 1) {
@@ -54,6 +60,21 @@ public class Bomb {
                         System.out.println("Phá hủy gạch tại: " + nx + ", " + ny);
                         map[ny][nx] = 0; // Loại bỏ gạch
                     }
+
+                    FXGL.getGameWorld().getEntitiesByType(EntityType.ENEMY).forEach(enemy -> {
+                        int ex = (int) (enemy.getX() / Enemy.TILE_SIZE);
+                        int ey = (int) (enemy.getY() / Enemy.TILE_SIZE);
+
+                        if (ex == nx && ey == ny) {
+                            if (enemy.hasComponent(Balloon.class)) {
+                                enemy.getComponent(Balloon.class).removeEnemy();
+                                System.out.println("Kill Balloon");
+                            } else if (enemy.hasComponent(Oneal.class)) {
+                                enemy.getComponent(Oneal.class).removeEnemy();
+                                System.out.println("Kill Oneal");
+                            }
+                        }
+                    });
                 }
             }
         }
@@ -63,4 +84,16 @@ public class Bomb {
     public boolean isExploded() {
         return isExploded;
     }
+
+    public static void setBomb(Entity player, int[][] map, int explosionRadius, int timer) {
+        int tileX = (int) (player.getX() / 32);
+        int tileY = (int) (player.getY() / 32);
+
+        // Đặt bom tại tile hiện tại của player
+        Bomb bomb = new Bomb(tileX, tileY, timer, explosionRadius, player, map);
+        bomb.activate(); // Bắt đầu đếm ngược và nổ
+
+        System.out.println("🔥 Bom đã được đặt tại: " + tileX + ", " + tileY);
+    }
+
 }

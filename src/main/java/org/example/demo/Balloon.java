@@ -43,8 +43,6 @@ public class Balloon extends Enemy{
         }
     }
 
-
-
     public void moveBalloon() {
 
         int tileX = (int) (balloon.getX() / TILE_SIZE);
@@ -75,6 +73,5 @@ public class Balloon extends Enemy{
             isMoving = true;
         }
     }
-
-    }
+}
 

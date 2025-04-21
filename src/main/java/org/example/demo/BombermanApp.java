@@ -3,6 +3,7 @@ package org.example.demo;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.entity.Entity;
+import com.almasb.fxgl.physics.CollisionHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
@@ -115,18 +116,19 @@ public class BombermanApp extends GameApplication {
             } while (map[x][y] != 0 || (x == 1 && y == 1) || (x == 1 && y == 2) || (x == 2 && y == 1)); // Ensure valid, non-player start spot
             /// ////
             ImageView balloomView = controller.getBalloomImageView();
+            Balloon balloon = new Balloon();
+            balloon.initMap(map, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT);;
 
             balloomView.setFitWidth(TILE_SIZE);
             balloomView.setFitHeight(TILE_SIZE);
-            balloomView.setPreserveRatio(false);
+            balloomView.setPreserveRatio(true);
+            balloomView.setSmooth(true);
 
             entityBuilder()
                     .type(EntityType.ENEMY)
                     .at(y * TILE_SIZE, x * TILE_SIZE)
                     .viewWithBBox(balloomView)
-                    .with(new Balloon() {{
-                        initMap(map, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT);
-                    }})
+                    .with(balloon)
                     .buildAndAttach();
         }
 
@@ -139,6 +141,8 @@ public class BombermanApp extends GameApplication {
             } while (map[x][y] != 0 || (x == 1 && y == 1) || (x == 1 && y == 2) || (x == 2 && y == 1)); // Ensure valid, non-player start spot
 
             ImageView onealView = controller.getOnealImageView();
+            Oneal oneal = new Oneal();
+            oneal.initMap(map, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT);
 
             onealView.setFitWidth(TILE_SIZE);
             onealView.setFitHeight(TILE_SIZE);
@@ -148,11 +152,11 @@ public class BombermanApp extends GameApplication {
                     .type(EntityType.ENEMY)
                     .at(y * TILE_SIZE, x * TILE_SIZE)
                     .viewWithBBox(onealView)
-                    .with(new Oneal() {{
-                        initMap(map, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT);
-                    }})
+                    .with(new Oneal())
                     .buildAndAttach();
         }
+
+
     }
 
     private void initializeMap() {
@@ -231,6 +235,14 @@ public class BombermanApp extends GameApplication {
                 keyH.rightPressed = false;
             }
         }, KeyCode.D);
+
+        getInput().addAction(new UserAction("Đặt bom") {
+            @Override
+            protected void onActionBegin() {
+                Bomb.setBomb(player, map, 1, 2); // bán kính 1, hẹn giờ 2s
+            }
+        }, KeyCode.SPACE);
+
     }
 
     @Override
@@ -241,6 +253,18 @@ public class BombermanApp extends GameApplication {
         if (keyH.leftPressed) dx -= PLAYER_SPEED;
         if (keyH.rightPressed) dx += PLAYER_SPEED;
         movePlayer(dx, dy);
+
+        int playerTileX = (int) (player.getX() / TILE_SIZE);
+        int playerTileY = (int) (player.getY() / TILE_SIZE);
+
+        FXGL.getGameWorld().getEntitiesByType(EntityType.ENEMY).forEach(enemy -> {
+            int enemyTileX = (int) (enemy.getX() / TILE_SIZE);
+            int enemyTileY = (int) (enemy.getY() / TILE_SIZE);
+
+            if (playerTileX == enemyTileX && playerTileY == enemyTileY) {
+                removePlayer();
+            }
+        });
     }
 
     private void movePlayer(double dx, double dy) {
@@ -283,6 +307,13 @@ public class BombermanApp extends GameApplication {
         }
 
         player.setPosition(newX, newY);
+    }
+
+    public void removePlayer() {
+        FXGL.getGameWorld().removeEntity(player);
+        FXGL.getDialogService().showMessageBox("\uD83D\uDC80 Game Over \uD83D\uDC80", () -> {
+            FXGL.getGameController().exit();
+        });
     }
 
 }

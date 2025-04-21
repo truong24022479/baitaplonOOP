@@ -55,32 +55,16 @@ public class Oneal extends Enemy {
             nextOnealTileY = onealTileY + dy;
         }
 
-//        double nextX = oneal.getX() + vX * tpf;
-//        double nextY = oneal.getY() + vY * tpf;
-//
-//        int leftTile   = (int)(nextX / TILE_SIZE);
-//        int rightTile  = (int)((nextX + TILE_SIZE - 1) / TILE_SIZE);
-//        int topTile    = (int)(nextY / TILE_SIZE);
-//        int bottomTile = (int)((nextY + TILE_SIZE - 1) / TILE_SIZE);
-//
-//        if (canMove(leftTile, topTile) &&
-//              canMove(rightTile, topTile) &&
-//           canMove(leftTile, bottomTile) &&
-//         canMove(rightTile, bottomTile)) {
+        if (canMove(nextOnealTileX, nextOnealTileY)) {
+            moveTargetX = nextOnealTileX * TILE_SIZE;
+            moveTargetY = nextOnealTileY * TILE_SIZE;
 
-            //oneal.setPosition(nextX, nextY);
-            //}
-            if (canMove(nextOnealTileX, nextOnealTileY)) {
-                moveTargetX = nextOnealTileX * TILE_SIZE;
-                moveTargetY = nextOnealTileY * TILE_SIZE;
-
-                double length = Math.sqrt((moveTargetX - oneal.getX()) * (moveTargetX - oneal.getX())
-                        + (moveTargetY - oneal.getY()) * (moveTargetY - oneal.getY()));
-                if (length == 0) return;
-                vX = ((moveTargetX - oneal.getX()) / length) * onealSpeed;
-                vY = ((moveTargetY - oneal.getY()) / length) * onealSpeed;
-                isMoving = true;
-            }
-            System.out.println("canMove = " + canMove(nextOnealTileX, nextOnealTileY));
+            double length = Math.sqrt((moveTargetX - oneal.getX()) * (moveTargetX - oneal.getX())
+                    + (moveTargetY - oneal.getY()) * (moveTargetY - oneal.getY()));
+            if (length == 0) return;
+            vX = ((moveTargetX - oneal.getX()) / length) * onealSpeed;
+            vY = ((moveTargetY - oneal.getY()) / length) * onealSpeed;
+            isMoving = true;
         }
+    }
 }
