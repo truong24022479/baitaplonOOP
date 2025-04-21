@@ -11,9 +11,11 @@ import com.almasb.fxgl.entity.Entity;
 import java.io.IOException;
 import java.util.Random;
 
+import static com.almasb.fxgl.dsl.FXGL.entityBuilder;
+
 public class GameInitializerMap {
 
-    private static final int TILE_SIZE = 40;
+    private static final int TILE_SIZE = 32;
     private static final int MAP_WIDTH = 15;
     private static final int MAP_HEIGHT = 13;
 
@@ -34,7 +36,6 @@ public class GameInitializerMap {
     }
 
 
-
     public static void initUI() {
         try {
             FXMLLoader loader = new FXMLLoader(GameInitializerMap.class.getResource("/org/example/demo/game_play.fxml"));
@@ -46,17 +47,17 @@ public class GameInitializerMap {
         }
     }
 
-//sua init game
+    //sua init game
     public static void initGame() {
         if (controller == null) {
-            System.out.println("⚠️ Controller is null! Bạn đã gọi initUI() chưa?");
+            System.out.println("⚠ Controller is null! gọi initUI() chưa?");
             return;
         }
 
         FXGL.getGameScene().setBackgroundColor(Color.BLACK);
 
         map = new int[MAP_HEIGHT][MAP_WIDTH];
-        initializeMap();
+        //initializeMap();
 
         for (int row = 0; row < MAP_HEIGHT; row++) {
             for (int col = 0; col < MAP_WIDTH; col++) {
@@ -93,53 +94,72 @@ public class GameInitializerMap {
                 .viewWithBBox(playerView)
                 .buildAndAttach();
 
-        spawnEnemies();
+        //spawnEnemies();
     }
 
-    private static void spawnEnemies() {
+//    private static void spawnEnemies() {
+//        Random random = new Random();
+//        int numOfBalloons = 5;
+//
+//        for (int i = 0; i < numOfBalloons; i++) {
+//            spawnEnemy(random, new Balloon());
+//        }
+//
+//        spawnEnemy(random, new Oneal());
+//    }
+
+//    private static void spawnEnemy(Random random, Object aiComponent) {
+//        int x, y;
+//        do {
+//            x = random.nextInt(MAP_HEIGHT);
+//            y = random.nextInt(MAP_WIDTH);
+//        } while (map[x][y] != 0 || (x == 1 && y == 1) || (x == 1 && y == 2) || (x == 2 && y == 1));
+//
+//        ImageView enemyView = controller.getEnemyImageView();
+//        enemyView.setFitWidth(TILE_SIZE);
+//        enemyView.setFitHeight(TILE_SIZE);
+//        enemyView.setPreserveRatio(false);
+//
+//        FXGL.entityBuilder()
+//                .type(EntityType.ENEMY)
+//                .at(y * TILE_SIZE, x * TILE_SIZE)
+//                .viewWithBBox(enemyView)
+//                .with((Component) aiComponent)
+//                .buildAndAttach();
+//    }
+
+    public static void spawnBalloom() {
+        try {
+            FXMLLoader loader = new FXMLLoader(GameInitializerMap.class.getResource("/org/example/demo/game_play.fxml"));
+            Parent root = loader.load();
+            controller = loader.getController();
+        } catch (IOException e) {
+            throw new RuntimeException("Không thể tải file game_play.fxml: " + e.getMessage());
+        }
         Random random = new Random();
         int numOfBalloons = 5;
-
         for (int i = 0; i < numOfBalloons; i++) {
-            spawnEnemy(random, new Balloon());
+            int x, y;
+            do {
+                x = random.nextInt(MAP_HEIGHT);
+                y = random.nextInt(MAP_WIDTH);
+            } while (BombermanApp.map[x][y] != 0 || (x == 1 && y == 1) || (x == 1 && y == 2) || (x == 2 && y == 1)); // Ensure valid, non-player start spot
+
+            ImageView enemyView = controller.getEnemyImageView();
+
+            enemyView.setFitWidth(TILE_SIZE);
+            enemyView.setFitHeight(TILE_SIZE);
+            enemyView.setPreserveRatio(false);
+
+            entityBuilder()
+                    .type(EntityType.ENEMY)
+                    .at(y * TILE_SIZE, x * TILE_SIZE)
+                    .viewWithBBox(enemyView)
+                    .with(new Balloon() {{
+                        initMap(map, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT);
+                    }})
+                    .buildAndAttach();
         }
-
-        spawnEnemy(random, new Oneal());
-    }
-
-    private static void spawnEnemy(Random random, Object aiComponent) {
-        int x, y;
-        do {
-            x = random.nextInt(MAP_HEIGHT);
-            y = random.nextInt(MAP_WIDTH);
-        } while (map[x][y] != 0 || (x == 1 && y == 1) || (x == 1 && y == 2) || (x == 2 && y == 1));
-
-        ImageView enemyView = controller.getEnemyImageView();
-        enemyView.setFitWidth(TILE_SIZE);
-        enemyView.setFitHeight(TILE_SIZE);
-        enemyView.setPreserveRatio(false);
-
-        FXGL.entityBuilder()
-                .type(EntityType.ENEMY)
-                .at(y * TILE_SIZE, x * TILE_SIZE)
-                .viewWithBBox(enemyView)
-                .with((Component) aiComponent)
-                .buildAndAttach();
-    }
-
-    public static void initializeMap() {
-        for (int row = 0; row < MAP_HEIGHT; row++) {
-            for (int col = 0; col < MAP_WIDTH; col++) {
-                if (row == 0 || row == MAP_HEIGHT - 1 || col == 0 || col == MAP_WIDTH - 1) {
-                    map[row][col] = 1;
-                } else if (row % 2 == 0 && col % 2 == 0) {
-                    map[row][col] = 1;
-                } else {
-                    map[row][col] = (Math.random() > 0.7) ? 2 : 0;
-                }
-            }
-        }
-        map[1][1] = map[1][2] = map[2][1] = 0;
     }
 
 }
