@@ -11,11 +11,14 @@
             <Image url="@../../../sprites/player_down.png" />
          </image>
       </ImageView>
+<<<<<<< HEAD
       <ImageView fx:id="enemyImageView" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../sprites/balloom_dead.png" />
          </image>
       </ImageView>
+=======
+>>>>>>> da341bae681be8897afd33d3970290dc2fa0bbc1
       <ImageView fx:id="wall" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../sprites/wall.png" />
