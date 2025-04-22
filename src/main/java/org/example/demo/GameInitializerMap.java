@@ -3,8 +3,6 @@ package org.example.demo;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 
 import java.io.IOException;
@@ -14,13 +12,24 @@ import static com.almasb.fxgl.dsl.FXGL.entityBuilder;
 
 public class GameInitializerMap {
 
-    private static final int TILE_SIZE = 32;
-    private static final int MAP_WIDTH = 15;
-    private static final int MAP_HEIGHT = 13;
+    private static final int TILE_SIZE = BombermanApp.TILE_SIZE;
+    private static final int MAP_WIDTH = BombermanApp.MAP_WIDTH;
+    private static final int MAP_HEIGHT = BombermanApp.MAP_HEIGHT;
 
     private static int[][] map;
     private static GamePlay controller;
     private static Entity player;
+
+    private static int numOfOneals = 3;
+    private static int numOfBalloons = 5;
+
+    public static int getNumOfBalloons() {
+        return numOfBalloons;
+    }
+
+    public static int getNumOfOneals() {
+        return numOfOneals;
+    }
 
     public GamePlay getController() {
         return controller;
@@ -32,6 +41,24 @@ public class GameInitializerMap {
 
     public int[][] getMap() {
         return map;
+    }
+
+    public static void initializeMap() {
+        for (int row = 0; row < BombermanApp.MAP_HEIGHT; row++) {
+            for (int col = 0; col < BombermanApp.MAP_WIDTH; col++) {
+                if (row == 0 || row == BombermanApp.MAP_HEIGHT - 1 || col == 0 || col == BombermanApp.MAP_WIDTH - 1) {
+                    BombermanApp.map[row][col] = 1; // Tường xung quanh
+                } else if (row % 2 == 0 && col % 2 == 0) {
+                    BombermanApp.map[row][col] = 1; // Khối không thể phá hủy
+                } else {
+                    BombermanApp.map[row][col] = (Math.random() > 0.7) ? 2 : 0; // Ngẫu nhiên tường gạch hoặc đường đi
+                }
+            }
+        }
+        BombermanApp.map[1][1] = 0;
+        BombermanApp.map[1][2] = 0;
+        BombermanApp.map[2][1] = 0;
+        BombermanApp.map[MAP_WIDTH - 2][MAP_HEIGHT - 2] = 4;
     }
 
     public static void initUI() {
@@ -54,7 +81,7 @@ public class GameInitializerMap {
             throw new RuntimeException("Không thể tải file game_play.fxml: " + e.getMessage());
         }
         Random random = new Random();
-        int numOfBalloons = 5;
+
         for (int i = 0; i < numOfBalloons; i++) {
             int x, y;
             do {
@@ -63,6 +90,8 @@ public class GameInitializerMap {
             } while (BombermanApp.map[x][y] != 0 || (x == 1 && y == 1) || (x == 1 && y == 2) || (x == 2 && y == 1)); // Ensure valid, non-player start spot
 
             ImageView enemyView = controller.getBalloomImageView();
+            Balloon balloon = new Balloon();
+            balloon.initMap(map, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT);
 
             enemyView.setFitWidth(TILE_SIZE);
             enemyView.setFitHeight(TILE_SIZE);
@@ -71,10 +100,9 @@ public class GameInitializerMap {
             entityBuilder()
                     .type(EntityType.ENEMY)
                     .at(y * TILE_SIZE, x * TILE_SIZE)
+                    .zIndex(10)
                     .viewWithBBox(enemyView)
-                    .with(new Balloon() {{
-                        initMap(map, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT);
-                    }})
+                    .with(new Balloon())
                     .buildAndAttach();
         }
     }
@@ -88,7 +116,7 @@ public class GameInitializerMap {
             throw new RuntimeException("Không thể tải file game_play.fxml: " + e.getMessage());
         }
         Random random = new Random();
-        int numOfOneals = 2;
+
         for (int i = 0; i < numOfOneals; i++) {
             int x, y;
             do {
@@ -97,6 +125,8 @@ public class GameInitializerMap {
             } while (BombermanApp.map[x][y] != 0 || (x == 1 && y == 1) || (x == 1 && y == 2) || (x == 2 && y == 1)); // Ensure valid, non-player start spot
 
             ImageView enemyView = controller.getOnealImageView();
+            Oneal oneal = new Oneal();
+            oneal.initMap(map, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT);
 
             enemyView.setFitWidth(TILE_SIZE);
             enemyView.setFitHeight(TILE_SIZE);
@@ -105,10 +135,9 @@ public class GameInitializerMap {
             entityBuilder()
                     .type(EntityType.ENEMY)
                     .at(y * TILE_SIZE, x * TILE_SIZE)
+                    .zIndex(10)
                     .viewWithBBox(enemyView)
-                    .with(new Oneal() {{
-                        initMap(map, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT);
-                    }})
+                    .with(new Oneal())
                     .buildAndAttach();
         }
 

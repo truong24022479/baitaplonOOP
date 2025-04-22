@@ -18,15 +18,17 @@ import static com.almasb.fxgl.dsl.FXGL.*;
 
 /// ///////////////////long
 public class BombermanApp extends GameApplication {
-    private Entity player;
+    public static Entity player;
     public static int[][] map;
     public static final int TILE_SIZE = 32;
     public static final int MAP_WIDTH = 15;
     public static final int MAP_HEIGHT = 15;
     private static final int PLAYER_SPEED = 1;
-    private static final int MOVE_ERROR = 10;
+    public static final int MOVE_ERROR = 10;
     private KeyHandle keyH = new KeyHandle();
     private static GamePlay controller;
+
+    private boolean atPortal = false;
 
     @Override
     protected void initSettings(GameSettings settings) {
@@ -40,7 +42,6 @@ public class BombermanApp extends GameApplication {
         GameInitializerMap.initUI();
     }
 
-    //sua oneal nhu trong zalo
     protected void initGame() {
         getGameScene().setBackgroundColor(Color.DEEPPINK);
         map = new int[MAP_HEIGHT][MAP_WIDTH];
@@ -54,7 +55,6 @@ public class BombermanApp extends GameApplication {
             throw new RuntimeException("Không thể tải file game_play.fxml: " + e.getMessage());
         }
 
-
         for (int row = 0; row < MAP_HEIGHT; row++) {
             for (int col = 0; col < MAP_WIDTH; col++) {
                 ImageView view;
@@ -66,13 +66,18 @@ public class BombermanApp extends GameApplication {
                 } else if (map[row][col] == 2) {
                     view = controller.getBrick();
                     type = EntityType.BRICK;
+                } else if (map[row][col] == 4) {
+                    view = controller.getPortal();
+                    type = EntityType.PORTAL;
                 } else {
                     view = controller.getGrass();
                     type = EntityType.GRASS;
                 }
 
-
-                entityBuilder().type(type).at(col * TILE_SIZE, row * TILE_SIZE).viewWithBBox(view).buildAndAttach();
+                entityBuilder().type(type)
+                        .at(col * TILE_SIZE, row * TILE_SIZE)
+                        .viewWithBBox(view)
+                        .buildAndAttach();
             }
         }
 
@@ -83,7 +88,11 @@ public class BombermanApp extends GameApplication {
         playerView.setFitHeight(TILE_SIZE);
         playerView.setPreserveRatio(false);
 
-        player = entityBuilder().type(EntityType.PLAYER).at(TILE_SIZE, TILE_SIZE).viewWithBBox(playerView).buildAndAttach();
+        player = entityBuilder().type(EntityType.PLAYER)
+                .at(TILE_SIZE, TILE_SIZE)
+                .zIndex(10)
+                .viewWithBBox(playerView)
+                .buildAndAttach();
 
         GameInitializerMap.spawnBalloom();
         GameInitializerMap.spawnOneal();
@@ -91,22 +100,8 @@ public class BombermanApp extends GameApplication {
     }
 
     private void initializeMap() {
-        for (int row = 0; row < MAP_HEIGHT; row++) {
-            for (int col = 0; col < MAP_WIDTH; col++) {
-                if (row == 0 || row == MAP_HEIGHT - 1 || col == 0 || col == MAP_WIDTH - 1) {
-                    map[row][col] = 1; // Tường xung quanh
-                } else if (row % 2 == 0 && col % 2 == 0) {
-                    map[row][col] = 1; // Khối không thể phá hủy
-                } else {
-                    map[row][col] = (Math.random() > 0.7) ? 2 : 0; // Ngẫu nhiên tường gạch hoặc đường đi
-                }
-            }
-        }
-        map[1][1] = 0;
-        map[1][2] = 0;
-        map[2][1] = 0;
+        GameInitializerMap.initializeMap();
     }
-
 
     public int[][] getMap() {
         return map;
@@ -167,85 +162,10 @@ public class BombermanApp extends GameApplication {
         getInput().addAction(new UserAction("Đặt bom") {
             @Override
             protected void onActionBegin() {
-                Bomb.setBomb(player, map, 1, 2); // bán kính 1, hẹn giờ 2s
+                Bomb.setBomb(player, map, 1, Bomb.DELAY_BOMB_TIME); // bán kính 1, hẹn giờ 2s
             }
         }, KeyCode.SPACE);
     }
-
-//    private void placeBomb() {
-//        int bombX = (int) (player.getX() / TILE_SIZE) * TILE_SIZE;
-//        int bombY = (int) (player.getY() / TILE_SIZE) * TILE_SIZE;
-//        int tileX = bombX / TILE_SIZE;
-//        int tileY = bombY / TILE_SIZE;
-//
-//        // Không cho đặt bomb nếu ô hiện tại không phải đường đi (0) hoặc đã có bomb (3)
-//        if (map[tileY][tileX] != 0) {
-//            return;
-//        }
-//
-//        // Đặt bomb lên map
-//        map[tileY][tileX] = 3;
-//
-//        // Tạo entity cho bomb
-//        Entity bombEntity = entityBuilder().type(EntityType.BOMB).at(bombX, bombY).bbox(new HitBox(BoundingShape.box(TILE_SIZE, TILE_SIZE))).view(new ImageView(getAssetLoader().loadImage("sprites/bomb.png")) {{
-//            setFitWidth(TILE_SIZE);
-//            setFitHeight(TILE_SIZE);
-//            setPreserveRatio(false);
-//        }}).buildAndAttach();
-//
-//        // Sau 2 giây thì bomb phát nổ
-//        runOnce(() -> {
-//            explodeBomb(bombX, bombY);
-//            bombEntity.removeFromWorld(); // Xóa bomb khỏi thế giới
-//            map[tileY][tileX] = 0;        // Đánh dấu lại là đường đi
-//        }, Duration.seconds(2));
-//    }
-//
-//    private void explodeBomb(int bombX, int bombY) {
-//        int tileX = bombX / TILE_SIZE;
-//        int tileY = bombY / TILE_SIZE;
-//
-//        showExplosion(bombX, bombY); // Nổ tại trung tâm
-//
-//        // 4 hướng: trên, phải, dưới, trái
-//        int[][] directions = {{0, -1}, {1, 0}, {0, 1}, {-1, 0}};
-//
-//        for (int[] dir : directions) {
-//            for (int i = 1; i <= 1; i++) { // 1 ô xa (có thể mở rộng thành power-up sau này)
-//                int nx = tileX + dir[0] * i;
-//                int ny = tileY + dir[1] * i;
-//
-//                // Kiểm tra trong giới hạn bản đồ
-//                if (nx < 0 || nx >= MAP_WIDTH || ny < 0 || ny >= MAP_HEIGHT) break;
-//
-//                int cell = map[ny][nx];
-//
-//                if (cell == 1) {
-//                    break; // Tường cứng, không lan nổ
-//                }
-//
-//                showExplosion(nx * TILE_SIZE, ny * TILE_SIZE);
-//
-//                if (cell == 2) {
-//                    map[ny][nx] = 0; // Phá gạch
-//                    break; // Không nổ xuyên qua gạch
-//                }
-//            }
-//        }
-//    }
-//
-//    private void showExplosion(int x, int y) {
-//        ImageView explosionView = new ImageView(getAssetLoader().loadImage("sprites/explosion.png"));
-//        explosionView.setFitWidth(TILE_SIZE);
-//        explosionView.setFitHeight(TILE_SIZE);
-//        explosionView.setPreserveRatio(false);
-//
-//        Entity explosion = entityBuilder().at(x, y).view(explosionView).buildAndAttach();
-//
-//        // Tự động xóa hiệu ứng nổ sau 0.5s
-//        runOnce(explosion::removeFromWorld, Duration.seconds(0.5));
-//    }
-//
 
     @Override
     protected void onUpdate(double tpf) {
@@ -265,6 +185,7 @@ public class BombermanApp extends GameApplication {
 
             if (playerTileX == enemyTileX && playerTileY == enemyTileY) {
                 removePlayer();
+                System.out.println("bi cho can");
             }
         });
     }
@@ -292,6 +213,7 @@ public class BombermanApp extends GameApplication {
             newY += dy;
         }
 
+
         int leftTile = (int) (newX / TILE_SIZE);
         int rightTile = (int) ((newX + TILE_SIZE - 1) / TILE_SIZE);
         int topTile = (int) (newY / TILE_SIZE);
@@ -301,18 +223,34 @@ public class BombermanApp extends GameApplication {
 
         for (int ty = topTile; ty <= bottomTile; ty++) {
             for (int tx = leftTile; tx <= rightTile; tx++) {
-                if (map[ty][tx] != 0) {
+                if (map[ty][tx] != 0 && map[ty][tx] != 4) {
                     return;
                 }
             }
         }
 
+        //System.out.println("at "+ newX+","+newY+"\nat portal "+atPortal);
+        if (newX/TILE_SIZE == MAP_WIDTH - 2 && newY/TILE_SIZE == MAP_HEIGHT - 2) {
+            atPortal = true;
+            GG();
+        }else atPortal = false;
         player.setPosition(newX, newY);
+
+
     }
 
-    public void removePlayer() {
+    public void GG() {
+        if (Bomb.ENEMY_NUMBERS == 0 && atPortal == true) {
+            System.out.println("so quai con lai" + Bomb.ENEMY_NUMBERS);
+            FXGL.getDialogService().showMessageBox("\uD83C\uDFC6 VICTORY \uD83C\uDFC6", () -> {
+                FXGL.getGameController().exit();
+            });
+        }
+    }
+
+    public static void removePlayer() {
         FXGL.getGameWorld().removeEntity(player);
-        FXGL.getDialogService().showMessageBox("\uD83D\uDC80 Game Over \uD83D\uDC80", () -> {
+        FXGL.getDialogService().showMessageBox("\uD83D\uDC80 Đồ ngu đồ ăn hại \uD83D\uDC80", () -> {
             FXGL.getGameController().exit();
         });
     }
