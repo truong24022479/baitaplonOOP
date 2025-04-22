@@ -16,6 +16,16 @@
             <Image url="@../../../sprites/balloom (2).png" />
          </image>
       </ImageView>
+      <ImageView fx:id="bombImageView" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../sprites/bomb.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="explosionImageView" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../sprites/explosion_horizontal.png" />
+         </image>
+      </ImageView>
       <ImageView fx:id="onealImageView" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../sprites/oneal.png" />

@@ -20,7 +20,7 @@ import static com.almasb.fxgl.dsl.FXGL.*;
 
 
 public class BombermanApp extends GameApplication {
-    private Entity player;
+    public static Entity player;
     private int[][] map;
     public static final int TILE_SIZE = 32;
     public static final int MAP_WIDTH = 15;
@@ -156,6 +156,23 @@ public class BombermanApp extends GameApplication {
                     .buildAndAttach();
         }
 
+//        int tileX = (int)(player.getX() / TILE_SIZE);
+//        int tileY = (int)(player.getY() / TILE_SIZE);
+//        ImageView bombView = new ImageView(getAssetLoader().loadImage("sprites/bomb.png"));
+//
+//
+//        if (map[tileY][tileX] == 0 || (tileX != 1 && tileY != 1) || (tileX != 2 && tileY != 1) || (tileX != 1 && tileY != 2)) {
+//            map[tileY][tileX] = 3;
+//
+//            Entity bomb = FXGL.entityBuilder()
+//                    .type(EntityType.BOMB)
+//                    .at(tileX * TILE_SIZE, tileY * TILE_SIZE)
+//                    .view(bombView)
+//                    .with(new Bomb(map, MAP_WIDTH, MAP_HEIGHT, controller))
+//                    .buildAndAttach();
+//        }
+
+
 
     }
 
@@ -236,10 +253,10 @@ public class BombermanApp extends GameApplication {
             }
         }, KeyCode.D);
 
-        getInput().addAction(new UserAction("Đặt bom") {
+        getInput().addAction(new UserAction("Place bomb"){
             @Override
             protected void onActionBegin() {
-                Bomb.setBomb(player, map, 1, 2); // bán kính 1, hẹn giờ 2s
+                Bomb.setBomb(player, map, 1, 2);
             }
         }, KeyCode.SPACE);
 
@@ -256,6 +273,8 @@ public class BombermanApp extends GameApplication {
 
         int playerTileX = (int) (player.getX() / TILE_SIZE);
         int playerTileY = (int) (player.getY() / TILE_SIZE);
+
+
 
         FXGL.getGameWorld().getEntitiesByType(EntityType.ENEMY).forEach(enemy -> {
             int enemyTileX = (int) (enemy.getX() / TILE_SIZE);
@@ -309,9 +328,9 @@ public class BombermanApp extends GameApplication {
         player.setPosition(newX, newY);
     }
 
-    public void removePlayer() {
+    public static void removePlayer() {
         FXGL.getGameWorld().removeEntity(player);
-        FXGL.getDialogService().showMessageBox("\uD83D\uDC80 Game Over \uD83D\uDC80", () -> {
+        FXGL.getDialogService().showMessageBox("\uD83D\uDC80 Game Over \uD83D\uDC80\n \uD83C\uDFC6  VICTORY  \uD83C\uDFC6", () -> {
             FXGL.getGameController().exit();
         });
     }
