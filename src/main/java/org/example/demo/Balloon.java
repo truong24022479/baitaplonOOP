@@ -1,4 +1,7 @@
 package org.example.demo;
+/**
+ * PHONG
+ */
 
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
@@ -40,8 +43,6 @@ public class Balloon extends Enemy{
         }
     }
 
-
-
     public void moveBalloon() {
 
         int tileX = (int) (balloon.getX() / TILE_SIZE);
@@ -72,6 +73,4 @@ public class Balloon extends Enemy{
             isMoving = true;
         }
     }
-
-    }
-
+}

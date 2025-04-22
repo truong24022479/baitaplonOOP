@@ -13,10 +13,17 @@ public class GamePlay {
     }
 
     @FXML
-    private ImageView enemyImageView;
+    private ImageView balloomImageView;
 
-    public ImageView getEnemyImageView() {
-        return new ImageView(enemyImageView.getImage());
+    public ImageView getBalloomImageView() {
+        return new ImageView(balloomImageView.getImage());
+    }
+
+    @FXML
+    private ImageView onealImageView;
+
+    public ImageView getOnealImageView() {
+        return new ImageView(onealImageView.getImage());
     }
 
     @FXML
