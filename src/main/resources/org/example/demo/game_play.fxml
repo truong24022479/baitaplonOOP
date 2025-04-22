@@ -11,9 +11,14 @@
             <Image url="@../../../sprites/player_down.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="enemyImageView" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="balloomImageView" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../sprites/balloom_dead.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="onealImageView" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../sprites/oneal_dead.png" />
          </image>
       </ImageView>
       <ImageView fx:id="wall" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
@@ -29,6 +34,16 @@
       <ImageView fx:id="grass" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../sprites/grass.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="bombImageView" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../sprites/bomb.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="portal" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../sprites/portal.png" />
          </image>
       </ImageView>
    </children>

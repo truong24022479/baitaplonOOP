@@ -9,27 +9,26 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 
-import com.almasb.fxgl.input.Input;
 import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.dsl.FXGL;
-import javafx.scene.input.KeyCode;
 
 import java.io.IOException;
-import java.util.Random;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 
-
+/// ///////////////////long
 public class BombermanApp extends GameApplication {
-    private Entity player;
-    private int[][] map;
+    public static Entity player;
+    public static int[][] map;
     public static final int TILE_SIZE = 32;
     public static final int MAP_WIDTH = 15;
     public static final int MAP_HEIGHT = 15;
     private static final int PLAYER_SPEED = 1;
-    private static final int MOVE_ERROR = 10;
+    public static final int MOVE_ERROR = 10;
     private KeyHandle keyH = new KeyHandle();
     private static GamePlay controller;
+
+    private boolean atPortal = false;
 
     @Override
     protected void initSettings(GameSettings settings) {
@@ -43,18 +42,8 @@ public class BombermanApp extends GameApplication {
         GameInitializerMap.initUI();
     }
 
-/// /////////////////
-//    @Override
-//    protected void initGame() {
-//        GameInitializerMap.initUI();    // 👈 GỌI TRƯỚC để load FXML và gán controller
-//        GameInitializerMap.initGame();  // 👈 Sau đó mới dùng controller
-//    }
-//    private void initializeMap(){
-//        GameInitializerMap.initializeMap();
-//    }
-
     protected void initGame() {
-        getGameScene().setBackgroundColor(Color.BLACK);
+        getGameScene().setBackgroundColor(Color.DEEPPINK);
         map = new int[MAP_HEIGHT][MAP_WIDTH];
         initializeMap();
 
@@ -65,7 +54,6 @@ public class BombermanApp extends GameApplication {
         } catch (IOException e) {
             throw new RuntimeException("Không thể tải file game_play.fxml: " + e.getMessage());
         }
-
 
         for (int row = 0; row < MAP_HEIGHT; row++) {
             for (int col = 0; col < MAP_WIDTH; col++) {
@@ -78,14 +66,15 @@ public class BombermanApp extends GameApplication {
                 } else if (map[row][col] == 2) {
                     view = controller.getBrick();
                     type = EntityType.BRICK;
+                } else if (map[row][col] == 4) {
+                    view = controller.getPortal();
+                    type = EntityType.PORTAL;
                 } else {
                     view = controller.getGrass();
                     type = EntityType.GRASS;
                 }
 
-
-                entityBuilder()
-                        .type(type)
+                entityBuilder().type(type)
                         .at(col * TILE_SIZE, row * TILE_SIZE)
                         .viewWithBBox(view)
                         .buildAndAttach();
@@ -99,87 +88,24 @@ public class BombermanApp extends GameApplication {
         playerView.setFitHeight(TILE_SIZE);
         playerView.setPreserveRatio(false);
 
-        player = entityBuilder()
-                .type(EntityType.PLAYER)
+        player = entityBuilder().type(EntityType.PLAYER)
                 .at(TILE_SIZE, TILE_SIZE)
+                .zIndex(10)
                 .viewWithBBox(playerView)
                 .buildAndAttach();
 
+        GameInitializerMap.spawnBalloom();
+        GameInitializerMap.spawnOneal();
 
-        // Tao ke dich
-        Random random = new Random();
-        int numOfBalloons = 5;
-        for (int i = 0; i < numOfBalloons; i++) {
-            int x, y;
-            do {
-                x = random.nextInt(MAP_HEIGHT);
-                y = random.nextInt(MAP_WIDTH);
-            } while (map[x][y] != 0 || (x == 1 && y == 1) || (x == 1 && y == 2) || (x == 2 && y == 1)); // Ensure valid, non-player start spot
-
-            ImageView enemyView = controller.getEnemyImageView();
-
-            enemyView.setFitWidth(TILE_SIZE);
-            enemyView.setFitHeight(TILE_SIZE);
-            enemyView.setPreserveRatio(false);
-
-            entityBuilder()
-                    .type(EntityType.ENEMY)
-                    .at(y * TILE_SIZE, x * TILE_SIZE)
-                    .viewWithBBox(enemyView)
-                    .with(new Balloon() {{
-                        initMap(map, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT);
-                    }})
-                    .buildAndAttach();
-        }
-
-        int numOfOneals = 1;
-        for (int i = 0; i < numOfOneals; i++) {
-            int x, y;
-            do {
-                x = random.nextInt(MAP_HEIGHT);
-                y = random.nextInt(MAP_WIDTH);
-            } while (map[x][y] != 0 || (x == 1 && y == 1) || (x == 1 && y == 2) || (x == 2 && y == 1)); // Ensure valid, non-player start spot
-
-            ImageView enemyView = controller.getEnemyImageView();
-
-            enemyView.setFitWidth(TILE_SIZE);
-            enemyView.setFitHeight(TILE_SIZE);
-            enemyView.setPreserveRatio(false);
-
-            entityBuilder()
-                    .type(EntityType.ENEMY)
-                    .at(y * TILE_SIZE, x * TILE_SIZE)
-                    .viewWithBBox(enemyView)
-                    .with(new Oneal() {{
-                        initMap(map, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT);
-                    }})
-                    .buildAndAttach();
-        }
     }
 
     private void initializeMap() {
-        for (int row = 0; row < MAP_HEIGHT; row++) {
-            for (int col = 0; col < MAP_WIDTH; col++) {
-                if (row == 0 || row == MAP_HEIGHT - 1 || col == 0 || col == MAP_WIDTH - 1) {
-                    map[row][col] = 1; // Tường xung quanh
-                } else if (row % 2 == 0 && col % 2 == 0) {
-                    map[row][col] = 1; // Khối không thể phá hủy
-                } else {
-                    map[row][col] = (Math.random() > 0.7) ? 2 : 0; // Ngẫu nhiên tường gạch hoặc đường đi
-                }
-            }
-        }
-        map[1][1] = 0;
-        map[1][2] = 0;
-        map[2][1] = 0;
+        GameInitializerMap.initializeMap();
     }
 
-//////////////////
-
-
     public int[][] getMap() {
-    return map;
-}
+        return map;
+    }
 
     @Override
     protected void initInput() {
@@ -232,6 +158,13 @@ public class BombermanApp extends GameApplication {
                 keyH.rightPressed = false;
             }
         }, KeyCode.D);
+        // Đặt bomb bằng phím Space
+        getInput().addAction(new UserAction("Đặt bom") {
+            @Override
+            protected void onActionBegin() {
+                Bomb.setBomb(player, map, 1, Bomb.DELAY_BOMB_TIME); // bán kính 1, hẹn giờ 2s
+            }
+        }, KeyCode.SPACE);
     }
 
     @Override
@@ -242,6 +175,19 @@ public class BombermanApp extends GameApplication {
         if (keyH.leftPressed) dx -= PLAYER_SPEED;
         if (keyH.rightPressed) dx += PLAYER_SPEED;
         movePlayer(dx, dy);
+
+        int playerTileX = (int) (player.getX() / TILE_SIZE);
+        int playerTileY = (int) (player.getY() / TILE_SIZE);
+
+        FXGL.getGameWorld().getEntitiesByType(EntityType.ENEMY).forEach(enemy -> {
+            int enemyTileX = (int) (enemy.getX() / TILE_SIZE);
+            int enemyTileY = (int) (enemy.getY() / TILE_SIZE);
+
+            if (playerTileX == enemyTileX && playerTileY == enemyTileY) {
+                removePlayer();
+                System.out.println("bi cho can");
+            }
+        });
     }
 
     private void movePlayer(double dx, double dy) {
@@ -267,23 +213,45 @@ public class BombermanApp extends GameApplication {
             newY += dy;
         }
 
+
         int leftTile = (int) (newX / TILE_SIZE);
         int rightTile = (int) ((newX + TILE_SIZE - 1) / TILE_SIZE);
         int topTile = (int) (newY / TILE_SIZE);
         int bottomTile = (int) ((newY + TILE_SIZE - 1) / TILE_SIZE);
 
-        if (leftTile < 0 || rightTile >= MAP_WIDTH || topTile < 0 || bottomTile >= MAP_HEIGHT)
-            return;
+        if (leftTile < 0 || rightTile >= MAP_WIDTH || topTile < 0 || bottomTile >= MAP_HEIGHT) return;
 
         for (int ty = topTile; ty <= bottomTile; ty++) {
             for (int tx = leftTile; tx <= rightTile; tx++) {
-                if (map[ty][tx] != 0) {
+                if (map[ty][tx] != 0 && map[ty][tx] != 4) {
                     return;
                 }
             }
         }
 
+        //System.out.println("at "+ newX+","+newY+"\nat portal "+atPortal);
+        if (newX/TILE_SIZE == MAP_WIDTH - 2 && newY/TILE_SIZE == MAP_HEIGHT - 2) {
+            atPortal = true;
+            GG();
+        }else atPortal = false;
         player.setPosition(newX, newY);
+
+
     }
 
+    public void GG() {
+        if (Bomb.ENEMY_NUMBERS == 0 && atPortal == true) {
+            System.out.println("so quai con lai" + Bomb.ENEMY_NUMBERS);
+            FXGL.getDialogService().showMessageBox("\uD83C\uDFC6 VICTORY \uD83C\uDFC6", () -> {
+                FXGL.getGameController().exit();
+            });
+        }
+    }
+
+    public static void removePlayer() {
+        FXGL.getGameWorld().removeEntity(player);
+        FXGL.getDialogService().showMessageBox("\uD83D\uDC80 Đồ ngu đồ ăn hại \uD83D\uDC80", () -> {
+            FXGL.getGameController().exit();
+        });
+    }
 }
