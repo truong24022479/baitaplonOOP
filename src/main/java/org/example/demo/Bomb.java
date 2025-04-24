@@ -11,8 +11,6 @@ import java.io.IOException;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 
-/// /////phong
-
 public class Bomb {
     private int x, y; // Tọa độ bom
     private int explosionRadius = 1; // Bán kính nổ
@@ -26,7 +24,7 @@ public class Bomb {
     private int timer = 3; // Thời gian đếm ngược (giây)
 
     public static int ENEMY_NUMBERS = GameInitializerMap.getNumOfBalloons()
-                                + GameInitializerMap.getNumOfOneals();
+            + GameInitializerMap.getNumOfOneals();
 
     public Bomb(int x, int y, int timer, int explosionRadius, Entity owner, int[][] map) {
         this.x = x;
@@ -61,6 +59,56 @@ public class Bomb {
     }
 
     // Xử lý các đối tượng trong phạm vi nổ
+//    private void affectSurrounding() {
+//        int[][] dir = {{1, 0}, {0, 1}, {0, -1}, {-1, 0}};
+//        showExplosion(x * BombermanApp.TILE_SIZE, y * BombermanApp.TILE_SIZE);
+//        for (int[] d : dir) {
+//            for (int i = 0; i <= explosionRadius; i++) {
+//                int nx = x + d[0] * i;
+//                int ny = y + d[1] * i;
+//                // Kiểm tra trong phạm vi bản đồ
+//                if (nx >= 0 && nx < map[0].length && ny >= 0 && ny < map.length) {
+//                    if (map[ny][nx] == 1) break;
+//                    if (map[ny][nx] == 0) {
+//                        //System.out.println("Khong pha dc tuong");
+//                        showExplosion(nx * BombermanApp.TILE_SIZE, ny * BombermanApp.TILE_SIZE);
+//                    } else if (map[ny][nx] == 2) {
+//                        System.out.println("Phá hủy gạch tại: " + nx + ", " + ny);
+//                        map[ny][nx] = 0;
+//                        changeBrickToGrass(nx, ny);//doi anh cua gach ve co
+//                        showExplosion(nx * BombermanApp.TILE_SIZE, ny * BombermanApp.TILE_SIZE);
+//                        break;
+//                    }
+//
+//                    FXGL.getGameWorld().getEntitiesByType(EntityType.ENEMY).forEach(enemy -> {
+//                        int enemyTileX = (int) (enemy.getX() / BombermanApp.TILE_SIZE);
+//                        int enemyTileY = (int) (enemy.getY() / BombermanApp.TILE_SIZE);
+//                        if (enemyTileX == nx && enemyTileY == ny) {
+//                            if (enemy.hasComponent(Balloon.class)) {
+//                                enemy.getComponent(Balloon.class).removeEnemy();
+//                                ENEMY_NUMBERS--;
+//                                System.out.println("Kill Balloon\nenemy left " + ENEMY_NUMBERS);
+//                            } else if (enemy.hasComponent(Oneal.class)) {
+//                                enemy.getComponent(Oneal.class).removeEnemy();
+//                                ENEMY_NUMBERS--;
+//                                System.out.println("Kill Oneal\nenemy left " + ENEMY_NUMBERS);
+//                            }
+//                        }
+//                    });
+//
+//                    int playerTileX = (int) (owner.getX() / BombermanApp.TILE_SIZE);
+//                    int playerTileY = (int) (owner.getY() / BombermanApp.TILE_SIZE);
+//                    if (playerTileX == nx && playerTileY == ny) {
+//                        BombermanApp.removePlayer();
+//                        System.out.println("no banh xac");
+//                    }
+//                } else {
+//                    break;
+//                }
+//            }
+//        }
+//    }
+
     private void affectSurrounding() {
         int[][] dir = {{1, 0}, {0, 1}, {0, -1}, {-1, 0}};
         showExplosion(x * BombermanApp.TILE_SIZE, y * BombermanApp.TILE_SIZE);
@@ -70,42 +118,56 @@ public class Bomb {
                 int ny = y + d[1] * i;
                 // Kiểm tra trong phạm vi bản đồ
                 if (nx >= 0 && nx < map[0].length && ny >= 0 && ny < map.length) {
+                    if (map[ny][nx] == 1) break;
                     if (map[ny][nx] == 0) {
                         //System.out.println("Khong pha dc tuong");
                         showExplosion(nx * BombermanApp.TILE_SIZE, ny * BombermanApp.TILE_SIZE);
                     } else if (map[ny][nx] == 2) {
-                        System.out.println("Phá hủy gạch tại: " + nx + ", " + ny);
+                        //System.out.println("Phá hủy gạch tại: " + nx + ", " + ny);
                         map[ny][nx] = 0;// Loại bỏ gạch
                         //doi anh cua gach ve co
                         changeBrickToGrass(nx, ny);
-
                         showExplosion(nx * BombermanApp.TILE_SIZE, ny * BombermanApp.TILE_SIZE);
                     }
                     //no tai tam bom
                     //no quai tai 4 huong
                     FXGL.getGameWorld().getEntitiesByType(EntityType.ENEMY).forEach(enemy -> {
-                        double ex = (double) Math.round(enemy.getX() / Enemy.TILE_SIZE);
-                        double ey = (double) Math.round(enemy.getY() / Enemy.TILE_SIZE);
+//                        double ex = (double) Math.round(enemy.getX() / Enemy.TILE_SIZE);
+//                        double ey = (double) Math.round(enemy.getY() / Enemy.TILE_SIZE);
+                        double ex = Math.round((enemy.getX() / (double) BombermanApp.TILE_SIZE) * 100.0) / 100.0;
+                        double ey = Math.round((enemy.getY() / (double) BombermanApp.TILE_SIZE) * 100.0) / 100.0;
                         double a = Math.abs(ex - (double) nx);
                         double b = Math.abs(ey - (double) ny);
                         if (a <= 0.95 && b <= 0.95) {
                             if (enemy.hasComponent(Balloon.class)) {
                                 enemy.getComponent(Balloon.class).removeEnemy();
                                 ENEMY_NUMBERS--;
-                                System.out.println("Kill Balloon\nenemy left "+ENEMY_NUMBERS);
+                                System.out.println("Kill Balloon\nenemy left " + ENEMY_NUMBERS);
                             } else if (enemy.hasComponent(Oneal.class)) {
                                 enemy.getComponent(Oneal.class).removeEnemy();
                                 ENEMY_NUMBERS--;
-                                System.out.println("Kill Oneal\n nenemy left "+ENEMY_NUMBERS );
+                                System.out.println("Kill Oneal\n nenemy left " + ENEMY_NUMBERS);
                             }
                         }
 
                     });
-                    double ex = (double) Math.round(BombermanApp.player.getX() / Enemy.TILE_SIZE);
-                    double ey = (double) Math.round(BombermanApp.player.getY() / Enemy.TILE_SIZE);
+//                    double ex = (double) Math.round(Player.getX() / (double) BombermanApp.TILE_SIZE);
+//                    double ey = (double) Math.round(Player.getY() / (double) BombermanApp.TILE_SIZE);
+//                    double c = Math.abs(ex - (double) nx);
+//                    double e = Math.abs(ey - (double) ny);
+//                    System.out.println(ex + " " + ey + "\n" + nx + " " + ny);
+//                    if (c <= 0.95 && e <= 0.95) {
+//                        BombermanApp.removePlayer();
+//                        System.out.println("no banh xac");
+//                        //    System.out.println(ex+" "+ey+"\n"+nx+" "+ny);
+//                    }
+                    // Làm tròn tọa độ của player thành số thập phân với 2 chữ số sau dấu phẩy
+                    double ex = Math.round((Player.getX() / (double) BombermanApp.TILE_SIZE) * 100.0) / 100.0;
+                    double ey = Math.round((Player.getY() / (double) BombermanApp.TILE_SIZE) * 100.0) / 100.0;
+                    System.out.println(ex + " " + ey + "\n" + nx + " " + ny);
                     double c = Math.abs(ex - (double) nx);
                     double e = Math.abs(ey - (double) ny);
-                    if(c <= 0.95 && e <= 0.95){
+                    if (c <= 0.95 && e <= 0.95) {
                         BombermanApp.removePlayer();
                         System.out.println("no banh xac");
                     }
