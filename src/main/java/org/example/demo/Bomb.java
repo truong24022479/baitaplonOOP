@@ -54,60 +54,10 @@ public class Bomb {
     // Phương thức phát nổ
     private void explode() {
         isExploded = true;
-        System.out.println("Bom phát nổ tại: " + x + ", " + y);
+        //System.out.println("Bom phát nổ tại: " + x + ", " + y);
         affectSurrounding(); // Gây ảnh hưởng đến xung quanh
     }
 
-    // Xử lý các đối tượng trong phạm vi nổ
-//    private void affectSurrounding() {
-//        int[][] dir = {{1, 0}, {0, 1}, {0, -1}, {-1, 0}};
-//        showExplosion(x * BombermanApp.TILE_SIZE, y * BombermanApp.TILE_SIZE);
-//        for (int[] d : dir) {
-//            for (int i = 0; i <= explosionRadius; i++) {
-//                int nx = x + d[0] * i;
-//                int ny = y + d[1] * i;
-//                // Kiểm tra trong phạm vi bản đồ
-//                if (nx >= 0 && nx < map[0].length && ny >= 0 && ny < map.length) {
-//                    if (map[ny][nx] == 1) break;
-//                    if (map[ny][nx] == 0) {
-//                        //System.out.println("Khong pha dc tuong");
-//                        showExplosion(nx * BombermanApp.TILE_SIZE, ny * BombermanApp.TILE_SIZE);
-//                    } else if (map[ny][nx] == 2) {
-//                        System.out.println("Phá hủy gạch tại: " + nx + ", " + ny);
-//                        map[ny][nx] = 0;
-//                        changeBrickToGrass(nx, ny);//doi anh cua gach ve co
-//                        showExplosion(nx * BombermanApp.TILE_SIZE, ny * BombermanApp.TILE_SIZE);
-//                        break;
-//                    }
-//
-//                    FXGL.getGameWorld().getEntitiesByType(EntityType.ENEMY).forEach(enemy -> {
-//                        int enemyTileX = (int) (enemy.getX() / BombermanApp.TILE_SIZE);
-//                        int enemyTileY = (int) (enemy.getY() / BombermanApp.TILE_SIZE);
-//                        if (enemyTileX == nx && enemyTileY == ny) {
-//                            if (enemy.hasComponent(Balloon.class)) {
-//                                enemy.getComponent(Balloon.class).removeEnemy();
-//                                ENEMY_NUMBERS--;
-//                                System.out.println("Kill Balloon\nenemy left " + ENEMY_NUMBERS);
-//                            } else if (enemy.hasComponent(Oneal.class)) {
-//                                enemy.getComponent(Oneal.class).removeEnemy();
-//                                ENEMY_NUMBERS--;
-//                                System.out.println("Kill Oneal\nenemy left " + ENEMY_NUMBERS);
-//                            }
-//                        }
-//                    });
-//
-//                    int playerTileX = (int) (owner.getX() / BombermanApp.TILE_SIZE);
-//                    int playerTileY = (int) (owner.getY() / BombermanApp.TILE_SIZE);
-//                    if (playerTileX == nx && playerTileY == ny) {
-//                        BombermanApp.removePlayer();
-//                        System.out.println("no banh xac");
-//                    }
-//                } else {
-//                    break;
-//                }
-//            }
-//        }
-//    }
 
     private void affectSurrounding() {
         int[][] dir = {{1, 0}, {0, 1}, {0, -1}, {-1, 0}};
@@ -151,20 +101,10 @@ public class Bomb {
                         }
 
                     });
-//                    double ex = (double) Math.round(Player.getX() / (double) BombermanApp.TILE_SIZE);
-//                    double ey = (double) Math.round(Player.getY() / (double) BombermanApp.TILE_SIZE);
-//                    double c = Math.abs(ex - (double) nx);
-//                    double e = Math.abs(ey - (double) ny);
-//                    System.out.println(ex + " " + ey + "\n" + nx + " " + ny);
-//                    if (c <= 0.95 && e <= 0.95) {
-//                        BombermanApp.removePlayer();
-//                        System.out.println("no banh xac");
-//                        //    System.out.println(ex+" "+ey+"\n"+nx+" "+ny);
-//                    }
                     // Làm tròn tọa độ của player thành số thập phân với 2 chữ số sau dấu phẩy
                     double ex = Math.round((Player.getX() / (double) BombermanApp.TILE_SIZE) * 100.0) / 100.0;
                     double ey = Math.round((Player.getY() / (double) BombermanApp.TILE_SIZE) * 100.0) / 100.0;
-                    System.out.println(ex + " " + ey + "\n" + nx + " " + ny);
+                    //System.out.println(ex + " " + ey + "\n" + nx + " " + ny);
                     double c = Math.abs(ex - (double) nx);
                     double e = Math.abs(ey - (double) ny);
                     if (c <= 0.95 && e <= 0.95) {
@@ -190,8 +130,7 @@ public class Bomb {
         bomb.bombImage(tileX, tileY);
         bomb.activate(timer); // Bắt đầu đếm ngược và nổ
 
-
-        System.out.println("🔥 Bom đã được đặt tại: " + tileX + ", " + tileY);
+        //System.out.println("🔥 Bom đã được đặt tại: " + tileX + ", " + tileY);
     }
 
     private static void showExplosion(int x, int y) {

@@ -75,10 +75,12 @@ public class BombermanApp extends GameApplication {
             }
         }
 
-        // Tao nhan vat nguoi choi
-        player = new Player(TILE_SIZE, MAP_WIDTH, MAP_HEIGHT, MOVE_ERROR);
+        PlayerAnimation playerAnimation = new PlayerAnimation();
+        playerAnimation.initialize();
+
+        player = new Player(TILE_SIZE, MAP_WIDTH, MAP_HEIGHT, Player.MOVE_ERROR);
         player.setMap(map);
-        player.spawnPlayer(controller);
+        player.spawnPlayer();
         player.initInput();
 
         GameInitializerMap.spawnBalloom();

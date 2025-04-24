@@ -19,10 +19,11 @@ public class Player implements EntityFactory {
     private int MAP_WIDTH = BombermanApp.MAP_WIDTH;
     private int MAP_HEIGHT = BombermanApp.MAP_HEIGHT;
     public static int MOVE_ERROR = 10;
-
     private KeyHandle keyH;
     private int[][] map;
     public static boolean atPortal;
+
+    private PlayerSpriteManager spriteManager;
 
     public Entity getPlayerEntity() {
         return player;
@@ -59,18 +60,50 @@ public class Player implements EntityFactory {
         this.map = map;
     }
 
-    public void spawnPlayer(GamePlay controller) {
-        ImageView playerView = controller.getPlayerImageView();
+//    public void spawnPlayer(PlayerSpriteManager controller) {
+//        spriteManager = new PlayerSpriteManager();
+//        ImageView playerView = spriteManager.getPlayerImageView();
+//        //ImageView playerView = controller.getPlayerImageView();
+//        if (playerView == null) {
+//            System.out.println("playerView is null from controller.getPlayerImageView()");
+//            return;
+//        }
+//        playerView.setFitWidth(TILE_SIZE);
+//        playerView.setFitHeight(TILE_SIZE);
+//        playerView.setPreserveRatio(false);
+//
+//        player = FXGL.entityBuilder()
+//                .type(EntityType.PLAYER)
+//                .at(x, y)
+//                .zIndex(10)
+//                .viewWithBBox(playerView)
+//                .buildAndAttach();
+//        //khoi tao animation
+//        //spriteManager = new PlayerSpriteManager(player, playerView);
+//        spriteManager.setPlayer(player);
+ //   }
+    public void spawnPlayer(){
+        spriteManager = new PlayerSpriteManager();
+
+        // Lấy ImageView từ PlayerSpriteManager
+        ImageView playerView = spriteManager.getPlayerImageView();
+        if (playerView == null) {
+            System.out.println("playerView is null from spriteManager.getPlayerImageView()");
+            return;
+        }
         playerView.setFitWidth(TILE_SIZE);
         playerView.setFitHeight(TILE_SIZE);
         playerView.setPreserveRatio(false);
 
         player = FXGL.entityBuilder()
                 .type(EntityType.PLAYER)
-                .at(x, y)
+                .at(TILE_SIZE, TILE_SIZE)
                 .zIndex(10)
                 .viewWithBBox(playerView)
                 .buildAndAttach();
+
+        // Gán player cho spriteManager để quản lý animation
+        spriteManager.setPlayer(player);
     }
 
     protected void initInput() {
@@ -138,6 +171,9 @@ public class Player implements EntityFactory {
         if (keyH.downPressed) dy += PLAYER_SPEED;
         if (keyH.leftPressed) dx -= PLAYER_SPEED;
         if (keyH.rightPressed) dx += PLAYER_SPEED;
+        //cap nhat animation trc khi di chuyen
+        spriteManager.updateAnimation(tpf, keyH.upPressed, keyH.downPressed, keyH.leftPressed, keyH.rightPressed);
+
         movePlayer(dx, dy);
 
         int playerTileX = (int) (player.getX() / TILE_SIZE);
