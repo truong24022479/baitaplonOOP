@@ -9,12 +9,13 @@ import java.io.IOException;
 import java.util.Random;
 
 import static com.almasb.fxgl.dsl.FXGL.entityBuilder;
+import static org.example.demo.BombermanApp.*;
 
 public class GameInitializerMap {
 
-    private static final int TILE_SIZE = BombermanApp.TILE_SIZE;
-    private static final int MAP_WIDTH = BombermanApp.MAP_WIDTH;
-    private static final int MAP_HEIGHT = BombermanApp.MAP_HEIGHT;
+//    private static final int TILE_SIZE = BombermanApp.TILE_SIZE;
+//    private static final int MAP_WIDTH = BombermanApp.MAP_WIDTH;
+//    private static final int MAP_HEIGHT = BombermanApp.MAP_HEIGHT;
 
     private static int[][] map;
     private static GamePlay controller;
@@ -31,22 +32,22 @@ public class GameInitializerMap {
         return numOfOneals;
     }
 
-    public GamePlay getController() {
-        return controller;
-    }
-
-    public Entity getPlayer() {
-        return player;
-    }
-
-    public int[][] getMap() {
-        return map;
-    }
+//    public GamePlay getController() {
+//        return controller;
+//    }
+//
+//    public Entity getPlayer() {
+//        return player;
+//    }
+//
+//    public int[][] getMap() {
+//        return map;
+//    }
 
     public static void initializeMap() {
-        for (int row = 0; row < BombermanApp.MAP_HEIGHT; row++) {
-            for (int col = 0; col < BombermanApp.MAP_WIDTH; col++) {
-                if (row == 0 || row == BombermanApp.MAP_HEIGHT - 1 || col == 0 || col == BombermanApp.MAP_WIDTH - 1) {
+        for (int row = 0; row < MAP_HEIGHT; row++) {
+            for (int col = 0; col < MAP_WIDTH; col++) {
+                if (row == 0 || row == MAP_HEIGHT - 1 || col == 0 || col == MAP_WIDTH - 1) {
                     BombermanApp.map[row][col] = 1; // Tường xung quanh
                 } else if (row % 2 == 0 && col % 2 == 0) {
                     BombermanApp.map[row][col] = 1; // Khối không thể phá hủy
@@ -58,28 +59,37 @@ public class GameInitializerMap {
         BombermanApp.map[1][1] = 0;
         BombermanApp.map[1][2] = 0;
         BombermanApp.map[2][1] = 0;
-        BombermanApp.map[MAP_WIDTH - 2][MAP_HEIGHT - 2] = 4;
+        //BombermanApp.map[MAP_WIDTH - 2][MAP_HEIGHT - 2] = 4;
+        int portalRow, portalCol;
+        do {
+            Random random = new Random();
+            portalRow = random.nextInt(MAP_HEIGHT - 4) + 2; // Tránh khu vực khởi đầu
+            portalCol = random.nextInt(MAP_WIDTH - 4) + 2;
+        } while (BombermanApp.map[portalRow][portalCol] != 0);
+        BombermanApp.map[portalRow][portalCol] = 4;
     }
 
-    public static void initUI() {
-        try {
-            FXMLLoader loader = new FXMLLoader(GameInitializerMap.class.getResource("/org/example/demo/game_play.fxml"));
-            Parent root = loader.load();
-            controller = loader.getController();
-        } catch (IOException e) {
-            e.printStackTrace(); // 👈 để xem lỗi gì
-            System.out.println("Không thể tải file game_play.fxml: " + e.getMessage());
-        }
-    }
+
+//    public static void initUI() {
+//        try {
+//            FXMLLoader loader = new FXMLLoader(GameInitializerMap.class.getResource("/org/example/demo/game_play.fxml"));
+//            Parent root = loader.load();
+//            controller = loader.getController();
+//        } catch (IOException e) {
+//            e.printStackTrace(); // 👈 để xem lỗi gì
+//            System.out.println("Không thể tải file game_play.fxml: " + e.getMessage());
+//        }
+//    }
 
     public static void spawnBalloom() {
-        try {
-            FXMLLoader loader = new FXMLLoader(GameInitializerMap.class.getResource("/org/example/demo/game_play.fxml"));
-            Parent root = loader.load();
-            controller = loader.getController();
-        } catch (IOException e) {
-            throw new RuntimeException("Không thể tải file game_play.fxml: " + e.getMessage());
-        }
+//        try {
+//            FXMLLoader loader = new FXMLLoader(GameInitializerMap.class.getResource("/org/example/demo/game_play.fxml"));
+//            Parent root = loader.load();
+//            controller = loader.getController();
+//        } catch (IOException e) {
+//            throw new RuntimeException("Không thể tải file game_play.fxml: " + e.getMessage());
+//        }
+        GamePlay controller = BombermanApp.getController();
         Random random = new Random();
 
         for (int i = 0; i < numOfBalloons; i++) {
@@ -108,13 +118,14 @@ public class GameInitializerMap {
     }
 
     public static void spawnOneal() {
-        try {
-            FXMLLoader loader = new FXMLLoader(GameInitializerMap.class.getResource("/org/example/demo/game_play.fxml"));
-            Parent root = loader.load();
-            controller = loader.getController();
-        } catch (IOException e) {
-            throw new RuntimeException("Không thể tải file game_play.fxml: " + e.getMessage());
-        }
+//        try {
+//            FXMLLoader loader = new FXMLLoader(GameInitializerMap.class.getResource("/org/example/demo/game_play.fxml"));
+//            Parent root = loader.load();
+//            controller = loader.getController();
+//        } catch (IOException e) {
+//            throw new RuntimeException("Không thể tải file game_play.fxml: " + e.getMessage());
+//        }
+        GamePlay controller = BombermanApp.getController();
         Random random = new Random();
 
         for (int i = 0; i < numOfOneals; i++) {

@@ -14,7 +14,7 @@ public class Player implements EntityFactory {
     private static Entity player;
     private static double x;
     private static double y;
-    private double PLAYER_SPEED = 2;
+    private double PLAYER_SPEED = 4;
     private int TILE_SIZE = BombermanApp.TILE_SIZE;
     private int MAP_WIDTH = BombermanApp.MAP_WIDTH;
     private int MAP_HEIGHT = BombermanApp.MAP_HEIGHT;
