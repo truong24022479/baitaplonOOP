@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.GamePlay">
+   <children>
+      <ImageView fx:id="playerImageView" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../sprites/player_down.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="balloomImageView" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../sprites/balloom_dead (1).png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="onealImageView" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../sprites/oneal_dead (1).png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="wall" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../sprites/wall.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="brick" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../sprites/brick.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="grass" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../sprites/grass.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="bombImageView" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../sprites/bomb.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="portal" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../sprites/portal.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
