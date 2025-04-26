@@ -22,7 +22,7 @@ public class Bomb {
     public static int TIME_SHOW_EXPLOSION = 1;
     private int timer = 3; // Thời gian đếm ngược (giây)
 
-    public static int ENEMY_NUMBERS = GameInitializerMap.getNumOfBalloons()
+    public static int ENEMY_NUMBERS_LEFT = GameInitializerMap.getNumOfBalloons()
             + GameInitializerMap.getNumOfOneals();
 
     static BombAnimation bombAnimation;
@@ -67,7 +67,7 @@ public class Bomb {
         String[] directions = {"right", "down", "up", "left"};
 
         bombAnimation.showExplosion(x * BombermanApp.TILE_SIZE, y * BombermanApp.TILE_SIZE, true, false, "");
-
+        hitBomb(x, y);
         for (int d = 0; d < dir.length; d++) {
             int[] direction = dir[d];
             String directionStr = directions[d];
@@ -112,7 +112,7 @@ public class Bomb {
         }
     }
 
-    public void hitBomb(int nx, int ny) {
+    public static void hitBomb(int nx, int ny) {
         double ex = Math.round((Player.getX() / (double) BombermanApp.TILE_SIZE) * 100.0) / 100.0;
         double ey = Math.round((Player.getY() / (double) BombermanApp.TILE_SIZE) * 100.0) / 100.0;
         double c = Math.abs(ex - (double) nx);
@@ -130,12 +130,12 @@ public class Bomb {
             if (a <= 0.95 && b <= 0.95) {
                 if (enemy.hasComponent(Balloon.class)) {
                     enemy.getComponent(Balloon.class).removeEnemy();
-                    ENEMY_NUMBERS--;
-                    System.out.println("Kill Balloon\nenemy left " + ENEMY_NUMBERS);
+                    ENEMY_NUMBERS_LEFT--;
+                    System.out.println("Kill Balloon\nenemy left " + ENEMY_NUMBERS_LEFT);
                 } else if (enemy.hasComponent(Oneal.class)) {
                     enemy.getComponent(Oneal.class).removeEnemy();
-                    ENEMY_NUMBERS--;
-                    System.out.println("Kill Oneal\nenemy left " + ENEMY_NUMBERS);
+                    ENEMY_NUMBERS_LEFT--;
+                    System.out.println("Kill Oneal\nenemy left " + ENEMY_NUMBERS_LEFT);
                 }
             }
         });

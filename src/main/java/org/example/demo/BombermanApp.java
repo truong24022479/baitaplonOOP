@@ -13,7 +13,6 @@ import java.io.IOException;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 import static org.example.demo.Bomb.explosionRadius;
-import static org.example.demo.Player.MOVE_ERROR;
 
 /// ///////////////////long
 public class BombermanApp extends GameApplication {
@@ -110,8 +109,8 @@ public class BombermanApp extends GameApplication {
     }
 
     public static void GG() {
-        if (Bomb.ENEMY_NUMBERS == 0 && Player.atPortal == true) {
-            System.out.println("so quai con lai" + Bomb.ENEMY_NUMBERS);
+        if (Bomb.ENEMY_NUMBERS_LEFT == 0 && Player.atPortal == true) {
+            System.out.println("so quai con lai" + Bomb.ENEMY_NUMBERS_LEFT);
             FXGL.getDialogService().showMessageBox("\uD83C\uDFC6 VICTORY \uD83C\uDFC6", () -> {
                 FXGL.getGameController().exit();
             });

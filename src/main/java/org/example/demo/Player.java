@@ -206,7 +206,13 @@ public class Player implements EntityFactory {
         }
 
         //System.out.println("at "+ newX+","+newY+"\nat portal "+atPortal);
-        if (newX / TILE_SIZE == MAP_WIDTH - 2 && newY / TILE_SIZE == MAP_HEIGHT - 2) {
+//        if (newX / TILE_SIZE == MAP_WIDTH - 2 && newY / TILE_SIZE == MAP_HEIGHT - 2) {
+//            atPortal = true;
+//            BombermanApp.GG();
+//        } else atPortal = false;
+        int tileX = (int) (newX / BombermanApp.TILE_SIZE);
+        int tileY = (int) (newY / BombermanApp.TILE_SIZE);
+        if (map[tileY][tileX] == 4){
             atPortal = true;
             BombermanApp.GG();
         } else atPortal = false;
