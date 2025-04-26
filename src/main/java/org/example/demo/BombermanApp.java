@@ -27,6 +27,11 @@ public class BombermanApp extends GameApplication {
     public int[][] getMap() {
         return map;
     }
+
+    public static GamePlay getController() {
+        return controller;
+    }
+
     @Override
     protected void initSettings(GameSettings settings) {
         settings.setWidth(MAP_WIDTH * TILE_SIZE);
@@ -36,7 +41,7 @@ public class BombermanApp extends GameApplication {
     }
 
     protected void initUI() {
-        GameInitializerMap.initUI();
+        //GameInitializerMap.initUI();
     }
 
     protected void initGame() {
