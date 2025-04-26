@@ -35,7 +35,7 @@ public class PlayerSpriteManager {
         // Đặt hình ảnh mặc định
         if (downFrames[0] != null && downFrames[0].getImage() != null) {
             playerImageView.setImage(downFrames[0].getImage());
-            System.out.println("Set initial image: " + downFrames[0].getImage().getUrl());
+           // System.out.println("Set initial image: " + downFrames[0].getImage().getUrl());
         } else {
             System.out.println("Cannot set initial image: downFrames[0] is null or has no image");
         }
@@ -52,11 +52,11 @@ public class PlayerSpriteManager {
     private void logFrames(String name, ImageView[] frames) {
         for (int i = 0; i < frames.length; i++) {
             if (frames[i] == null) {
-                System.out.println(name + "[" + i + "] is null");
+               // System.out.println(name + "[" + i + "] is null");
             } else if (frames[i].getImage() == null) {
-                System.out.println(name + "[" + i + "] has no image");
+               // System.out.println(name + "[" + i + "] has no image");
             } else {
-                System.out.println(name + "[" + i + "] has image: " + frames[i].getImage().getUrl());
+               // System.out.println(name + "[" + i + "] has image: " + frames[i].getImage().getUrl());
             }
         }
     }
@@ -80,14 +80,14 @@ public class PlayerSpriteManager {
             if (frameTimer >= FRAME_DURATION) {
                 frameIndex = (frameIndex + 1) % 3;
                 frameTimer = 0;
-                System.out.println("Updated frameIndex to: " + frameIndex + " for direction: " + currentDirection);
+               // System.out.println("Updated frameIndex to: " + frameIndex + " for direction: " + currentDirection);
             }
         }
 
         if (!currentDirection.equals(lastDirection)) {
             frameIndex = 0;
             lastDirection = currentDirection;
-            System.out.println("Changed direction to: " + currentDirection);
+           // System.out.println("Changed direction to: " + currentDirection);
         }
 
         ImageView[] currentFrames = switch (currentDirection) {
@@ -100,9 +100,9 @@ public class PlayerSpriteManager {
 
         if (currentFrames[frameIndex] != null && currentFrames[frameIndex].getImage() != null) {
             playerImageView.setImage(currentFrames[frameIndex].getImage());
-            System.out.println("Set image for " + currentDirection + " frame " + frameIndex + ": " + currentFrames[frameIndex].getImage().getUrl());
+          //  System.out.println("Set image for " + currentDirection + " frame " + frameIndex + ": " + currentFrames[frameIndex].getImage().getUrl());
         } else {
-            System.out.println("Cannot set image: " + currentDirection + " frame " + frameIndex + " is null or has no image");
+          //  System.out.println("Cannot set image: " + currentDirection + " frame " + frameIndex + " is null or has no image");
         }
     }
 }

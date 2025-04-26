@@ -12,6 +12,7 @@ import com.almasb.fxgl.dsl.FXGL;
 import java.io.IOException;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
+import static org.example.demo.Bomb.explosionRadius;
 import static org.example.demo.Player.MOVE_ERROR;
 
 /// ///////////////////long
@@ -23,7 +24,9 @@ public class BombermanApp extends GameApplication {
     public static final int MAP_HEIGHT = 15;
     private static GamePlay controller;
 
-
+    public int[][] getMap() {
+        return map;
+    }
     @Override
     protected void initSettings(GameSettings settings) {
         settings.setWidth(MAP_WIDTH * TILE_SIZE);
@@ -78,6 +81,10 @@ public class BombermanApp extends GameApplication {
         PlayerAnimation playerAnimation = new PlayerAnimation();
         playerAnimation.initialize();
 
+//        BombAnimation bombAnimation = new BombAnimation();
+//        bombAnimation.initialize();
+        Bomb.bombAnimation = new BombAnimation(map, explosionRadius);
+
         player = new Player(TILE_SIZE, MAP_WIDTH, MAP_HEIGHT, Player.MOVE_ERROR);
         player.setMap(map);
         player.spawnPlayer();
@@ -90,10 +97,6 @@ public class BombermanApp extends GameApplication {
 
     private void initializeMap() {
         GameInitializerMap.initializeMap();
-    }
-
-    public int[][] getMap() {
-        return map;
     }
 
     @Override

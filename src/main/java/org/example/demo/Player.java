@@ -14,7 +14,7 @@ public class Player implements EntityFactory {
     private static Entity player;
     private static double x;
     private static double y;
-    private double PLAYER_SPEED = 1;
+    private double PLAYER_SPEED = 2;
     private int TILE_SIZE = BombermanApp.TILE_SIZE;
     private int MAP_WIDTH = BombermanApp.MAP_WIDTH;
     private int MAP_HEIGHT = BombermanApp.MAP_HEIGHT;
@@ -36,7 +36,6 @@ public class Player implements EntityFactory {
         return BombermanApp.TILE_SIZE; // Giá trị mặc định nếu player chưa được khởi tạo
     }
 
-    // Cập nhật getY() để lấy tọa độ y trực tiếp từ entity player
     public static double getY() {
         if (player != null) {
             return player.getY();
@@ -60,28 +59,6 @@ public class Player implements EntityFactory {
         this.map = map;
     }
 
-//    public void spawnPlayer(PlayerSpriteManager controller) {
-//        spriteManager = new PlayerSpriteManager();
-//        ImageView playerView = spriteManager.getPlayerImageView();
-//        //ImageView playerView = controller.getPlayerImageView();
-//        if (playerView == null) {
-//            System.out.println("playerView is null from controller.getPlayerImageView()");
-//            return;
-//        }
-//        playerView.setFitWidth(TILE_SIZE);
-//        playerView.setFitHeight(TILE_SIZE);
-//        playerView.setPreserveRatio(false);
-//
-//        player = FXGL.entityBuilder()
-//                .type(EntityType.PLAYER)
-//                .at(x, y)
-//                .zIndex(10)
-//                .viewWithBBox(playerView)
-//                .buildAndAttach();
-//        //khoi tao animation
-//        //spriteManager = new PlayerSpriteManager(player, playerView);
-//        spriteManager.setPlayer(player);
- //   }
     public void spawnPlayer(){
         spriteManager = new PlayerSpriteManager();
 
