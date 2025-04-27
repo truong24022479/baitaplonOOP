@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<<<<<<< HEAD
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -54,3 +55,17 @@
     </VBox>
 
 </StackPane>
+=======
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.demo.MenuControler" prefWidth="800" prefHeight="600">
+    <VBox alignment="CENTER" spacing="10" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+          AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0">
+        <Button text="Start Game" onAction="#startGame"/>
+        <Button text="Exit" onAction="#exitGame"/>
+    </VBox>
+</AnchorPane>
+>>>>>>> f32b9f7f305b9b9bb86d8b8e364971ec5fc80a1d

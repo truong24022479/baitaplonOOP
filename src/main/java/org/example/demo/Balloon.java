@@ -1,7 +1,10 @@
 package org.example.demo;
+<<<<<<< HEAD
 /**
  * PHONG
  */
+=======
+>>>>>>> f32b9f7f305b9b9bb86d8b8e364971ec5fc80a1d
 
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
@@ -43,6 +46,11 @@ public class Balloon extends Enemy{
         }
     }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> f32b9f7f305b9b9bb86d8b8e364971ec5fc80a1d
     public void moveBalloon() {
 
         int tileX = (int) (balloon.getX() / TILE_SIZE);
@@ -73,4 +81,10 @@ public class Balloon extends Enemy{
             isMoving = true;
         }
     }
+<<<<<<< HEAD
 }
+=======
+
+    }
+
+>>>>>>> f32b9f7f305b9b9bb86d8b8e364971ec5fc80a1d
