@@ -67,7 +67,7 @@ public class Bomb {
         String[] directions = {"right", "down", "up", "left"};
 
         bombAnimation.showExplosion(x * BombermanApp.TILE_SIZE, y * BombermanApp.TILE_SIZE, true, false, "");
-        hitBomb(x, y);
+        hitCenterBomb(x, y);
         for (int d = 0; d < dir.length; d++) {
             int[] direction = dir[d];
             String directionStr = directions[d];
@@ -128,6 +128,35 @@ public class Bomb {
             double a = Math.abs(fx - (double) nx);
             double b = Math.abs(fy - (double) ny);
             if (a <= 0.95 && b <= 0.95) {
+                if (enemy.hasComponent(Balloom.class)) {
+                    enemy.getComponent(Balloom.class).balloomDie();
+                    ENEMY_NUMBERS_LEFT--;
+                    System.out.println("Kill Balloom\nenemy left " + ENEMY_NUMBERS_LEFT);
+                } else if (enemy.hasComponent(Oneal.class)) {
+                    enemy.getComponent(Oneal.class).onealDie();
+                    ENEMY_NUMBERS_LEFT--;
+                    System.out.println("Kill Oneal\nenemy left " + ENEMY_NUMBERS_LEFT);
+                }
+            }
+        });
+    }
+
+    public static void hitCenterBomb(int nx, int ny) {
+        double ex = Math.round((Player.getX() / (double) BombermanApp.TILE_SIZE) * 100.0) / 100.0;
+        double ey = Math.round((Player.getY() / (double) BombermanApp.TILE_SIZE) * 100.0) / 100.0;
+        double c = Math.abs(ex - (double) nx);
+        double e = Math.abs(ey - (double) ny);
+        if (c <= 0.05 && e <= 0.05) {
+            BombermanApp.removePlayer();
+            System.out.println("no banh xac");
+        }
+
+        FXGL.getGameWorld().getEntitiesByType(EntityType.ENEMY).forEach(enemy -> {
+            double fx = Math.round((enemy.getX() / (double) BombermanApp.TILE_SIZE) * 100.0) / 100.0;
+            double fy = Math.round((enemy.getY() / (double) BombermanApp.TILE_SIZE) * 100.0) / 100.0;
+            double a = Math.abs(fx - (double) nx);
+            double b = Math.abs(fy - (double) ny);
+            if (a <= 0.05 && b <= 0.05) {
                 if (enemy.hasComponent(Balloom.class)) {
                     enemy.getComponent(Balloom.class).balloomDie();
                     ENEMY_NUMBERS_LEFT--;

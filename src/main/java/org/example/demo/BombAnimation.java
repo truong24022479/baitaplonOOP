@@ -171,7 +171,7 @@ public class BombAnimation {
                 if (map[ny][nx] == 2) break; // Dừng nếu gặp gạch có thể phá
             }
         }
-        System.out.println("Explosion at (" + x + ", " + y + ") can expand to directions: " + directions);
+        //System.out.println("Explosion at (" + x + ", " + y + ") can expand to directions: " + directions);
         return directions;
     }
 
@@ -223,7 +223,7 @@ public class BombAnimation {
             if (frameIndex[0] < frames.length) {
                 if (frames[frameIndex[0]] != null && frames[frameIndex[0]].getImage() != null) {
                     view.setImage(frames[frameIndex[0]].getImage());
-                    System.out.println(type + " frame " + frameIndex[0] + " at (" + x + ", " + y + "), direction: " + direction);
+                    //System.out.println(type + " frame " + frameIndex[0] + " at (" + x + ", " + y + "), direction: " + direction);
                 }
                 frameIndex[0]++;
             }
