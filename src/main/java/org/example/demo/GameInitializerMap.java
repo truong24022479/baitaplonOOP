@@ -10,10 +10,6 @@ import static org.example.demo.BombermanApp.*;
 
 public class GameInitializerMap {
 
-//    private static final int TILE_SIZE = BombermanApp.TILE_SIZE;
-//    private static final int MAP_WIDTH = BombermanApp.MAP_WIDTH;
-//    private static final int MAP_HEIGHT = BombermanApp.MAP_HEIGHT;
-
     private static int[][] map;
     private static GamePlay controller;
     private static Entity player;
@@ -28,18 +24,6 @@ public class GameInitializerMap {
     public static int getNumOfOneals() {
         return numOfOneals;
     }
-
-//    public GamePlay getController() {
-//        return controller;
-//    }
-//
-//    public Entity getPlayer() {
-//        return player;
-//    }
-//
-//    public int[][] getMap() {
-//        return map;
-//    }
 
     public static void initializeMap() {
         for (int row = 0; row < MAP_HEIGHT; row++) {
@@ -66,18 +50,6 @@ public class GameInitializerMap {
 //        } while (BombermanApp.map[portalRow][portalCol] != 0);
 //        BombermanApp.map[portalRow][portalCol] = 4;
     }
-
-
-//    public static void initUI() {
-//        try {
-//            FXMLLoader loader = new FXMLLoader(GameInitializerMap.class.getResource("/org/example/demo/game_play.fxml"));
-//            Parent root = loader.load();
-//            controller = loader.getController();
-//        } catch (IOException e) {
-//            e.printStackTrace(); // 👈 để xem lỗi gì
-//            System.out.println("Không thể tải file game_play.fxml: " + e.getMessage());
-//        }
-//    }
 
     public static void spawnBalloom() {
 //        try {
@@ -173,15 +145,14 @@ public class GameInitializerMap {
         buffImage.setFitWidth(TILE_SIZE);
         buffImage.setFitHeight(TILE_SIZE);
         buffImage.setPreserveRatio(false);
-        BombermanApp.map[y][x] = 5; // Đặt giá trị ô là 5 (buff)
+        BombermanApp.map[y][x] = 5;
         entityBuilder()
-                .type(EntityType.BUFF) // Sử dụng EntityType.POWERUP thay vì EntityType.BUFF
+                .type(EntityType.BUFF)
                 .at(x * TILE_SIZE, y * TILE_SIZE)
                 .zIndex(1)
                 .viewWithBBox(buffImage)
-                //.with("powerUpType", buffType) // Lưu loại buff vào thực thể
                 .buildAndAttach();
         Bomb.remainingBuffsToSpawn--;
-        new Buff(null, x, y, null);
+        new Buff( x, y, null);
     }
 }

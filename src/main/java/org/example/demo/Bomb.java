@@ -223,7 +223,7 @@ public class Bomb {
                 .viewWithBBox(grassView)
                 .buildAndAttach();
 
-        int totalItemsNeeded = 7;
+       // int totalItemsNeeded = 7;
         int itemsRemaining = (remainingBuffsToSpawn + (portalSpawned ? 0 : 1));
 
         if (BRICK_NUMS <= itemsRemaining && itemsRemaining > 0) {

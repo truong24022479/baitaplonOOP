@@ -7,11 +7,10 @@ import com.almasb.fxgl.dsl.FXGL;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 
-import java.util.Random;
-
 import static com.almasb.fxgl.dsl.FXGL.getInput;
 import static org.example.demo.Bomb.remainingBuffsToSpawn;
 import static org.example.demo.BombermanApp.removePlayer;
+import static org.example.demo.Buff.receiveBuff;
 
 public class Player implements EntityFactory {
     private static Entity player;
@@ -232,6 +231,7 @@ public class Player implements EntityFactory {
             Buff.ChangeBuffToGrass(tileX, tileY);
             map[tileY][tileX] = 0;
             System.out.println("recieve buff at "+tileX+" "+tileY+"\n Buff left "+remainingBuffsToSpawn);
+            receiveBuff();
         }
         player.setPosition(newX, newY);
     }
