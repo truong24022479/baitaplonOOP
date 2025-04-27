@@ -21,7 +21,7 @@
             <Image url="@../../../sprites/oneal_dead (1).png" />
          </image>
       </ImageView>
-      <ImageView fx:id="onealImageView" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="onealImageView1" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../sprites/oneal_dead.png" />
          </image>
@@ -49,6 +49,11 @@
       <ImageView fx:id="portal" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../sprites/portal.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="buffImage" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../sprites/powerup_detonator.png" />
          </image>
       </ImageView>
    </children>

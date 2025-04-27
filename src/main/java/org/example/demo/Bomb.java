@@ -7,8 +7,11 @@ import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
 
 import java.io.IOException;
+import java.util.Random;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
+import static org.example.demo.GameInitializerMap.spawnBuff;
+import static org.example.demo.GameInitializerMap.spawnPortal;
 
 public class Bomb {
     private int x, y; // Tọa độ bom
@@ -26,6 +29,13 @@ public class Bomb {
             + GameInitializerMap.getNumOfOneals();
 
     static BombAnimation bombAnimation;
+
+    public static double PORTAL_CHANCE = 0.15; // Tỷ lệ xuất hiện portal (15%)
+    public static double POWERUP_CHANCE = 0.25; // Tỷ lệ xuất hiện buff (25%)
+    public static boolean portalSpawned = false;
+    private boolean playerStrong = false;
+    public static int BRICK_NUMS = 0;
+    public static int remainingBuffsToSpawn = 6;
 
     public Bomb(int x, int y, int timer, int explosionRadius, Entity owner, int[][] map) {
         this.x = x;
@@ -184,30 +194,6 @@ public class Bomb {
         bomb.activate(timer);
     }
 
-//    private void bombImage(int nx, int ny) {
-//        GamePlay controller;
-//        try {
-//            FXMLLoader loader = new FXMLLoader(GameInitializerMap.class.getResource("/org/example/demo/game_play.fxml"));
-//            Parent root = loader.load();
-//            controller = loader.getController();
-//        } catch (IOException e) {
-//            throw new RuntimeException("Không thể tải file game_play.fxml: " + e.getMessage());
-//        }
-//        // Tạo bomb tại ô đứng
-//        ImageView bombView = controller.getBombImageView();
-//        bombView.setFitWidth(TILE_SIZE);
-//        bombView.setFitHeight(TILE_SIZE);
-//        bombView.setPreserveRatio(false);
-//
-//        Entity bomb = entityBuilder()
-//                .type(EntityType.BOMB)
-//                .at(nx * TILE_SIZE, ny * TILE_SIZE)
-//                .zIndex(1)
-//                .viewWithBBox(bombView)
-//                .buildAndAttach();
-//        runOnce(bomb::removeFromWorld, Duration.seconds(DELAY_BOMB_TIME));
-//    }
-
     private void changeBrickToGrass(int nx, int ny) {
         FXGL.getGameWorld().getEntitiesByType(EntityType.BRICK).forEach(brick -> {
             int bx = (int) (brick.getX() / TILE_SIZE);
@@ -236,5 +222,23 @@ public class Bomb {
                 .zIndex(0)
                 .viewWithBBox(grassView)
                 .buildAndAttach();
+
+        int totalItemsNeeded = 7;
+        int itemsRemaining = (remainingBuffsToSpawn + (portalSpawned ? 0 : 1));
+
+        if (BRICK_NUMS <= itemsRemaining && itemsRemaining > 0) {
+            if (!portalSpawned) {
+                spawnPortal(nx, ny, controller);
+            } else if (remainingBuffsToSpawn > 0) {
+                spawnBuff(nx, ny, controller);
+            }
+        } else {
+            Random random = new Random();
+            if (!portalSpawned && random.nextDouble() < PORTAL_CHANCE) {
+                spawnPortal(nx, ny, controller);
+            } else if (remainingBuffsToSpawn > 0 && random.nextDouble() < POWERUP_CHANCE) {
+                spawnBuff(nx, ny, controller);
+            }
+        }
     }
 }
