@@ -82,6 +82,17 @@ public class GamePlay {
 
     }
 
+    @FXML
+    private ImageView buffImage;
+
+    public ImageView getBuffImage(){
+        ImageView view = new ImageView(buffImage.getImage());
+        view.setFitWidth(Enemy.TILE_SIZE);
+        view.setFitHeight(Enemy.TILE_SIZE);
+        view.setSmooth(false);
+        return view;
+
+    }
 
     @FXML
     public void initialize() {
