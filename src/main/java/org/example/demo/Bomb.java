@@ -22,7 +22,7 @@ public class Bomb {
     public static int TIME_SHOW_EXPLOSION = 1;
     private int timer = 3; // Thời gian đếm ngược (giây)
 
-    public static int ENEMY_NUMBERS_LEFT = GameInitializerMap.getNumOfBalloons()
+    public static int ENEMY_NUMBERS_LEFT = GameInitializerMap.getNumOfBallooms()
             + GameInitializerMap.getNumOfOneals();
 
     static BombAnimation bombAnimation;
@@ -128,12 +128,12 @@ public class Bomb {
             double a = Math.abs(fx - (double) nx);
             double b = Math.abs(fy - (double) ny);
             if (a <= 0.95 && b <= 0.95) {
-                if (enemy.hasComponent(Balloon.class)) {
-                    enemy.getComponent(Balloon.class).removeEnemy();
+                if (enemy.hasComponent(Balloom.class)) {
+                    enemy.getComponent(Balloom.class).balloomDie();
                     ENEMY_NUMBERS_LEFT--;
-                    System.out.println("Kill Balloon\nenemy left " + ENEMY_NUMBERS_LEFT);
+                    System.out.println("Kill Balloom\nenemy left " + ENEMY_NUMBERS_LEFT);
                 } else if (enemy.hasComponent(Oneal.class)) {
-                    enemy.getComponent(Oneal.class).removeEnemy();
+                    enemy.getComponent(Oneal.class).onealDie();
                     ENEMY_NUMBERS_LEFT--;
                     System.out.println("Kill Oneal\nenemy left " + ENEMY_NUMBERS_LEFT);
                 }

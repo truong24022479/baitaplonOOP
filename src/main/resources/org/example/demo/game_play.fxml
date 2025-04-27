@@ -13,7 +13,12 @@
       </ImageView>
       <ImageView fx:id="balloomImageView" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../sprites/balloom_dead.png" />
+            <Image url="@../../../sprites/balloom_dead (1).png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="onealImageView" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../sprites/oneal_dead (1).png" />
          </image>
       </ImageView>
       <ImageView fx:id="onealImageView" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">

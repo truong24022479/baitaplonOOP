@@ -1,6 +1,9 @@
 package org.example.demo;
 
+import com.almasb.fxgl.physics.BoundingShape;
+import com.almasb.fxgl.physics.HitBox;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.BoundingBox;
 import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
 import com.almasb.fxgl.entity.Entity;
@@ -22,10 +25,10 @@ public class GameInitializerMap {
     private static Entity player;
 
     private static int numOfOneals = 3;
-    private static int numOfBalloons = 5;
+    private static int numOfballooms = 5;
 
-    public static int getNumOfBalloons() {
-        return numOfBalloons;
+    public static int getNumOfBallooms() {
+        return numOfballooms;
     }
 
     public static int getNumOfOneals() {
@@ -92,7 +95,7 @@ public class GameInitializerMap {
         GamePlay controller = BombermanApp.getController();
         Random random = new Random();
 
-        for (int i = 0; i < numOfBalloons; i++) {
+        for (int i = 0; i < numOfballooms; i++) {
             int x, y;
             do {
                 x = random.nextInt(MAP_HEIGHT);
@@ -100,8 +103,8 @@ public class GameInitializerMap {
             } while (BombermanApp.map[x][y] != 0 || (x == 1 && y == 1) || (x == 1 && y == 2) || (x == 2 && y == 1)); // Ensure valid, non-player start spot
 
             ImageView enemyView = controller.getBalloomImageView();
-            Balloon balloon = new Balloon();
-            balloon.initMap(map, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT);
+            Balloom balloom = new Balloom();
+            balloom.initMap(map, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT);
 
             enemyView.setFitWidth(TILE_SIZE);
             enemyView.setFitHeight(TILE_SIZE);
@@ -112,7 +115,7 @@ public class GameInitializerMap {
                     .at(y * TILE_SIZE, x * TILE_SIZE)
                     .zIndex(10)
                     .viewWithBBox(enemyView)
-                    .with(new Balloon())
+                    .with(new Balloom())
                     .buildAndAttach();
         }
     }
