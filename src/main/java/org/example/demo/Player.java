@@ -8,7 +8,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 
 import static com.almasb.fxgl.dsl.FXGL.getInput;
+import static org.example.demo.Bomb.remainingBuffsToSpawn;
 import static org.example.demo.BombermanApp.removePlayer;
+import static org.example.demo.Buff.receiveBuff;
 
 public class Player implements EntityFactory {
     private static Entity player;
@@ -59,7 +61,7 @@ public class Player implements EntityFactory {
         this.map = map;
     }
 
-    public void spawnPlayer(){
+    public void spawnPlayer() {
         spriteManager = new PlayerSpriteManager();
 
         // Lấy ImageView từ PlayerSpriteManager
@@ -134,10 +136,23 @@ public class Player implements EntityFactory {
             }
         }, KeyCode.D);
         // Đặt bomb bằng phím Space
+//        getInput().addAction(new UserAction("Đặt bom") {
+//            @Override
+//            protected void onActionBegin() {
+//                Bomb.setBomb(player, map, 1, Bomb.DELAY_BOMB_TIME); // bán kính 1, hẹn giờ 2s
+//            }
+//        }, KeyCode.SPACE);
+        // Đặt bomb bằng phím Space
         getInput().addAction(new UserAction("Đặt bom") {
+            private long lastBombTime = -2000; // Thời gian đặt bom lần cuối (miligiây)
+
             @Override
             protected void onActionBegin() {
-                Bomb.setBomb(player, map, 1, Bomb.DELAY_BOMB_TIME); // bán kính 1, hẹn giờ 2s
+                long currentTime = System.currentTimeMillis(); // Lấy thời gian hiện tại (miligiây)
+                if (currentTime - lastBombTime >= 2000) { // Kiểm tra nếu đã đủ 2 giây
+                    Bomb.setBomb(player, map, 1, Bomb.DELAY_BOMB_TIME); // Đặt bom
+                    lastBombTime = currentTime; // Cập nhật thời gian đặt bom
+                }
             }
         }, KeyCode.SPACE);
     }
@@ -199,23 +214,25 @@ public class Player implements EntityFactory {
 
         for (int ty = topTile; ty <= bottomTile; ty++) {
             for (int tx = leftTile; tx <= rightTile; tx++) {
-                if (map[ty][tx] != 0 && map[ty][tx] != 4) {
+                if (map[ty][tx] != 0 && map[ty][tx] != 4 && map[ty][tx] != 5) {
                     return;
                 }
             }
         }
 
         //System.out.println("at "+ newX+","+newY+"\nat portal "+atPortal);
-//        if (newX / TILE_SIZE == MAP_WIDTH - 2 && newY / TILE_SIZE == MAP_HEIGHT - 2) {
-//            atPortal = true;
-//            BombermanApp.GG();
-//        } else atPortal = false;
         int tileX = (int) (newX / BombermanApp.TILE_SIZE);
         int tileY = (int) (newY / BombermanApp.TILE_SIZE);
-        if (map[tileY][tileX] == 4){
+        if (map[tileY][tileX] == 4) {
             atPortal = true;
             BombermanApp.GG();
         } else atPortal = false;
+        if (map[tileY][tileX] == 5) {
+            Buff.ChangeBuffToGrass(tileX, tileY);
+            map[tileY][tileX] = 0;
+            System.out.println("recieve buff at "+tileX+" "+tileY+"\n Buff left "+remainingBuffsToSpawn);
+            receiveBuff();
+        }
         player.setPosition(newX, newY);
     }
 }

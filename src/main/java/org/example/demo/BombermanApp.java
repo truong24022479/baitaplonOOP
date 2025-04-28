@@ -96,7 +96,7 @@ public class BombermanApp extends GameApplication {
 
         GameInitializerMap.spawnBalloom();
         GameInitializerMap.spawnOneal();
-        GameInitializerMap.spawnDolls();
+        GameInitializerMap.spawnDoll();
 
     }
 

@@ -2,7 +2,7 @@ package org.example.demo;
 
 public enum EntityType {
     PLAYER,
-    BOMB,
+    BUFF,
     ENEMY,
     WALL,
     BRICK,

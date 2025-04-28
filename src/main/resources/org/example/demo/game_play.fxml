@@ -51,5 +51,11 @@
             <Image url="@../../../sprites/portal.png" />
          </image>
       </ImageView>
+      <ImageView fx:id="buffImage" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../sprites/powerup_detonator.png" />
+         </image>
+      </ImageView>
+
    </children>
 </AnchorPane>
