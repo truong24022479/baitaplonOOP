@@ -136,7 +136,7 @@ public class Doll extends Enemy {
         int tileX = (int) Math.round(doll.getX() / TILE_SIZE);
         int tileY = (int) Math.round(doll.getY() / TILE_SIZE);
 
-        Bomb bomb = new Bomb(tileX, tileY, DELAY_BOMB_TIME, explosionRadius, doll, map);
+        Bomb bomb = new Bomb(tileX, tileY, DELAY_BOMB_TIME, doll, map);
         bombAnimation.showBombAnimation(tileX * TILE_SIZE, tileY * TILE_SIZE);
         bomb.activate(DELAY_BOMB_TIME);
     }

@@ -37,11 +37,10 @@ public class Bomb {
     public static int BRICK_NUMS = 0;
     public static int remainingBuffsToSpawn = 6;
 
-    public Bomb(int x, int y, int timer, int explosionRadius, Entity owner, int[][] map) {
+    public Bomb(int x, int y, int timer, Entity owner, int[][] map) {
         this.x = x;
         this.y = y;
         this.timer = timer;
-        this.explosionRadius = explosionRadius;
         this.isExploded = false;
         this.owner = owner;
         this.map = map;
@@ -73,48 +72,42 @@ public class Bomb {
         affectSurrounding(); // Gây ảnh hưởng đến xung quanh
     }
 
-private void affectSurrounding() {
-    int[][] dir = {{1, 0}, {0, 1}, {0, -1}, {-1, 0}};
-    String[] directions = {"right", "down", "up", "left"};
+    private void affectSurrounding() {
+        int[][] dir = {{1, 0}, {0, 1}, {0, -1}, {-1, 0}};
+        String[] directions = {"right", "down", "up", "left"};
 
-    bombAnimation.showExplosion(x * BombermanApp.TILE_SIZE, y * BombermanApp.TILE_SIZE, true, false, "");
-    hitCenterBomb(x, y);
+        //bombAnimation.showExplosion(x * BombermanApp.TILE_SIZE, y * BombermanApp.TILE_SIZE, true, false, "");
+        BombAnimation.centerExplode(x * BombermanApp.TILE_SIZE, y * BombermanApp.TILE_SIZE);
+        hitCenterBomb(x, y);
 
-    for (int d = 0; d < dir.length; d++) {
-        int[] direction = dir[d];
-        String directionStr = directions[d];
+        for (int d = 0; d < dir.length; d++) {
+            int[] direction = dir[d];
+            String directionStr = directions[d];
+            //System.out.println("explosionRadius: " + explosionRadius);
+            for (int i = 1; i <= explosionRadius; i++) {
+                int nx = x + direction[0] * i;
+                int ny = y + direction[1] * i;
 
-        for (int i = 1; i <= explosionRadius; i++) {
-            int nx = x + direction[0] * i;
-            int ny = y + direction[1] * i;
+                if (map[ny][nx] == 1) {
+                    break;
+                }
 
-            if (nx < 0 || nx >= map[0].length || ny < 0 || ny >= map.length) {
-                break;
+                boolean isLast = (i == explosionRadius)
+                        || (ny + direction[1] < 0 || ny + direction[1] >= map.length
+                        || nx + direction[0] < 0 || nx + direction[0] >= map[0].length)
+                        || (map[ny + direction[1]][nx + direction[0]] == 1);
+                hitBomb(nx, ny);
+                if (map[ny][nx] == 0) {
+                    bombAnimation.showExplosion(nx * BombermanApp.TILE_SIZE, ny * BombermanApp.TILE_SIZE, false, isLast, directionStr);
+                } else if (map[ny][nx] == 2) {
+                    map[ny][nx] = 0;
+                    changeBrickToGrass(nx, ny);
+                    bombAnimation.showExplosion(nx * BombermanApp.TILE_SIZE, ny * BombermanApp.TILE_SIZE, false, isLast, directionStr);
+                    break;
+                }
             }
-
-            if (map[ny][nx] == 1) {
-                break;
-            }
-
-            boolean isLast = (i == explosionRadius)
-                    || (ny + direction[1] < 0 || ny + direction[1] >= map.length
-                    || nx + direction[0] < 0 || nx + direction[0] >= map[0].length)
-                    || (map[ny + direction[1]][nx + direction[0]] == 1);
-
-            if (map[ny][nx] == 0) {
-                bombAnimation.showExplosion(nx * BombermanApp.TILE_SIZE, ny * BombermanApp.TILE_SIZE, false, isLast, directionStr);
-            } else if (map[ny][nx] == 2) {
-                map[ny][nx] = 0;
-                changeBrickToGrass(nx, ny);
-                bombAnimation.showExplosion(nx * BombermanApp.TILE_SIZE, ny * BombermanApp.TILE_SIZE, false, isLast, directionStr);
-                break;
-            }
-
-            hitBomb(nx, ny);
         }
     }
-}
-
 
     public static void hitBomb(int nx, int ny) {
         double ex = Math.round((Player.getX() / (double) BombermanApp.TILE_SIZE) * 100.0) / 100.0;
@@ -187,7 +180,7 @@ private void affectSurrounding() {
         int tileY = (int) Math.round(player.getY() / 32.0);
 
         // Đặt bom tại tile hiện tại của player
-        Bomb bomb = new Bomb(tileX, tileY, timer, explosionRadius, player, map);
+        Bomb bomb = new Bomb(tileX, tileY, timer, player, map);
         bombAnimation.showBombAnimation(tileX * TILE_SIZE, tileY * TILE_SIZE);
         bomb.activate(timer);
     }
@@ -221,7 +214,7 @@ private void affectSurrounding() {
                 .viewWithBBox(grassView)
                 .buildAndAttach();
 
-       // int totalItemsNeeded = 7;
+        // int totalItemsNeeded = 7;
         int itemsRemaining = (remainingBuffsToSpawn + (portalSpawned ? 0 : 1));
 
         if (BRICK_NUMS <= itemsRemaining && itemsRemaining > 0) {

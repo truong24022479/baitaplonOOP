@@ -162,7 +162,7 @@ public class BombAnimation {
             for (int i = 1; i <= Bomb.explosionRadius; i++) {
                 int nx = x + dir[d][0] * i;
                 int ny = y + dir[d][1] * i;
-                if (nx < 0 || nx >= map[0].length || ny < 0 || ny >= map.length || map[ny][nx] == 1) {
+                if (map[ny][nx] == 1) {
                     break;
                 }
                 directions.add(dirNames[d]);
@@ -198,13 +198,18 @@ public class BombAnimation {
     }
 
     // Hàm hiển thị animation trung tâm
-    private void centerExplode(int x, int y) {
+    public static void centerExplode(int x, int y) {
         ImageView[] frames = new ImageView[]{center, center1, center2};
         playAnimation(x, y, frames, "Explosion", "center", Bomb.TIME_SHOW_EXPLOSION);
     }
 
+    public static void horizontalExplode(int x, int y) {
+        ImageView[] frames = new ImageView[]{horizontal, horizontal1, horizontal2};
+        playAnimation(x, y, frames, "Explosion", "center", Bomb.TIME_SHOW_EXPLOSION);
+    }
+
     // Hàm chung để chạy animation
-    private void playAnimation(int x, int y, ImageView[] frames, String type, String direction, double duration) {
+    private static void playAnimation(int x, int y, ImageView[] frames, String type, String direction, double duration) {
         ImageView view = new ImageView();
         view.setFitWidth(BombermanApp.TILE_SIZE);
         view.setFitHeight(BombermanApp.TILE_SIZE);
