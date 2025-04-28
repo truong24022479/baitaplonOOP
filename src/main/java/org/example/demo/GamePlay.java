@@ -59,6 +59,40 @@ public class GamePlay {
         return view;
     }
 
+    @FXML
+    private ImageView bombImageView;
+
+    public ImageView getBombImageView() {
+        ImageView view = new ImageView(bombImageView.getImage());
+        view.setFitWidth(Enemy.TILE_SIZE);
+        view.setFitHeight(Enemy.TILE_SIZE);
+        view.setSmooth(false);
+        return view;
+    }
+
+    @FXML
+    private ImageView portal;
+
+    public ImageView getPortal(){
+        ImageView view = new ImageView(portal.getImage());
+        view.setFitWidth(Enemy.TILE_SIZE);
+        view.setFitHeight(Enemy.TILE_SIZE);
+        view.setSmooth(false);
+        return view;
+
+    }
+
+    @FXML
+    private ImageView buffImage;
+
+    public ImageView getBuffImage(){
+        ImageView view = new ImageView(buffImage.getImage());
+        view.setFitWidth(Enemy.TILE_SIZE);
+        view.setFitHeight(Enemy.TILE_SIZE);
+        view.setSmooth(false);
+        return view;
+
+    }
 
     @FXML
     public void initialize() {

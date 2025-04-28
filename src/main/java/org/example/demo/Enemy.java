@@ -1,14 +1,10 @@
 package org.example.demo;
 
-import java.awt.*;
-
 import com.almasb.fxgl.dsl.FXGL;
-import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.component.Component;
-import java.util.Random;
 
 public abstract class Enemy extends Component {
-    static int TILE_SIZE = 32;
+    static int TILE_SIZE = BombermanApp.TILE_SIZE;
     protected int[][] map;
     protected int MAP_WIDTH;
     protected int MAP_HEIGHT;
