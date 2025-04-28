@@ -26,6 +26,7 @@ public class GameInitializerMap {
 
     private static int numOfOneals = 3;
     private static int numOfballooms = 5;
+    private static int numOfDolls = 3;
 
     public static int getNumOfBallooms() {
         return numOfballooms;
@@ -33,6 +34,10 @@ public class GameInitializerMap {
 
     public static int getNumOfOneals() {
         return numOfOneals;
+    }
+
+    public static int getNumOfDolls() {
+        return numOfDolls;
     }
 
 //    public GamePlay getController() {
@@ -121,13 +126,6 @@ public class GameInitializerMap {
     }
 
     public static void spawnOneal() {
-//        try {
-//            FXMLLoader loader = new FXMLLoader(GameInitializerMap.class.getResource("/org/example/demo/game_play.fxml"));
-//            Parent root = loader.load();
-//            controller = loader.getController();
-//        } catch (IOException e) {
-//            throw new RuntimeException("Không thể tải file game_play.fxml: " + e.getMessage());
-//        }
         GamePlay controller = BombermanApp.getController();
         Random random = new Random();
 
@@ -154,6 +152,35 @@ public class GameInitializerMap {
                     .with(new Oneal())
                     .buildAndAttach();
         }
-
     }
+
+    public static void spawnDolls () {
+        GamePlay controller = BombermanApp.getController();
+        Random random = new Random();
+
+        for (int i = 0; i < numOfDolls; i++) {
+            int x, y;
+            do {
+                x = random.nextInt(MAP_HEIGHT);
+                y = random.nextInt(MAP_WIDTH);
+            } while (BombermanApp.map[x][y] != 0 || (x == 1 && y == 1) || (x == 1 && y == 2) || (x == 2 && y == 1)); // Ensure valid, non-player start spot
+
+            ImageView enemyView = controller.getDollImageView();
+            Doll doll = new Doll();
+            doll.initMap(map, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT);
+
+            enemyView.setFitWidth(TILE_SIZE);
+            enemyView.setFitHeight(TILE_SIZE);
+            enemyView.setPreserveRatio(false);
+
+            entityBuilder()
+                    .type(EntityType.ENEMY)
+                    .at(y * TILE_SIZE, x * TILE_SIZE)
+                    .zIndex(10)
+                    .viewWithBBox(enemyView)
+                    .with(new Doll())
+                    .buildAndAttach();
+        }
+    }
+
 }

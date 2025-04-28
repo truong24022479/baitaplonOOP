@@ -96,6 +96,7 @@ public class BombermanApp extends GameApplication {
 
         GameInitializerMap.spawnBalloom();
         GameInitializerMap.spawnOneal();
+        GameInitializerMap.spawnDolls();
 
     }
 
@@ -122,6 +123,7 @@ public class BombermanApp extends GameApplication {
 //        FXGL.getDialogService().showMessageBox("\uD83D\uDC80 Đồ ngu đồ ăn hại \uD83D\uDC80", () -> {
 //            FXGL.getGameController().exit();
 //        });
+        SoundManager.playPlayerDeath();
         getDialogService().showMessageBox("\uD83D\uDC80 Đồ ngu đồ ăn hại \uD83D\uDC80", () -> {
             getGameController().exit();
         });

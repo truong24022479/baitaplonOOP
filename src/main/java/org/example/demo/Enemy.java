@@ -2,6 +2,7 @@ package org.example.demo;
 
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.component.Component;
+import javafx.util.Duration;
 
 public abstract class Enemy extends Component {
     static int TILE_SIZE = BombermanApp.TILE_SIZE;
@@ -9,6 +10,8 @@ public abstract class Enemy extends Component {
     protected int MAP_WIDTH;
     protected int MAP_HEIGHT;
     public static final double ENEMY_SPEED=15;
+    private boolean isMoving = false;
+    private boolean isDead = false;
 
     public void initMap(int[][] map, int tileSize, int mapWidth, int mapHeight) {
         this.map = map;
@@ -24,13 +27,18 @@ public abstract class Enemy extends Component {
                 && map[dy][dx] == 0;
     }
 
-    public void removeEnemy() {
-        FXGL.getGameWorld().removeEntity(getEntity());
+//    public void removeEnemy() {
+//        FXGL.getGameWorld().removeEntity(getEntity());
 
-//        System.out.println("❌ Có enemy còn sống: ");
-//        FXGL.getGameWorld().getEntitiesByType(EntityType.ENEMY).forEach(e -> {
-//            System.out.println(" -> Enemy tại " + e.getX() + ", " + e.getY());
-//        });
+    public void enemyDie() {
+        isMoving = false; // dừng di chuyển
+        if (isDead) return;
+        isDead = true;
 
+        FXGL.getGameTimer().runOnceAfter(() -> {
+            if (getEntity().isActive()) {
+                getEntity().removeFromWorld();
+            }
+        }, Duration.seconds(0.5));
     }
 }

@@ -119,8 +119,11 @@ public class Oneal extends Enemy {
         isDead = true;
 
         // Cập nhật hình ảnh thành oneal_dead.png
+//        enemyDie();
         Image deadImage = new Image(getClass().getResource("/org/example/demo/sprites/oneal_dead (1).png").toExternalForm());
         view.setImage(deadImage);
+
+
 
         // Cho hiệu ứng tồn tại 0.5s rồi xoá khỏi map
         FXGL.getGameTimer().runOnceAfter(() -> {

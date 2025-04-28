@@ -21,6 +21,11 @@
             <Image url="@../../../sprites/oneal_dead (1).png" />
          </image>
       </ImageView>
+      <ImageView fx:id="dollImageView" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../sprites/doll_dead (1).png" />
+         </image>
+      </ImageView>
       <ImageView fx:id="wall" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../sprites/wall.png" />

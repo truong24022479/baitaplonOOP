@@ -9,64 +9,64 @@
 <?import javafx.scene.image.ImageView?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.example.demo.OnealAnimation"
+            fx:controller="org.example.demo.DollAnimation"
             prefHeight="400.0" prefWidth="600.0">
     <children>
         <!-- Up -->
         <ImageView fx:id="up" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../../sprites/oneal_left1 (1).png" />
+                <Image url="@../../../sprites/doll_left1 (1).png" />
             </image>
         </ImageView>
 
         <!-- Down -->
         <ImageView fx:id="down" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../../sprites/oneal_right1 (1).png" />
+                <Image url="@../../../sprites/doll_right1 (1).png" />
             </image>
         </ImageView>
 
         <!-- Left -->
         <ImageView fx:id="left1" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../../sprites/oneal_left1 (1).png" />
+                <Image url="@../../../sprites/doll_left1 (1).png" />
             </image>
         </ImageView>
         <ImageView fx:id="left2" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../../sprites/oneal_left2 (1).png" />
+                <Image url="@../../../sprites/doll_left2 (1).png" />
             </image>
         </ImageView>
         <ImageView fx:id="left3" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../../sprites/oneal_left3 (1).png" />
+                <Image url="@../../../sprites/doll_left3 (1).png" />
             </image>
         </ImageView>
 
         <!-- Right -->
         <ImageView fx:id="right1" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../../sprites/oneal_right1 (1).png" />
+                <Image url="@../../../sprites/doll_right1 (1).png" />
             </image>
         </ImageView>
         <ImageView fx:id="right2" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../../sprites/oneal_right2 (1).png" />
+                <Image url="@../../../sprites/doll_right2 (1).png" />
             </image>
         </ImageView>
         <ImageView fx:id="right3" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../../sprites/oneal_right3 (1).png" />
+                <Image url="@../../../sprites/doll_right3 (1).png" />
             </image>
         </ImageView>
-        <ImageView fx:id="onealImageView" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="dollImageView" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../../sprites/oneal_dead (1).png" />
+                <Image url="@../../../sprites/doll_dead (1).png" />
             </image>
         </ImageView>
         <ImageView fx:id="die" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../../sprites/oneal_dead (1).png" />
+                <Image url="@../../../sprites/doll_dead (1).png" />
             </image>
         </ImageView>
     </children>

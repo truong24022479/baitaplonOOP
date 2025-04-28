@@ -23,7 +23,7 @@ public class Bomb {
     private int timer = 3; // Thời gian đếm ngược (giây)
 
     public static int ENEMY_NUMBERS_LEFT = GameInitializerMap.getNumOfBallooms()
-            + GameInitializerMap.getNumOfOneals();
+            + GameInitializerMap.getNumOfOneals() + GameInitializerMap.getNumOfDolls();
 
     static BombAnimation bombAnimation;
 
@@ -59,6 +59,7 @@ public class Bomb {
     // Phương thức phát nổ
     private void explode() {
         isExploded = true;
+        SoundManager.playExplosion();
         affectSurrounding(); // Gây ảnh hưởng đến xung quanh
     }
 
@@ -136,6 +137,10 @@ public class Bomb {
                     enemy.getComponent(Oneal.class).onealDie();
                     ENEMY_NUMBERS_LEFT--;
                     System.out.println("Kill Oneal\nenemy left " + ENEMY_NUMBERS_LEFT);
+                } else if (enemy.hasComponent(Doll.class)) {
+                    enemy.getComponent(Doll.class).dollDie();
+                    ENEMY_NUMBERS_LEFT--;
+                    System.out.println("Kill Doll\nenemy left " + ENEMY_NUMBERS_LEFT);
                 }
             }
         });

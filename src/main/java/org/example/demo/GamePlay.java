@@ -27,6 +27,14 @@ public class GamePlay {
     }
 
     @FXML
+    private ImageView dollImageView;
+
+    public ImageView getDollImageView() {
+        return new ImageView(dollImageView.getImage());
+    }
+
+
+    @FXML
     private ImageView wall;
 
     public ImageView getWall() {

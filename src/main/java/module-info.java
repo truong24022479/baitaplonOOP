@@ -6,6 +6,7 @@ module org.example.demo {
     requires com.dlsc.formsfx;
     requires com.almasb.fxgl.all;
     requires java.desktop;
+    requires javafx.media;
 
     opens org.example.demo to javafx.fxml;
     exports org.example.demo;
