@@ -48,11 +48,9 @@ public class BombAnimation {
     public static ImageView verticalDownLast2;
 
     private final int[][] map;
-    private final int explosionRadius; // Thêm thuộc tính explosionRadius
 
-    public BombAnimation(int[][] map, int explosionRadius) {
+    public BombAnimation(int[][] map) {
         this.map = map;
-        this.explosionRadius = explosionRadius;
         initialize();
     }
 
@@ -161,7 +159,7 @@ public class BombAnimation {
         String[] dirNames = {"right", "down", "up", "left"};
 
         for (int d = 0; d < dir.length; d++) {
-            for (int i = 1; i <= explosionRadius; i++) {
+            for (int i = 1; i <= Bomb.explosionRadius; i++) {
                 int nx = x + dir[d][0] * i;
                 int ny = y + dir[d][1] * i;
                 if (nx < 0 || nx >= map[0].length || ny < 0 || ny >= map.length || map[ny][nx] == 1) {

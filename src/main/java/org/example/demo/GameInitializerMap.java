@@ -133,7 +133,7 @@ public class GameInitializerMap {
         GamePlay controller = BombermanApp.getController();
         Random random = new Random();
 
-        for (int i = 0; i < numOfOneals; i++) {
+        for (int i = 0; i < numOfDolls; i++) {
             int x, y;
             do {
                 x = random.nextInt(MAP_HEIGHT);

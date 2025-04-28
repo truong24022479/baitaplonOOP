@@ -87,7 +87,7 @@ public class BombermanApp extends GameApplication {
 
 //        BombAnimation bombAnimation = new BombAnimation();
 //        bombAnimation.initialize();
-        Bomb.bombAnimation = new BombAnimation(map, explosionRadius);
+        Bomb.bombAnimation = new BombAnimation(map);
 
         player = new Player(TILE_SIZE, MAP_WIDTH, MAP_HEIGHT, Player.MOVE_ERROR);
         player.setMap(map);
