@@ -123,7 +123,7 @@ public class BombermanApp extends GameApplication {
 //        FXGL.getDialogService().showMessageBox("\uD83D\uDC80 Đồ ngu đồ ăn hại \uD83D\uDC80", () -> {
 //            FXGL.getGameController().exit();
 //        });
-        SoundManager.playPlayerDeath();
+//        SoundManager.playPlayerDeath();
         getDialogService().showMessageBox("\uD83D\uDC80 Đồ ngu đồ ăn hại \uD83D\uDC80", () -> {
             getGameController().exit();
         });
