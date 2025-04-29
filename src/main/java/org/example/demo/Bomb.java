@@ -26,7 +26,8 @@ public class Bomb {
     private int timer = 3; // Thời gian đếm ngược (giây)
 
     public static int ENEMY_NUMBERS_LEFT = GameInitializerMap.getNumOfBallooms()
-            + GameInitializerMap.getNumOfOneals() + GameInitializerMap.getNumOfDolls();
+            + GameInitializerMap.getNumOfOneals() + GameInitializerMap.getNumOfDolls()
+            + GameInitializerMap.getNumOfMinvos();
 
     static BombAnimation bombAnimation;
 
@@ -151,6 +152,10 @@ public class Bomb {
                     enemy.getComponent(Doll.class).dollDie();
                     ENEMY_NUMBERS_LEFT--;
                     System.out.println("Kill Doll\nenemy left " + ENEMY_NUMBERS_LEFT);
+                } else if (enemy.hasComponent(Minvo.class)) {
+                    enemy.getComponent(Minvo.class).minvoDie();
+                    ENEMY_NUMBERS_LEFT--;
+                    System.out.println("Kill Minvo\nenemy left " + ENEMY_NUMBERS_LEFT);
                 }
             }
         });

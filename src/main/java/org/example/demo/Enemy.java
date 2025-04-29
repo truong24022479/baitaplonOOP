@@ -10,8 +10,8 @@ public abstract class Enemy extends Component {
     protected int MAP_WIDTH;
     protected int MAP_HEIGHT;
     public static final double ENEMY_SPEED=15;
-    private boolean isMoving = false;
-    private boolean isDead = false;
+    protected boolean isMoving = false;
+    protected boolean isDead = false;
 
     public void initMap(int[][] map, int tileSize, int mapWidth, int mapHeight) {
         this.map = map;
@@ -20,11 +20,12 @@ public abstract class Enemy extends Component {
         this.MAP_HEIGHT = mapHeight;
     }
 
-    public boolean canMove(double tileX, double tileY) {
-        int dy = (int) tileY;
-        int dx = (int) tileX;
-        return tileX >= 0 && tileX < MAP_WIDTH && tileY >= 0 && tileY < MAP_HEIGHT
-                && map[dy][dx] == 0;
+    public boolean canMove(int tileX, int tileY) {
+        if (tileX >= 0 && tileX < MAP_WIDTH && tileY >= 0 && tileY < MAP_HEIGHT) {
+            if (map[tileY][tileX] == 0 || map[tileY][tileX] == 4 || map[tileY][tileX] == 5) return true;
+//            if (map[tileY][tileX] == 1 || map[tileY][tileX] == 2 || map[tileY][tileX] == 3) return false;
+        }
+        return false;
     }
 
 //    public void removeEnemy() {
