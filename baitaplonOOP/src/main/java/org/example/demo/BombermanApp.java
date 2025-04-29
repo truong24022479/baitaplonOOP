@@ -1,9 +1,8 @@
 package org.example.demo;
-
-import com.almasb.fxgl.app.GameApplication;
-import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.SceneFactory;
+import com.almasb.fxgl.app.GameApplication;
+import com.almasb.fxgl.app.GameSettings;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
@@ -35,22 +34,16 @@ public class BombermanApp extends GameApplication {
 
     @Override
     protected void initSettings(GameSettings settings) {
-        settings.setWidth(MAP_WIDTH * TILE_SIZE);
-        settings.setHeight(MAP_HEIGHT * TILE_SIZE);
-        settings.setTitle("Bomberman Game");
-        settings.setVersion("1.0");
-        settings.setMainMenuEnabled(true); // Kích hoạt menu chính
+        settings.setWidth(500);
+        settings.setHeight(500);
+        settings.setTitle("Bomberman");
+        settings.setVersion("0.1");
+        settings.setMainMenuEnabled(true); // Bật menu chính
         settings.setSceneFactory(new SceneFactory() {
             @Override
             public FXGLMenu newMainMenu() {
                 return new ViewMenu(); // Trả về instance của ViewMenu
             }
-
-            // Bạn có thể thêm các menu khác nếu cần, ví dụ:
-            // @Override
-            // public FXGLMenu newGameMenu() {
-            //     return new YourGameMenu();
-            // }
         });
     }
     protected void initUI() {
@@ -140,4 +133,6 @@ public class BombermanApp extends GameApplication {
             getGameController().exit();
         });
     }
+
+
 }
