@@ -10,6 +10,8 @@ import javafx.util.Duration;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.example.demo.EntityType.BOMB;
+
 public class BombAnimation {
     // Các ImageView cho bom
     public static ImageView bomb;
@@ -215,7 +217,7 @@ public class BombAnimation {
         view.setFitHeight(BombermanApp.TILE_SIZE);
         view.setPreserveRatio(false);
 
-        Entity entity = FXGL.entityBuilder()
+        Entity entity = FXGL.entityBuilder().type(BOMB)
                 .at(x, y)
                 .view(view)
                 .buildAndAttach();
