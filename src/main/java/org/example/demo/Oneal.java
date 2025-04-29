@@ -16,7 +16,6 @@ public class Oneal extends Enemy {
 
     private double moveTargetX;
     private double moveTargetY;
-    private boolean isMoving = false;
 
     private ImageView view;
     private ImageView[] leftFrames;
@@ -54,7 +53,7 @@ public class Oneal extends Enemy {
         double distY = player.getY() - oneal.getY();
         double distance = Math.sqrt(distX * distX + distY * distY);
 
-        double onealSpeed = (distance < 3 * TILE_SIZE) ? ONEAL_SPEED : ENEMY_SPEED;
+        double onealSpeed = (distance < 5 * TILE_SIZE) ? ONEAL_SPEED : ENEMY_SPEED;
 
         if (isMoving) {
             oneal.translateX(vX * tpf);
@@ -111,8 +110,6 @@ public class Oneal extends Enemy {
 
     }
 
-    private boolean isDead = false;
-
     public void onealDie() {
         isMoving = false; // dừng di chuyển
         if (isDead) return;
@@ -122,8 +119,6 @@ public class Oneal extends Enemy {
 //        enemyDie();
         Image deadImage = new Image(getClass().getResource("/org/example/demo/sprites/oneal_dead (1).png").toExternalForm());
         view.setImage(deadImage);
-
-
 
         // Cho hiệu ứng tồn tại 0.5s rồi xoá khỏi map
         FXGL.getGameTimer().runOnceAfter(() -> {

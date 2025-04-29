@@ -15,11 +15,12 @@ public class GameInitializerMap {
     private static Entity player;
 
     private static int numOfOneals = 1;
-    private static int numOfballooms = 1;
+    private static int numOfBallooms = 1;
     private static int numOfDolls = 1;
+    private static int numOfMinvos = 1;
 
     public static int getNumOfBallooms() {
-        return numOfballooms;
+        return numOfBallooms;
     }
 
     public static int getNumOfOneals() {
@@ -28,6 +29,10 @@ public class GameInitializerMap {
 
     public static int getNumOfDolls() {
         return numOfDolls;
+    }
+
+    public static int getNumOfMinvos() {
+        return numOfMinvos;
     }
 
     public static void initializeMap() {
@@ -67,7 +72,7 @@ public class GameInitializerMap {
         GamePlay controller = BombermanApp.getController();
         Random random = new Random();
 
-        for (int i = 0; i < numOfballooms; i++) {
+        for (int i = 0; i < numOfBallooms; i++) {
             int x, y;
             do {
                 x = random.nextInt(MAP_HEIGHT);
@@ -154,6 +159,35 @@ public class GameInitializerMap {
                     .zIndex(10)
                     .viewWithBBox(enemyView)
                     .with(new Doll())
+                    .buildAndAttach();
+        }
+    }
+
+    public static void spawnMinvo() {
+        GamePlay controller = BombermanApp.getController();
+        Random random = new Random();
+
+        for (int i = 0; i < numOfMinvos; i++) {
+            int x, y;
+            do {
+                x = random.nextInt(MAP_HEIGHT);
+                y = random.nextInt(MAP_WIDTH);
+            } while (BombermanApp.map[x][y] != 0 || (x == 1 && y == 1) || (x == 1 && y == 2) || (x == 2 && y == 1)); // Ensure valid, non-player start spot
+
+            ImageView enemyView = controller.getMinvoImageView();
+            Minvo minvo = new Minvo();
+            minvo.initMap(BombermanApp.map, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT);
+
+            enemyView.setFitWidth(TILE_SIZE);
+            enemyView.setFitHeight(TILE_SIZE);
+            enemyView.setPreserveRatio(false);
+
+            entityBuilder()
+                    .type(EntityType.ENEMY)
+                    .at(y * TILE_SIZE, x * TILE_SIZE)
+                    .zIndex(10)
+                    .viewWithBBox(enemyView)
+                    .with(new Minvo())
                     .buildAndAttach();
         }
     }

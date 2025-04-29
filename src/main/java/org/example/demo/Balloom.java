@@ -12,15 +12,12 @@ import javafx.util.Duration;
 
 import java.util.Random;
 
-import static com.almasb.fxgl.dsl.FXGLForKtKt.image;
-
 public class Balloom extends Enemy {
     private double vX = 0;
     private double vY = 0;
 
     private Entity balloom;
     private Random random = new Random();
-    private boolean isMoving = false;
 
     private double moveTargetX;
     private double moveTargetY;
@@ -32,9 +29,6 @@ public class Balloom extends Enemy {
     private double frameTimer = 0;
     private final double FRAME_DURATION = 0.2;
 
-
-
-
     @Override
     public void onAdded() {
         balloom = getEntity();
@@ -44,7 +38,6 @@ public class Balloom extends Enemy {
         view.setFitHeight(TILE_SIZE);
         view.setPreserveRatio(false); // hoặc true nếu cần
         getEntity().getViewComponent().addChild(view); // rất quan trọng!
-
 
         BalloomAnimation anim = new BalloomAnimation();
         anim.initializeImageView();
@@ -81,7 +74,6 @@ public class Balloom extends Enemy {
                 }
             }
 
-
             if (Math.abs(balloom.getX() - moveTargetX) < 1 && Math.abs(balloom.getY() - moveTargetY) < 1) {
                 balloom.setPosition(moveTargetX, moveTargetY); // snap to tile
                 isMoving = false;
@@ -89,8 +81,6 @@ public class Balloom extends Enemy {
         } else {
             moveBalloom();
         }
-
-
     }
 
     public void moveBalloom() {
@@ -132,7 +122,6 @@ public class Balloom extends Enemy {
         }
     }
 
-    private boolean isDead = false;
 
     public void balloomDie() {
         isMoving = false; // dừng di chuyển
