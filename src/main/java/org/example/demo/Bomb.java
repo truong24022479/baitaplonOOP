@@ -143,6 +143,10 @@ public class Bomb {
                         enemy.getComponent(Doll.class).dollDie();
                         ENEMY_NUMBERS_LEFT--;
                         System.out.println("Kill Doll\nenemy left " + ENEMY_NUMBERS_LEFT);
+                    }else if (enemy.hasComponent(Minvo.class)) {
+                        enemy.getComponent(Minvo.class).minvoDie();
+                        ENEMY_NUMBERS_LEFT--;
+                        System.out.println("Kill Minvo\nenemy left " + ENEMY_NUMBERS_LEFT);
                     }
                 }
             }
@@ -180,6 +184,10 @@ public class Bomb {
                         enemy.getComponent(Doll.class).dollDie();
                         ENEMY_NUMBERS_LEFT--;
                         System.out.println("Kill Doll\nenemy left " + ENEMY_NUMBERS_LEFT);
+                    }else if (enemy.hasComponent(Minvo.class)) {
+                        enemy.getComponent(Minvo.class).minvoDie();
+                        ENEMY_NUMBERS_LEFT--;
+                        System.out.println("Kill Minvo\nenemy left " + ENEMY_NUMBERS_LEFT);
                     }
                 }
             }
