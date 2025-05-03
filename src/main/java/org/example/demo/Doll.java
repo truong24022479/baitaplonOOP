@@ -79,7 +79,7 @@ public class Doll extends Enemy {
         }
     }
 
-    private void moveDoll() {
+    public void moveDoll() {
         int tileX = (int) (doll.getX() / TILE_SIZE);
         int tileY = (int) (doll.getY() / TILE_SIZE);
 

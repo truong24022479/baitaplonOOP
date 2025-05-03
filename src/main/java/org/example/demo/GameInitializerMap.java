@@ -15,7 +15,7 @@ public class GameInitializerMap {
     private static Entity player;
 
     private static int numOfOneals = 1;
-    private static int numOfBallooms = 1;
+    private static int numOfBallooms = 5;
     private static int numOfDolls = 1;
     private static int numOfMinvos = 1;
 
@@ -61,7 +61,7 @@ public class GameInitializerMap {
 //        BombermanApp.map[portalRow][portalCol] = 4;
     }
 
-    public static void spawnBalloom() {
+    public static void spawnBalloom(int numOfBallooms) {
 //        try {
 //            FXMLLoader loader = new FXMLLoader(GameInitializerMap.class.getResource("/org/example/demo/game_play.fxml"));
 //            Parent root = loader.load();
@@ -97,7 +97,7 @@ public class GameInitializerMap {
         }
     }
 
-    public static void spawnOneal() {
+    public static void spawnOneal(int numOfOneals) {
 //        try {
 //            FXMLLoader loader = new FXMLLoader(GameInitializerMap.class.getResource("/org/example/demo/game_play.fxml"));
 //            Parent root = loader.load();
@@ -134,7 +134,7 @@ public class GameInitializerMap {
 
     }
 
-    public static void spawnDoll() {
+    public static void spawnDoll(int numOfDolls) {
         GamePlay controller = BombermanApp.getController();
         Random random = new Random();
 
@@ -163,7 +163,7 @@ public class GameInitializerMap {
         }
     }
 
-    public static void spawnMinvo() {
+    public static void spawnMinvo(int numOfMinvos) {
         GamePlay controller = BombermanApp.getController();
         Random random = new Random();
 

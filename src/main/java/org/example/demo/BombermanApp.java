@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import com.almasb.fxgl.physics.CollisionHandler;
+import com.almasb.fxgl.entity.Entity;
 
 import com.almasb.fxgl.dsl.FXGL;
 
@@ -94,10 +96,36 @@ public class BombermanApp extends GameApplication {
         player.spawnPlayer();
         player.initInput();
 
-        GameInitializerMap.spawnBalloom();
-        GameInitializerMap.spawnOneal();
-        GameInitializerMap.spawnDoll();
-        GameInitializerMap.spawnMinvo();
+        GameInitializerMap.spawnBalloom(GameInitializerMap.getNumOfBallooms());
+        GameInitializerMap.spawnOneal(GameInitializerMap.getNumOfOneals());
+        GameInitializerMap.spawnDoll(GameInitializerMap.getNumOfDolls());
+        GameInitializerMap.spawnMinvo(GameInitializerMap.getNumOfMinvos());
+    }
+
+    @Override
+    protected void initPhysics() {
+        FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(EntityType.ENEMY, EntityType.BOMB) {
+
+            protected void onCollisionBegin(Entity enemy, Entity bomb) {
+                Enemy enemyComponent = enemy.getComponent(Enemy.class);
+                if (enemyComponent != null) {
+                    enemyComponent.isMoving = false; // Dừng di chuyển
+                    // Đặt lại vị trí vào ô hiện tại
+                    enemy.setPosition(Math.round(enemy.getX() / TILE_SIZE) * TILE_SIZE,
+                            Math.round(enemy.getY() / TILE_SIZE) * TILE_SIZE);
+                    // Kích hoạt chọn hướng mới
+                    if (enemyComponent instanceof Balloom) {
+                        ((Balloom) enemyComponent).moveBalloom();
+                    } else if (enemyComponent instanceof Doll) {
+                        ((Doll) enemyComponent).moveDoll();
+                    } else if (enemyComponent instanceof Oneal) {
+                        ((Oneal) enemyComponent).moveOneal();
+                    } else if (enemyComponent instanceof Minvo) {
+                        ((Minvo) enemyComponent).moveMinvo();
+                    }
+                }
+            }
+        });
     }
 
     private void initializeMap() {

@@ -6,6 +6,8 @@ package org.example.demo;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import javafx.scene.image.Image;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
@@ -59,6 +61,34 @@ public class Balloom extends Enemy {
         }
 
         if (isMoving) {
+            int targetTileX = (int) (moveTargetX / TILE_SIZE);
+            int targetTileY = (int) (moveTargetY / TILE_SIZE);
+            boolean targetStillValid = canMove(targetTileX, targetTileY);
+
+            if (!targetStillValid) {
+                // Dừng di chuyển nếu ô mục tiêu không hợp lệ (có bom, tường, v.v.)
+                isMoving = false;
+                vX = 0;
+                vY = 0;
+                // Đặt lại vị trí vào ô hiện tại
+                balloom.setPosition(Math.round(balloom.getX() / TILE_SIZE) * TILE_SIZE,
+                        Math.round(balloom.getY() / TILE_SIZE) * TILE_SIZE);
+                return;
+            }
+
+            int nextTileX = (int) ((balloom.getX() + vX * tpf) / TILE_SIZE);
+            int nextTileY = (int) ((balloom.getY() + vY * tpf) / TILE_SIZE);
+            if (!canMove(nextTileX, nextTileY)) {
+                // Dừng di chuyển nếu ô tiếp theo có bom hoặc chướng ngại
+                isMoving = false;
+                vX = 0;
+                vY = 0;
+                balloom.setPosition(Math.round(balloom.getX() / TILE_SIZE) * TILE_SIZE,
+                        Math.round(balloom.getY() / TILE_SIZE) * TILE_SIZE);
+                return;
+            }
+
+            // Tiếp tục di chuyển nếu mọi thứ hợp lệ
             balloom.translateX(vX * tpf);
             balloom.translateY(vY * tpf);
 
@@ -136,8 +166,20 @@ public class Balloom extends Enemy {
         FXGL.getGameTimer().runOnceAfter(() -> {
             getEntity().removeFromWorld();
         }, Duration.seconds(0.5));
+
+//        Timeline fadeOut = new Timeline();
+//        fadeOut.getKeyFrames().add(
+//                new KeyFrame(Duration.seconds(0.5),
+//                        event -> {
+//                            view.setOpacity(0); // Giảm opacity về 0
+//                            if (getEntity().isActive()) {
+//                                getEntity().removeFromWorld();
+//                            }
+//                        },
+//                        new javafx.animation.KeyValue(view.opacityProperty(), 0)
+//                )
+//        );
+//        fadeOut.play();
     }
-
-
 }
 

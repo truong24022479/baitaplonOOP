@@ -1,5 +1,6 @@
 package org.example.demo;
 
+import com.almasb.fxgl.audio.Sound;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import javafx.fxml.FXMLLoader;
@@ -30,6 +31,7 @@ public class Bomb {
             + GameInitializerMap.getNumOfMinvos();
 
     static BombAnimation bombAnimation;
+    private Sound bombExplosionSound;
 
     public static double PORTAL_CHANCE = 0.15; // Tỷ lệ xuất hiện portal (15%)
     public static double POWERUP_CHANCE = 0.25; // Tỷ lệ xuất hiện buff (25%)
@@ -49,7 +51,9 @@ public class Bomb {
 
         if (bombAnimation == null) {
             bombAnimation = new BombAnimation(map, explosionRadius); // Truyền explosionRadius
+//            bombExplosionSound = FXGL.getAssetLoader().loadSound("/org/example/demo/sounds/explosion.wav");
         }
+        this.bombExplosionSound = FXGL.getAssetLoader().loadSound("org/example/demo/sounds/explosion.wav");
     }
 
     // Kích hoạt bom với cơ chế đếm ngược
@@ -70,7 +74,11 @@ public class Bomb {
     // Phương thức phát nổ
     private void explode() {
         isExploded = true;
-//        SoundManager.playExplosion();
+        if (bombExplosionSound != null) {
+            FXGL.getAudioPlayer().playSound(bombExplosionSound);
+        } else {
+            System.err.println("bombExplosionSound is null, cannot play sound");
+        }
         affectSurrounding(); // Gây ảnh hưởng đến xung quanh
     }
 
