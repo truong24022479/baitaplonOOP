@@ -7,9 +7,12 @@ import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
+import static org.example.demo.BombermanApp.*;
 import static org.example.demo.GameInitializerMap.spawnBuff;
 import static org.example.demo.GameInitializerMap.spawnPortal;
 
@@ -25,8 +28,7 @@ public class Bomb {
     public static int TIME_SHOW_EXPLOSION = 1;
     private int timer = 3; // Thời gian đếm ngược (giây)
 
-    public static int ENEMY_NUMBERS_LEFT = GameInitializerMap.getNumOfBallooms()
-            + GameInitializerMap.getNumOfOneals();
+    public static int ENEMY_NUMBERS_LEFT = getNumOfBallooms() + getNumOfOneals() + getNumOfDolls() + getNumOfMinvos();
 
     static BombAnimation bombAnimation;
 
@@ -37,19 +39,20 @@ public class Bomb {
     public static int BRICK_NUMS = 0;
     public static int remainingBuffsToSpawn = 6;
 
-    public Bomb(int x, int y, int timer, int explosionRadius, Entity owner, int[][] map) {
+    public Bomb(int x, int y, int timer, Entity owner, int[][] map) {
         this.x = x;
         this.y = y;
         this.timer = timer;
-        this.explosionRadius = explosionRadius;
         this.isExploded = false;
         this.owner = owner;
         this.map = map;
 
         if (bombAnimation == null) {
-            bombAnimation = new BombAnimation(map, explosionRadius); // Truyền explosionRadius
+            bombAnimation = new BombAnimation(map); // Truyền explosionRadius
         }
     }
+
+    static int k = 0;
 
     // Kích hoạt bom với cơ chế đếm ngược
     public void activate(int timeInSeconds) {
@@ -69,112 +72,125 @@ public class Bomb {
     // Phương thức phát nổ
     private void explode() {
         isExploded = true;
+//        SoundManager.playExplosion();
         affectSurrounding(); // Gây ảnh hưởng đến xung quanh
     }
 
     private void affectSurrounding() {
         int[][] dir = {{1, 0}, {0, 1}, {0, -1}, {-1, 0}};
         String[] directions = {"right", "down", "up", "left"};
+        Set<Object> killed = new HashSet<>();
 
-        bombAnimation.showExplosion(x * BombermanApp.TILE_SIZE, y * BombermanApp.TILE_SIZE, true, false, "");
-        hitCenterBomb(x, y);
+        BombAnimation.centerExplode(x * BombermanApp.TILE_SIZE, y * BombermanApp.TILE_SIZE);
+        hitCenterBomb(x, y, killed);
+
         for (int d = 0; d < dir.length; d++) {
             int[] direction = dir[d];
             String directionStr = directions[d];
-            boolean stopped = false;
-
-            int nx = x + direction[0];
-            int ny = y + direction[1];
-            if (nx < 0 || nx >= map[0].length || ny < 0 || ny >= map.length || map[ny][nx] == 1) {
-                continue;
-            }
-
             for (int i = 1; i <= explosionRadius; i++) {
-                nx = x + direction[0] * i;
-                ny = y + direction[1] * i;
+                int nx = x + direction[0] * i;
+                int ny = y + direction[1] * i;
 
-                if (nx >= 0 && nx < map[0].length && ny >= 0 && ny < map.length) {
-                    if (map[ny][nx] == 1) {
-                        stopped = true;
-                        break;
-                    }
+                if (map[ny][nx] == 1) {
+                    break;
+                }
 
-                    boolean isLast = (i == explosionRadius);
-                    if (!isLast && ny + direction[1] >= 0 && ny + direction[1] < map.length && nx + direction[0] >= 0 && nx + direction[0] < map[0].length) {
-                        isLast = (map[ny + direction[1]][nx + direction[0]] == 1);
-                    }
+                boolean isLast = (i == explosionRadius)
+                        || (ny + direction[1] < 0 || ny + direction[1] >= map.length
+                        || nx + direction[0] < 0 || nx + direction[0] >= map[0].length)
+                        || (map[ny + direction[1]][nx + direction[0]] == 1);
+                hitBomb(nx, ny, killed);
 
-                    if (map[ny][nx] == 0) {
-                        bombAnimation.showExplosion(nx * BombermanApp.TILE_SIZE, ny * BombermanApp.TILE_SIZE, false, isLast, directionStr);
-                    } else if (map[ny][nx] == 2) {
-                        map[ny][nx] = 0;
-                        changeBrickToGrass(nx, ny);
-                        bombAnimation.showExplosion(nx * BombermanApp.TILE_SIZE, ny * BombermanApp.TILE_SIZE, false, isLast, directionStr);
-                        stopped = true;
-                        break;
-                    } // Dừng sau khi phá gạch
-                    hitBomb(nx, ny);
-                } else {
-                    stopped = true;
+                if (map[ny][nx] == 0) {
+                    bombAnimation.showExplosion(nx * BombermanApp.TILE_SIZE, ny * BombermanApp.TILE_SIZE, false, isLast, directionStr);
+                } else if (map[ny][nx] == 2) {
+                    map[ny][nx] = 0;
+                    changeBrickToGrass(nx, ny);
+                    bombAnimation.showExplosion(nx * BombermanApp.TILE_SIZE, ny * BombermanApp.TILE_SIZE, false, isLast, directionStr);
                     break;
                 }
             }
         }
     }
 
-    public static void hitBomb(int nx, int ny) {
+    public static void hitBomb(int nx, int ny, Set<Object> killed) {
+
         double ex = Math.round((Player.getX() / (double) BombermanApp.TILE_SIZE) * 100.0) / 100.0;
         double ey = Math.round((Player.getY() / (double) BombermanApp.TILE_SIZE) * 100.0) / 100.0;
         double c = Math.abs(ex - (double) nx);
         double e = Math.abs(ey - (double) ny);
-        if (c <= 0.95 && e <= 0.95) {
+        if (c <= 0.95 && e <= 0.95 && !killed.contains("player")) {
+            killed.add("player");
             BombermanApp.removePlayer();
-            System.out.println("no banh xac");
+            System.out.println("no banh xac" + k++);
         }
 
         FXGL.getGameWorld().getEntitiesByType(EntityType.ENEMY).forEach(enemy -> {
-            double fx = Math.round((enemy.getX() / (double) BombermanApp.TILE_SIZE) * 100.0) / 100.0;
-            double fy = Math.round((enemy.getY() / (double) BombermanApp.TILE_SIZE) * 100.0) / 100.0;
-            double a = Math.abs(fx - (double) nx);
-            double b = Math.abs(fy - (double) ny);
-            if (a <= 0.95 && b <= 0.95) {
-                if (enemy.hasComponent(Balloom.class)) {
-                    enemy.getComponent(Balloom.class).balloomDie();
-                    ENEMY_NUMBERS_LEFT--;
-                    System.out.println("Kill Balloom\nenemy left " + ENEMY_NUMBERS_LEFT);
-                } else if (enemy.hasComponent(Oneal.class)) {
-                    enemy.getComponent(Oneal.class).onealDie();
-                    ENEMY_NUMBERS_LEFT--;
-                    System.out.println("Kill Oneal\nenemy left " + ENEMY_NUMBERS_LEFT);
+            if (!killed.contains(enemy)) {
+                double fx = Math.round((enemy.getX() / (double) BombermanApp.TILE_SIZE) * 100.0) / 100.0;
+                double fy = Math.round((enemy.getY() / (double) BombermanApp.TILE_SIZE) * 100.0) / 100.0;
+                double a = Math.abs(fx - (double) nx);
+                double b = Math.abs(fy - (double) ny);
+                if (a <= 0.95 && b <= 0.95) {
+                    killed.add(enemy);
+                    if (enemy.hasComponent(Balloom.class)) {
+                        enemy.getComponent(Balloom.class).balloomDie();
+                        ENEMY_NUMBERS_LEFT--;
+                        System.out.println("Kill Balloom\nenemy left " + ENEMY_NUMBERS_LEFT);
+                    } else if (enemy.hasComponent(Oneal.class)) {
+                        enemy.getComponent(Oneal.class).onealDie();
+                        ENEMY_NUMBERS_LEFT--;
+                        System.out.println("Kill Oneal\nenemy left " + ENEMY_NUMBERS_LEFT);
+                    } else if (enemy.hasComponent(Doll.class)) {
+                        enemy.getComponent(Doll.class).dollDie();
+                        ENEMY_NUMBERS_LEFT--;
+                        System.out.println("Kill Doll\nenemy left " + ENEMY_NUMBERS_LEFT);
+                    } else if (enemy.hasComponent(Minvo.class)) {
+                        enemy.getComponent(Minvo.class).minvoDie();
+                        ENEMY_NUMBERS_LEFT--;
+                        System.out.println("Kill Minvo\nenemy left " + ENEMY_NUMBERS_LEFT);
+                    }
                 }
             }
         });
     }
 
-    public static void hitCenterBomb(int nx, int ny) {
+    public static void hitCenterBomb(int nx, int ny, Set<Object> killed) {
         double ex = Math.round((Player.getX() / (double) BombermanApp.TILE_SIZE) * 100.0) / 100.0;
         double ey = Math.round((Player.getY() / (double) BombermanApp.TILE_SIZE) * 100.0) / 100.0;
         double c = Math.abs(ex - (double) nx);
         double e = Math.abs(ey - (double) ny);
-        if (c <= 0.05 && e <= 0.05) {
+        if (c <= 0.95 && e <= 0.95 && !killed.contains("player")) {
+            killed.add("player");
             BombermanApp.removePlayer();
-            System.out.println("no banh xac");
+            System.out.println("no banh xac" + k++);
         }
 
         FXGL.getGameWorld().getEntitiesByType(EntityType.ENEMY).forEach(enemy -> {
-            double fx = Math.round((enemy.getX() / (double) BombermanApp.TILE_SIZE) * 100.0) / 100.0;
-            double fy = Math.round((enemy.getY() / (double) BombermanApp.TILE_SIZE) * 100.0) / 100.0;
-            double a = Math.abs(fx - (double) nx);
-            double b = Math.abs(fy - (double) ny);
-            if (a <= 0.05 && b <= 0.05) {
-                if (enemy.hasComponent(Balloom.class)) {
-                    enemy.getComponent(Balloom.class).balloomDie();
-                    ENEMY_NUMBERS_LEFT--;
-                    System.out.println("Kill Balloom\nenemy left " + ENEMY_NUMBERS_LEFT);
-                } else if (enemy.hasComponent(Oneal.class)) {
-                    enemy.getComponent(Oneal.class).onealDie();
-                    ENEMY_NUMBERS_LEFT--;
-                    System.out.println("Kill Oneal\nenemy left " + ENEMY_NUMBERS_LEFT);
+            if (!killed.contains(enemy)) {
+                double fx = Math.round((enemy.getX() / (double) BombermanApp.TILE_SIZE) * 100.0) / 100.0;
+                double fy = Math.round((enemy.getY() / (double) BombermanApp.TILE_SIZE) * 100.0) / 100.0;
+                double a = Math.abs(fx - (double) nx);
+                double b = Math.abs(fy - (double) ny);
+                if (a <= 0.95 && b <= 0.95) {
+                    killed.add(enemy);
+                    if (enemy.hasComponent(Balloom.class)) {
+                        enemy.getComponent(Balloom.class).balloomDie();
+                        ENEMY_NUMBERS_LEFT--;
+                        System.out.println("Kill Balloom\nenemy left " + ENEMY_NUMBERS_LEFT);
+                    } else if (enemy.hasComponent(Oneal.class)) {
+                        enemy.getComponent(Oneal.class).onealDie();
+                        ENEMY_NUMBERS_LEFT--;
+                        System.out.println("Kill Oneal tại\nenemy left " + ENEMY_NUMBERS_LEFT);
+                    } else if (enemy.hasComponent(Doll.class)) {
+                        enemy.getComponent(Doll.class).dollDie();
+                        ENEMY_NUMBERS_LEFT--;
+                        System.out.println("Kill Doll\nenemy left " + ENEMY_NUMBERS_LEFT);
+                    } else if (enemy.hasComponent(Minvo.class)) {
+                        enemy.getComponent(Minvo.class).minvoDie();
+                        ENEMY_NUMBERS_LEFT--;
+                        System.out.println("Kill Minvo\nenemy left " + ENEMY_NUMBERS_LEFT);
+                    }
                 }
             }
         });
@@ -189,7 +205,7 @@ public class Bomb {
         int tileY = (int) Math.round(player.getY() / 32.0);
 
         // Đặt bom tại tile hiện tại của player
-        Bomb bomb = new Bomb(tileX, tileY, timer, explosionRadius, player, map);
+        Bomb bomb = new Bomb(tileX, tileY, timer, player, map);
         bombAnimation.showBombAnimation(tileX * TILE_SIZE, tileY * TILE_SIZE);
         bomb.activate(timer);
     }
@@ -216,14 +232,9 @@ public class Bomb {
         grassView.setFitHeight(TILE_SIZE);
         grassView.setPreserveRatio(false);
 
-        entityBuilder()
-                .type(EntityType.GRASS)
-                .at(nx * TILE_SIZE, ny * TILE_SIZE)
-                .zIndex(0)
-                .viewWithBBox(grassView)
-                .buildAndAttach();
+        entityBuilder().type(EntityType.GRASS).at(nx * TILE_SIZE, ny * TILE_SIZE).zIndex(0).viewWithBBox(grassView).buildAndAttach();
 
-       // int totalItemsNeeded = 7;
+        // int totalItemsNeeded = 7;
         int itemsRemaining = (remainingBuffsToSpawn + (portalSpawned ? 0 : 1));
 
         if (BRICK_NUMS <= itemsRemaining && itemsRemaining > 0) {

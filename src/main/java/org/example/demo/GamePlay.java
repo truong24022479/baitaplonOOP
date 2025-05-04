@@ -27,6 +27,27 @@ public class GamePlay {
     }
 
     @FXML
+    private ImageView dollImageView;
+
+    public ImageView getDollImageView() {
+        return new ImageView(dollImageView.getImage());
+    }
+
+    @FXML
+    private ImageView minvoImageView;
+
+    public ImageView getMinvoImageView() {
+//        return new ImageView(minvoImageView.getImage());
+        ImageView view = new ImageView(minvoImageView.getImage());
+        view.setFitWidth(minvoImageView.getFitWidth());
+        view.setFitHeight(minvoImageView.getFitHeight());
+        view.setPreserveRatio(minvoImageView.isPreserveRatio());
+        view.setSmooth(minvoImageView.isSmooth());
+        return view;
+    }
+
+
+    @FXML
     private ImageView wall;
 
     public ImageView getWall() {

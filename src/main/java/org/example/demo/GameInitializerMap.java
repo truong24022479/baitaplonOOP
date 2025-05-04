@@ -14,16 +14,6 @@ public class GameInitializerMap {
     private static GamePlay controller;
     private static Entity player;
 
-    private static int numOfOneals = 1;
-    private static int numOfballooms = 1;
-
-    public static int getNumOfBallooms() {
-        return numOfballooms;
-    }
-
-    public static int getNumOfOneals() {
-        return numOfOneals;
-    }
 
     public static void initializeMap() {
         for (int row = 0; row < MAP_HEIGHT; row++) {
@@ -41,28 +31,13 @@ public class GameInitializerMap {
         BombermanApp.map[1][1] = 0;
         BombermanApp.map[1][2] = 0;
         BombermanApp.map[2][1] = 0;
-        //BombermanApp.map[MAP_WIDTH - 2][MAP_HEIGHT - 2] = 4;
-        //int portalRow, portalCol;
-//        do {
-//            Random random = new Random();
-//            portalRow = random.nextInt(MAP_HEIGHT - 4) + 2; // Tránh khu vực khởi đầu
-//            portalCol = random.nextInt(MAP_WIDTH - 4) + 2;
-//        } while (BombermanApp.map[portalRow][portalCol] != 0);
-//        BombermanApp.map[portalRow][portalCol] = 4;
     }
 
-    public static void spawnBalloom() {
-//        try {
-//            FXMLLoader loader = new FXMLLoader(GameInitializerMap.class.getResource("/org/example/demo/game_play.fxml"));
-//            Parent root = loader.load();
-//            controller = loader.getController();
-//        } catch (IOException e) {
-//            throw new RuntimeException("Không thể tải file game_play.fxml: " + e.getMessage());
-//        }
+    public static void spawnBalloom(int numOfBallooms) {
         GamePlay controller = BombermanApp.getController();
         Random random = new Random();
 
-        for (int i = 0; i < numOfballooms; i++) {
+        for (int i = 0; i < numOfBallooms; i++) {
             int x, y;
             do {
                 x = random.nextInt(MAP_HEIGHT);
@@ -87,14 +62,7 @@ public class GameInitializerMap {
         }
     }
 
-    public static void spawnOneal() {
-//        try {
-//            FXMLLoader loader = new FXMLLoader(GameInitializerMap.class.getResource("/org/example/demo/game_play.fxml"));
-//            Parent root = loader.load();
-//            controller = loader.getController();
-//        } catch (IOException e) {
-//            throw new RuntimeException("Không thể tải file game_play.fxml: " + e.getMessage());
-//        }
+    public static void spawnOneal(int numOfOneals) {
         GamePlay controller = BombermanApp.getController();
         Random random = new Random();
 
@@ -122,6 +90,64 @@ public class GameInitializerMap {
                     .buildAndAttach();
         }
 
+    }
+
+    public static void spawnDoll(int numOfDolls) {
+        GamePlay controller = BombermanApp.getController();
+        Random random = new Random();
+
+        for (int i = 0; i < numOfDolls; i++) {
+            int x, y;
+            do {
+                x = random.nextInt(MAP_HEIGHT);
+                y = random.nextInt(MAP_WIDTH);
+            } while (BombermanApp.map[x][y] != 0 || (x == 1 && y == 1) || (x == 1 && y == 2) || (x == 2 && y == 1)); // Ensure valid, non-player start spot
+
+            ImageView enemyView = controller.getDollImageView();
+            Doll doll = new Doll();
+            doll.initMap(map, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT);
+
+            enemyView.setFitWidth(TILE_SIZE);
+            enemyView.setFitHeight(TILE_SIZE);
+            enemyView.setPreserveRatio(false);
+
+            entityBuilder()
+                    .type(EntityType.ENEMY)
+                    .at(y * TILE_SIZE, x * TILE_SIZE)
+                    .zIndex(10)
+                    .viewWithBBox(enemyView)
+                    .with(new Doll())
+                    .buildAndAttach();
+        }
+    }
+
+    public static void spawnMinvo(int numOfMinvos) {
+        GamePlay controller = BombermanApp.getController();
+        Random random = new Random();
+
+        for (int i = 0; i < numOfMinvos; i++) {
+            int x, y;
+            do {
+                x = random.nextInt(MAP_HEIGHT);
+                y = random.nextInt(MAP_WIDTH);
+            } while (BombermanApp.map[x][y] != 0 || (x == 1 && y == 1) || (x == 1 && y == 2) || (x == 2 && y == 1)); // Ensure valid, non-player start spot
+
+            ImageView enemyView = controller.getMinvoImageView();
+            Minvo minvo = new Minvo();
+            minvo.initMap(BombermanApp.map, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT);
+
+            enemyView.setFitWidth(TILE_SIZE);
+            enemyView.setFitHeight(TILE_SIZE);
+            enemyView.setPreserveRatio(false);
+
+            entityBuilder()
+                    .type(EntityType.ENEMY)
+                    .at(y * TILE_SIZE, x * TILE_SIZE)
+                    .zIndex(10)
+                    .viewWithBBox(enemyView)
+                    .with(new Minvo())
+                    .buildAndAttach();
+        }
     }
 
     public static void spawnPortal(int x, int y, GamePlay controller) {
