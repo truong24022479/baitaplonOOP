@@ -13,6 +13,7 @@ import java.util.Set;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 import static org.example.demo.BombermanApp.*;
+import static org.example.demo.Buff.playerStrong;
 import static org.example.demo.GameInitializerMap.spawnBuff;
 import static org.example.demo.GameInitializerMap.spawnPortal;
 
@@ -28,14 +29,11 @@ public class Bomb {
     public static int TIME_SHOW_EXPLOSION = 1;
     private int timer = 3; // Thời gian đếm ngược (giây)
 
-    public static int ENEMY_NUMBERS_LEFT = getNumOfBallooms() + getNumOfOneals() + getNumOfDolls() + getNumOfMinvos();
-
     static BombAnimation bombAnimation;
 
     public static double PORTAL_CHANCE = 0.15; // Tỷ lệ xuất hiện portal (15%)
     public static double POWERUP_CHANCE = 0.25; // Tỷ lệ xuất hiện buff (25%)
     public static boolean portalSpawned = false;
-    private boolean playerStrong = false;
     public static int BRICK_NUMS = 0;
     public static int remainingBuffsToSpawn = 6;
 
@@ -119,7 +117,7 @@ public class Bomb {
         double ey = Math.round((Player.getY() / (double) BombermanApp.TILE_SIZE) * 100.0) / 100.0;
         double c = Math.abs(ex - (double) nx);
         double e = Math.abs(ey - (double) ny);
-        if (c <= 0.95 && e <= 0.95 && !killed.contains("player")) {
+        if (c <= 0.95 && e <= 0.95 && !killed.contains("player") && playerStrong == false) {
             killed.add("player");
             BombermanApp.removePlayer();
             System.out.println("no banh xac" + k++);
@@ -160,7 +158,7 @@ public class Bomb {
         double ey = Math.round((Player.getY() / (double) BombermanApp.TILE_SIZE) * 100.0) / 100.0;
         double c = Math.abs(ex - (double) nx);
         double e = Math.abs(ey - (double) ny);
-        if (c <= 0.95 && e <= 0.95 && !killed.contains("player")) {
+        if (c <= 0.95 && e <= 0.95 && !killed.contains("player") && playerStrong == false) {
             killed.add("player");
             BombermanApp.removePlayer();
             System.out.println("no banh xac" + k++);

@@ -11,12 +11,13 @@ import static com.almasb.fxgl.dsl.FXGL.getInput;
 import static org.example.demo.Bomb.remainingBuffsToSpawn;
 import static org.example.demo.BombermanApp.removePlayer;
 import static org.example.demo.Buff.receiveBuff;
+import static org.example.demo.Buff.timeSetBomb;
 
 public class Player implements EntityFactory {
     private static Entity player;
     private static double x;
     private static double y;
-    private double PLAYER_SPEED = 4;
+    public static double PLAYER_SPEED = 1;
     private int TILE_SIZE = BombermanApp.TILE_SIZE;
     private int MAP_WIDTH = BombermanApp.MAP_WIDTH;
     private int MAP_HEIGHT = BombermanApp.MAP_HEIGHT;
@@ -49,7 +50,7 @@ public class Player implements EntityFactory {
         this.TILE_SIZE = TILE_SIZE;
         this.MAP_WIDTH = mapWidth;
         this.MAP_HEIGHT = mapHeight;
-        this.PLAYER_SPEED = 1; // Matches PLAYER_SPEED from BombermanApp
+        this.PLAYER_SPEED = 1;
         this.MOVE_ERROR = moveError;
         this.keyH = new KeyHandle();
         this.x = TILE_SIZE; // Starting position (1,1) in tile coordinates
@@ -137,12 +138,13 @@ public class Player implements EntityFactory {
         }, KeyCode.D);
 
         getInput().addAction(new UserAction("Đặt bom") {
-            private long lastBombTime = -2000; // Thời gian đặt bom lần cuối (miligiây)
 
-            @Override
+
+            public static long lastBombTime = -2000; // Thời gian đặt bom lần cuối (miligiây)
+
             protected void onActionBegin() {
                 long currentTime = System.currentTimeMillis(); // Lấy thời gian hiện tại (miligiây)
-                if (currentTime - lastBombTime >= 500) { // Kiểm tra nếu đã đủ 2 giây
+                if (currentTime - lastBombTime >= timeSetBomb) { // Kiểm tra nếu đã đủ 2 giây
                     Bomb.setBomb(player, map, 1, Bomb.DELAY_BOMB_TIME); // Đặt bom
                     lastBombTime = currentTime; // Cập nhật thời gian đặt bom
                 }
@@ -223,7 +225,7 @@ public class Player implements EntityFactory {
         if (map[tileY][tileX] == 5) {
             Buff.ChangeBuffToGrass(tileX, tileY);
             map[tileY][tileX] = 0;
-            System.out.println("recieve buff at "+tileX+" "+tileY+"\n Buff left "+remainingBuffsToSpawn);
+            System.out.println("recieve buff at " + tileX + " " + tileY + "\n Buff left " + remainingBuffsToSpawn);
             receiveBuff();
         }
         player.setPosition(newX, newY);

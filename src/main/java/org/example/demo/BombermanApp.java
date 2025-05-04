@@ -52,6 +52,7 @@ public class BombermanApp extends GameApplication {
         return numOfMinvos;
     }
 
+    public static int ENEMY_NUMBERS_LEFT = numOfBallooms + numOfMinvos + numOfDolls + numOfOneals;
 
     @Override
     protected void initSettings(GameSettings settings) {
@@ -130,8 +131,8 @@ public class BombermanApp extends GameApplication {
     }
 
     public static void GG() {
-        if (Bomb.ENEMY_NUMBERS_LEFT <= 0 && Player.atPortal == true && availableBuffs.size() == 0) {
-            System.out.println("so quai con lai" + Bomb.ENEMY_NUMBERS_LEFT);
+        if (ENEMY_NUMBERS_LEFT <= 0 && Player.atPortal == true && availableBuffs.size() == 0) {
+            System.out.println("so quai con lai" + ENEMY_NUMBERS_LEFT);
             FXGL.getDialogService().showMessageBox("\uD83C\uDFC6 VICTORY \uD83C\uDFC6", () -> {
                 FXGL.getGameController().exit();
             });
@@ -139,9 +140,9 @@ public class BombermanApp extends GameApplication {
     }
 
     public static void removePlayer() {
-//        SoundManager.playPlayerDeath();
-//        getDialogService().showMessageBox("\uD83D\uDC80 Đồ ngu đồ ăn hại \uD83D\uDC80", () -> {
-//            getGameController().exit();
-//        });
+        //SoundManager.playPlayerDeath();
+        getDialogService().showMessageBox("\uD83D\uDC80 Đồ ngu đồ ăn hại \uD83D\uDC80", () -> {
+            getGameController().exit();
+        });
     }
 }

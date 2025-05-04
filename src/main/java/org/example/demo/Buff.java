@@ -10,6 +10,8 @@ import java.util.Random;
 
 import static com.almasb.fxgl.dsl.FXGL.entityBuilder;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getDialogService;
+import static org.example.demo.Bomb.explosionRadius;
+import static org.example.demo.BombermanApp.ENEMY_NUMBERS_LEFT;
 
 public class Buff {
     private int x, y;
@@ -26,9 +28,14 @@ public class Buff {
         }
     }
 
-    public static void printBuff(String s){
-        getDialogService().showMessageBox(s+"\nPress OK to continue.", () -> {
-            // Không làm gì hết, chỉ hiện message và tiếp tục game
+    public static void printBuff(String s) {
+        if (availableBuffs.isEmpty()) {
+            System.out.println();
+            getDialogService().showMessageBox(s + "No more buffs available!" + "\nPress OK to continue.", () -> {
+            });
+            return;
+        }
+        getDialogService().showMessageBox(s + "\nBuffs remaining: " + (availableBuffs.size() - 1) + "\nPress OK to continue.", () -> {
         });
     }
 
@@ -69,38 +76,48 @@ public class Buff {
 
     public static void applySpeedUp() {
         // Bạn sẽ tự viết logic cho SPEED_UP
-        printBuff("Strings");
-        System.out.println("Applied SPEED_UP buff");
+        printBuff("SPEED_UP");
+        Player.PLAYER_SPEED = 1.5;
     }
 
     public static void applyBombRange() {
         // Bạn sẽ tự viết logic cho BOMB_RANGE
-        printBuff("Strings");
-        System.out.println("Applied BOMB_RANGE buff");
+        printBuff("BOMB_RANGE");
+        explosionRadius = 2;
     }
+
+    public static boolean playerStrong = false;
 
     public static void applyBombPass() {
         // Bạn sẽ tự viết logic cho BOMB_PASS
-        printBuff("Strings");
-        System.out.println("Applied BOMB_PASS buff");
+        printBuff("You will not die because of explosion.");
+        playerStrong = true;
     }
 
-    public static void applyBombs() {
+    public static void applySpawnEnemies() {
         // Bạn sẽ tự viết logic cho BOMBS
-        printBuff("Strings");
-        System.out.println("Applied BOMBS buff");
+        printBuff("Enemies spawned");
+        GameInitializerMap.spawnBalloom(1);
+        GameInitializerMap.spawnOneal(1);
+        GameInitializerMap.spawnDoll(1);
+        GameInitializerMap.spawnMinvo(1);
+        ENEMY_NUMBERS_LEFT += 4;
     }
 
-    public static void applyDetonator() {
+    public static long timeSetBomb = 2000;
+
+    public static void applyTimeSetBomb() {
         // Bạn sẽ tự viết logic cho DETONATOR
-        printBuff("Strings");
-        System.out.println("Applied DETONATOR buff");
+        printBuff("You can set bomb each 0.5 sec.");
+        timeSetBomb = 500;
     }
 
+    /**
+     * last buff
+     */
     public static void applyWallPass() {
         // Bạn sẽ tự viết logic cho WALL_PASS
         printBuff("Strings");
-        System.out.println("Applied WALL_PASS buff");
     }
 
     public static void receiveBuff() {
@@ -125,17 +142,16 @@ public class Buff {
                 applyBombPass();
                 break;
             case 4:
-                applyBombs();
+                applySpawnEnemies();
                 break;
             case 5:
-                applyDetonator();
+                applyTimeSetBomb();
                 break;
             case 6:
                 applyWallPass();
                 break;
         }
 
-        // Xóa loại buff đã chọn khỏi danh sách
         availableBuffs.remove(index);
         System.out.println("Buffs remaining: " + availableBuffs.size());
     }
