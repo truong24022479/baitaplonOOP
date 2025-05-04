@@ -12,6 +12,7 @@ import java.util.Random;
 import java.util.Set;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
+import static org.example.demo.BombermanApp.*;
 import static org.example.demo.GameInitializerMap.spawnBuff;
 import static org.example.demo.GameInitializerMap.spawnPortal;
 
@@ -27,7 +28,7 @@ public class Bomb {
     public static int TIME_SHOW_EXPLOSION = 1;
     private int timer = 3; // Thời gian đếm ngược (giây)
 
-    public static int ENEMY_NUMBERS_LEFT = GameInitializerMap.getNumOfBallooms() + GameInitializerMap.getNumOfOneals() + GameInitializerMap.getNumOfDolls();
+    public static int ENEMY_NUMBERS_LEFT = getNumOfBallooms() + getNumOfOneals() + getNumOfDolls() + getNumOfMinvos();
 
     static BombAnimation bombAnimation;
 
@@ -74,6 +75,7 @@ public class Bomb {
 //        SoundManager.playExplosion();
         affectSurrounding(); // Gây ảnh hưởng đến xung quanh
     }
+
     private void affectSurrounding() {
         int[][] dir = {{1, 0}, {0, 1}, {0, -1}, {-1, 0}};
         String[] directions = {"right", "down", "up", "left"};
@@ -120,7 +122,7 @@ public class Bomb {
         if (c <= 0.95 && e <= 0.95 && !killed.contains("player")) {
             killed.add("player");
             BombermanApp.removePlayer();
-            System.out.println("no banh xac"+k++);
+            System.out.println("no banh xac" + k++);
         }
 
         FXGL.getGameWorld().getEntitiesByType(EntityType.ENEMY).forEach(enemy -> {
@@ -143,7 +145,7 @@ public class Bomb {
                         enemy.getComponent(Doll.class).dollDie();
                         ENEMY_NUMBERS_LEFT--;
                         System.out.println("Kill Doll\nenemy left " + ENEMY_NUMBERS_LEFT);
-                    }else if (enemy.hasComponent(Minvo.class)) {
+                    } else if (enemy.hasComponent(Minvo.class)) {
                         enemy.getComponent(Minvo.class).minvoDie();
                         ENEMY_NUMBERS_LEFT--;
                         System.out.println("Kill Minvo\nenemy left " + ENEMY_NUMBERS_LEFT);
@@ -161,7 +163,7 @@ public class Bomb {
         if (c <= 0.95 && e <= 0.95 && !killed.contains("player")) {
             killed.add("player");
             BombermanApp.removePlayer();
-            System.out.println("no banh xac"+k++);
+            System.out.println("no banh xac" + k++);
         }
 
         FXGL.getGameWorld().getEntitiesByType(EntityType.ENEMY).forEach(enemy -> {
@@ -184,7 +186,7 @@ public class Bomb {
                         enemy.getComponent(Doll.class).dollDie();
                         ENEMY_NUMBERS_LEFT--;
                         System.out.println("Kill Doll\nenemy left " + ENEMY_NUMBERS_LEFT);
-                    }else if (enemy.hasComponent(Minvo.class)) {
+                    } else if (enemy.hasComponent(Minvo.class)) {
                         enemy.getComponent(Minvo.class).minvoDie();
                         ENEMY_NUMBERS_LEFT--;
                         System.out.println("Kill Minvo\nenemy left " + ENEMY_NUMBERS_LEFT);

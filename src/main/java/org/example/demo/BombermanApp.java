@@ -12,7 +12,7 @@ import com.almasb.fxgl.dsl.FXGL;
 import java.io.IOException;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
-import static org.example.demo.Bomb.explosionRadius;
+import static org.example.demo.Buff.availableBuffs;
 
 /// ///////////////////long
 public class BombermanApp extends GameApplication {
@@ -30,6 +30,28 @@ public class BombermanApp extends GameApplication {
     public static GamePlay getController() {
         return controller;
     }
+
+    public static int numOfOneals = 1;
+    public static int numOfBallooms = 1;
+    public static int numOfDolls = 1;
+    public static int numOfMinvos = 1;
+
+    public static int getNumOfBallooms() {
+        return numOfBallooms;
+    }
+
+    public static int getNumOfOneals() {
+        return numOfOneals;
+    }
+
+    public static int getNumOfDolls() {
+        return numOfDolls;
+    }
+
+    public static int getNumOfMinvos() {
+        return numOfMinvos;
+    }
+
 
     @Override
     protected void initSettings(GameSettings settings) {
@@ -85,8 +107,6 @@ public class BombermanApp extends GameApplication {
         PlayerAnimation playerAnimation = new PlayerAnimation();
         playerAnimation.initialize();
 
-//        BombAnimation bombAnimation = new BombAnimation();
-//        bombAnimation.initialize();
         Bomb.bombAnimation = new BombAnimation(map);
 
         player = new Player(TILE_SIZE, MAP_WIDTH, MAP_HEIGHT, Player.MOVE_ERROR);
@@ -94,10 +114,10 @@ public class BombermanApp extends GameApplication {
         player.spawnPlayer();
         player.initInput();
 
-        GameInitializerMap.spawnBalloom();
-        GameInitializerMap.spawnOneal();
-        GameInitializerMap.spawnDoll();
-        GameInitializerMap.spawnMinvo();
+        GameInitializerMap.spawnBalloom(numOfBallooms);
+        GameInitializerMap.spawnOneal(numOfOneals);
+        GameInitializerMap.spawnDoll(numOfDolls);
+        GameInitializerMap.spawnMinvo(numOfMinvos);
     }
 
     private void initializeMap() {
@@ -110,7 +130,7 @@ public class BombermanApp extends GameApplication {
     }
 
     public static void GG() {
-        if (Bomb.ENEMY_NUMBERS_LEFT == 0 && Player.atPortal == true) {
+        if (Bomb.ENEMY_NUMBERS_LEFT <= 0 && Player.atPortal == true && availableBuffs.size() == 0) {
             System.out.println("so quai con lai" + Bomb.ENEMY_NUMBERS_LEFT);
             FXGL.getDialogService().showMessageBox("\uD83C\uDFC6 VICTORY \uD83C\uDFC6", () -> {
                 FXGL.getGameController().exit();
@@ -119,10 +139,6 @@ public class BombermanApp extends GameApplication {
     }
 
     public static void removePlayer() {
-        //FXGL.getGameWorld().removeEntity(player);
-//        FXGL.getDialogService().showMessageBox("\uD83D\uDC80 Đồ ngu đồ ăn hại \uD83D\uDC80", () -> {
-//            FXGL.getGameController().exit();
-//        });
 //        SoundManager.playPlayerDeath();
 //        getDialogService().showMessageBox("\uD83D\uDC80 Đồ ngu đồ ăn hại \uD83D\uDC80", () -> {
 //            getGameController().exit();

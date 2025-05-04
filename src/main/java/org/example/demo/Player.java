@@ -135,16 +135,9 @@ public class Player implements EntityFactory {
                 keyH.rightPressed = false;
             }
         }, KeyCode.D);
-        // Đặt bomb bằng phím Space
-//        getInput().addAction(new UserAction("Đặt bom") {
-//            @Override
-//            protected void onActionBegin() {
-//                Bomb.setBomb(player, map, 1, Bomb.DELAY_BOMB_TIME); // bán kính 1, hẹn giờ 2s
-//            }
-//        }, KeyCode.SPACE);
-        // Đặt bomb bằng phím Space
+
         getInput().addAction(new UserAction("Đặt bom") {
-            private long lastBombTime = -500; // Thời gian đặt bom lần cuối (miligiây)
+            private long lastBombTime = -2000; // Thời gian đặt bom lần cuối (miligiây)
 
             @Override
             protected void onActionBegin() {

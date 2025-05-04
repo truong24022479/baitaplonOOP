@@ -14,26 +14,6 @@ public class GameInitializerMap {
     private static GamePlay controller;
     private static Entity player;
 
-    private static int numOfOneals = 1;
-    private static int numOfBallooms = 1;
-    private static int numOfDolls = 1;
-    private static int numOfMinvos = 1;
-
-    public static int getNumOfBallooms() {
-        return numOfBallooms;
-    }
-
-    public static int getNumOfOneals() {
-        return numOfOneals;
-    }
-
-    public static int getNumOfDolls() {
-        return numOfDolls;
-    }
-
-    public static int getNumOfMinvos() {
-        return numOfMinvos;
-    }
 
     public static void initializeMap() {
         for (int row = 0; row < MAP_HEIGHT; row++) {
@@ -51,24 +31,9 @@ public class GameInitializerMap {
         BombermanApp.map[1][1] = 0;
         BombermanApp.map[1][2] = 0;
         BombermanApp.map[2][1] = 0;
-        //BombermanApp.map[MAP_WIDTH - 2][MAP_HEIGHT - 2] = 4;
-        //int portalRow, portalCol;
-//        do {
-//            Random random = new Random();
-//            portalRow = random.nextInt(MAP_HEIGHT - 4) + 2; // Tránh khu vực khởi đầu
-//            portalCol = random.nextInt(MAP_WIDTH - 4) + 2;
-//        } while (BombermanApp.map[portalRow][portalCol] != 0);
-//        BombermanApp.map[portalRow][portalCol] = 4;
     }
 
-    public static void spawnBalloom() {
-//        try {
-//            FXMLLoader loader = new FXMLLoader(GameInitializerMap.class.getResource("/org/example/demo/game_play.fxml"));
-//            Parent root = loader.load();
-//            controller = loader.getController();
-//        } catch (IOException e) {
-//            throw new RuntimeException("Không thể tải file game_play.fxml: " + e.getMessage());
-//        }
+    public static void spawnBalloom(int numOfBallooms) {
         GamePlay controller = BombermanApp.getController();
         Random random = new Random();
 
@@ -97,14 +62,7 @@ public class GameInitializerMap {
         }
     }
 
-    public static void spawnOneal() {
-//        try {
-//            FXMLLoader loader = new FXMLLoader(GameInitializerMap.class.getResource("/org/example/demo/game_play.fxml"));
-//            Parent root = loader.load();
-//            controller = loader.getController();
-//        } catch (IOException e) {
-//            throw new RuntimeException("Không thể tải file game_play.fxml: " + e.getMessage());
-//        }
+    public static void spawnOneal(int numOfOneals) {
         GamePlay controller = BombermanApp.getController();
         Random random = new Random();
 
@@ -134,7 +92,7 @@ public class GameInitializerMap {
 
     }
 
-    public static void spawnDoll() {
+    public static void spawnDoll(int numOfDolls) {
         GamePlay controller = BombermanApp.getController();
         Random random = new Random();
 
@@ -163,7 +121,7 @@ public class GameInitializerMap {
         }
     }
 
-    public static void spawnMinvo() {
+    public static void spawnMinvo(int numOfMinvos) {
         GamePlay controller = BombermanApp.getController();
         Random random = new Random();
 

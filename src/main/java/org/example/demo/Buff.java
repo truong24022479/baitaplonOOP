@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 import static com.almasb.fxgl.dsl.FXGL.entityBuilder;
+import static com.almasb.fxgl.dsl.FXGLForKtKt.getDialogService;
 
 public class Buff {
     private int x, y;
@@ -16,7 +17,7 @@ public class Buff {
     private static final int TILE_SIZE = BombermanApp.TILE_SIZE;
 
 
-    private static List<Integer> availableBuffs = new ArrayList<>();
+    static List<Integer> availableBuffs = new ArrayList<>();
 
     // Khởi tạo danh sách với các số từ 1 đến 6
     static {
@@ -25,6 +26,11 @@ public class Buff {
         }
     }
 
+    public static void printBuff(String s){
+        getDialogService().showMessageBox(s+"\nPress OK to continue.", () -> {
+            // Không làm gì hết, chỉ hiện message và tiếp tục game
+        });
+    }
 
     public Buff(int x, int y, ImageView view) {
         this.x = x;
@@ -63,31 +69,37 @@ public class Buff {
 
     public static void applySpeedUp() {
         // Bạn sẽ tự viết logic cho SPEED_UP
+        printBuff("Strings");
         System.out.println("Applied SPEED_UP buff");
     }
 
     public static void applyBombRange() {
         // Bạn sẽ tự viết logic cho BOMB_RANGE
+        printBuff("Strings");
         System.out.println("Applied BOMB_RANGE buff");
     }
 
     public static void applyBombPass() {
         // Bạn sẽ tự viết logic cho BOMB_PASS
+        printBuff("Strings");
         System.out.println("Applied BOMB_PASS buff");
     }
 
     public static void applyBombs() {
         // Bạn sẽ tự viết logic cho BOMBS
+        printBuff("Strings");
         System.out.println("Applied BOMBS buff");
     }
 
     public static void applyDetonator() {
         // Bạn sẽ tự viết logic cho DETONATOR
+        printBuff("Strings");
         System.out.println("Applied DETONATOR buff");
     }
 
     public static void applyWallPass() {
         // Bạn sẽ tự viết logic cho WALL_PASS
+        printBuff("Strings");
         System.out.println("Applied WALL_PASS buff");
     }
 
