@@ -13,6 +13,7 @@ import java.io.IOException;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 import static org.example.demo.Buff.availableBuffs;
+import static org.example.demo.GameInitializerMap.spawnBoss;
 
 /// ///////////////////long
 public class BombermanApp extends GameApplication {
@@ -69,7 +70,12 @@ public class BombermanApp extends GameApplication {
     protected void initGame() {
         getGameScene().setBackgroundColor(Color.DEEPPINK);
         map = new int[MAP_HEIGHT][MAP_WIDTH];
-        initializeMap();
+        if (level == 2) {
+            initializeBossMap();
+        } else {
+            initializeMap();
+        }
+        //initializeMap();
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/game_play.fxml"));
@@ -105,24 +111,39 @@ public class BombermanApp extends GameApplication {
             }
         }
 
-        PlayerAnimation playerAnimation = new PlayerAnimation();
-        playerAnimation.initialize();
 
         Bomb.bombAnimation = new BombAnimation(map);
-
-        player = new Player(TILE_SIZE, MAP_WIDTH, MAP_HEIGHT, Player.MOVE_ERROR);
+        PlayerAnimation playerAnimation = new PlayerAnimation();
+        playerAnimation.initialize();
+//        player = new Player(TILE_SIZE, MAP_WIDTH, MAP_HEIGHT, Player.MOVE_ERROR);
         player.setMap(map);
         player.spawnPlayer();
-        player.initInput();
+//        player.initInput();
+        if (level == 1) {
+            GameInitializerMap.spawnBalloom(numOfBallooms);
+            GameInitializerMap.spawnOneal(numOfOneals);
+            GameInitializerMap.spawnDoll(numOfDolls);
+            GameInitializerMap.spawnMinvo(numOfMinvos);
+        } else {
+           // spawnBoss();
+            ENEMY_NUMBERS_LEFT = 1;
+        }
+    }
 
-        GameInitializerMap.spawnBalloom(numOfBallooms);
-        GameInitializerMap.spawnOneal(numOfOneals);
-        GameInitializerMap.spawnDoll(numOfDolls);
-        GameInitializerMap.spawnMinvo(numOfMinvos);
+    private void initializeBossMap() {
+        GameInitializerMap.initializeBossMap();
     }
 
     private void initializeMap() {
         GameInitializerMap.initializeMap();
+    }
+
+    protected void initInput() {
+        // Khởi tạo input cho người chơi một lần duy nhất
+        player = new Player(TILE_SIZE, MAP_WIDTH, MAP_HEIGHT, Player.MOVE_ERROR);
+        player.initInput();
+//        PlayerAnimation playerAnimation = new PlayerAnimation();
+//        playerAnimation.initialize();
     }
 
     @Override
@@ -130,19 +151,56 @@ public class BombermanApp extends GameApplication {
         player.onUpdate(tpf);
     }
 
+    static int level = 2;
+
     public static void GG() {
-        if (ENEMY_NUMBERS_LEFT <= 0 && Player.atPortal == true && availableBuffs.size() == 0) {
-            System.out.println("so quai con lai" + ENEMY_NUMBERS_LEFT);
-            FXGL.getDialogService().showMessageBox("\uD83C\uDFC6 VICTORY \uD83C\uDFC6", () -> {
-                FXGL.getGameController().exit();
+//        if (ENEMY_NUMBERS_LEFT <= 0 && Player.atPortal == true && availableBuffs.size() > 0) {
+//            getDialogService().showMessageBox("You need to find " + availableBuffs.size() + " buffs left.", () -> {
+//            });
+//        }
+        if (ENEMY_NUMBERS_LEFT <= 0 && Player.atPortal == true && availableBuffs.size() == 0 && level == 1) {
+           // System.out.println("so quai con lai" + ENEMY_NUMBERS_LEFT);
+            FXGL.getDialogService().showMessageBox("\uD83C\uDFC6 VICTORY \uD83C\uDFC6 \n BOSS", () -> {
             });
+            startNewLevel();
+            level++;
+            System.out.println("level "+level);
         }
+//        if (level == 2) {
+//            FXGL.getDialogService().showMessageBox("\uD83C\uDFC6 VICTORY \uD83C\uDFC6 \n BOSS", () -> {
+//                FXGL.getGameController().exit();
+//            });
+//        }
+    }
+
+    private static void startNewLevel() {
+        // Gọi onRemoved()
+        FXGL.getGameWorld().getEntitiesByType(EntityType.ENEMY).forEach(enemy -> {
+            if (enemy.hasComponent(Balloom.class)) {
+                enemy.getComponent(Balloom.class).onRemoved();
+            } else if (enemy.hasComponent(Oneal.class)) {
+                enemy.getComponent(Oneal.class).onRemoved();
+            } else if (enemy.hasComponent(Doll.class)) {
+                enemy.getComponent(Doll.class).onRemoved();
+            } else if (enemy.hasComponent(Minvo.class)) {
+                enemy.getComponent(Minvo.class).onRemoved();
+            }
+        });
+        // Xóa tất cả thực thể hiện tại
+        FXGL.getGameWorld().removeEntities(FXGL.getGameWorld().getEntitiesByType(
+                EntityType.PLAYER, EntityType.ENEMY, EntityType.BOMB, EntityType.BRICK,
+                EntityType.GRASS, EntityType.WALL, EntityType.PORTAL, EntityType.BUFF
+        ));
+
+        // Khởi tạo lại game
+        BombermanApp app = (BombermanApp) FXGL.getApp();
+        app.initGame();
     }
 
     public static void removePlayer() {
         //SoundManager.playPlayerDeath();
-        getDialogService().showMessageBox("\uD83D\uDC80 Đồ ngu đồ ăn hại \uD83D\uDC80", () -> {
-            getGameController().exit();
-        });
+//        getDialogService().showMessageBox("\uD83D\uDC80 Đồ ngu đồ ăn hại \uD83D\uDC80", () -> {
+//            getGameController().exit();
+//        });
     }
 }

@@ -10,8 +10,7 @@ import javafx.scene.input.KeyCode;
 import static com.almasb.fxgl.dsl.FXGL.getInput;
 import static org.example.demo.Bomb.remainingBuffsToSpawn;
 import static org.example.demo.BombermanApp.removePlayer;
-import static org.example.demo.Buff.receiveBuff;
-import static org.example.demo.Buff.timeSetBomb;
+import static org.example.demo.Buff.*;
 
 public class Player implements EntityFactory {
     private static Entity player;
@@ -139,7 +138,6 @@ public class Player implements EntityFactory {
 
         getInput().addAction(new UserAction("Đặt bom") {
 
-
             public static long lastBombTime = -2000; // Thời gian đặt bom lần cuối (miligiây)
 
             protected void onActionBegin() {
@@ -223,7 +221,7 @@ public class Player implements EntityFactory {
             BombermanApp.GG();
         } else atPortal = false;
         if (map[tileY][tileX] == 5) {
-            Buff.ChangeBuffToGrass(tileX, tileY);
+            ChangeBuffToGrass(tileX, tileY);
             map[tileY][tileX] = 0;
             System.out.println("recieve buff at " + tileX + " " + tileY + "\n Buff left " + remainingBuffsToSpawn);
             receiveBuff();

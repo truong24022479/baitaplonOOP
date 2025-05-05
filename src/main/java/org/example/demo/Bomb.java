@@ -230,22 +230,43 @@ public class Bomb {
         grassView.setFitHeight(TILE_SIZE);
         grassView.setPreserveRatio(false);
 
-        entityBuilder().type(EntityType.GRASS).at(nx * TILE_SIZE, ny * TILE_SIZE).zIndex(0).viewWithBBox(grassView).buildAndAttach();
+       entityBuilder().type(EntityType.GRASS)
+               .at(nx * TILE_SIZE, ny * TILE_SIZE)
+               .zIndex(0)
+               .viewWithBBox(grassView)
+               .buildAndAttach();
+//
+//        // int totalItemsNeeded = 7;
+//        int itemsRemaining = (remainingBuffsToSpawn + (portalSpawned ? 0 : 1));
+//
+//        if (BRICK_NUMS <= itemsRemaining && itemsRemaining > 0) {
+//            if (!portalSpawned) {
+//                spawnPortal(nx, ny, controller);
+//            } else if (remainingBuffsToSpawn > 0) {
+//                spawnBuff(nx, ny, controller);
+//            }
+//        } else {
+//            Random random = new Random();
+//            if (!portalSpawned && random.nextDouble() < PORTAL_CHANCE) {
+//                spawnPortal(nx, ny, controller);
+//            } else if (remainingBuffsToSpawn > 0 && random.nextDouble() < POWERUP_CHANCE) {
+//                spawnBuff(nx, ny, controller);
+//            }
+//        }
+        if (level == 1) {
+            int itemsRemaining = remainingBuffsToSpawn + (portalSpawned ? 0 : 1);
+            Random random = new Random();
 
-        // int totalItemsNeeded = 7;
-        int itemsRemaining = (remainingBuffsToSpawn + (portalSpawned ? 0 : 1));
-
-        if (BRICK_NUMS <= itemsRemaining && itemsRemaining > 0) {
-            if (!portalSpawned) {
-                spawnPortal(nx, ny, controller);
-            } else if (remainingBuffsToSpawn > 0) {
+            // Ưu tiên spawn buff nếu còn buff cần spawn và số gạch còn lại đủ
+            if (remainingBuffsToSpawn > 0 && BRICK_NUMS <= itemsRemaining + 6) {
                 spawnBuff(nx, ny, controller);
             }
-        } else {
-            Random random = new Random();
-            if (!portalSpawned && random.nextDouble() < PORTAL_CHANCE) {
+            // Spawn portal nếu đã đủ 6 buff và chưa có portal
+            else if (!portalSpawned && remainingBuffsToSpawn == 0 && random.nextDouble() < PORTAL_CHANCE) {
                 spawnPortal(nx, ny, controller);
-            } else if (remainingBuffsToSpawn > 0 && random.nextDouble() < POWERUP_CHANCE) {
+            }
+            // Nếu vẫn còn buff cần spawn nhưng không đủ ưu tiên, thử spawn với xác suất
+            else if (remainingBuffsToSpawn > 0 && random.nextDouble() < POWERUP_CHANCE) {
                 spawnBuff(nx, ny, controller);
             }
         }
