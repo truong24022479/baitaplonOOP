@@ -162,8 +162,8 @@ public class BombermanApp extends GameApplication {
            // System.out.println("so quai con lai" + ENEMY_NUMBERS_LEFT);
             FXGL.getDialogService().showMessageBox("\uD83C\uDFC6 VICTORY \uD83C\uDFC6 \n BOSS", () -> {
             });
-            startNewLevel();
             level++;
+            startNewLevel();
             System.out.println("level "+level);
         }
 //        if (level == 2) {

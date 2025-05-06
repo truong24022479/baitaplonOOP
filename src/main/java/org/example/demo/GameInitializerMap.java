@@ -204,6 +204,7 @@ public class GameInitializerMap {
         Random random = new Random();
         int x = 6, y = 6;
 
+
 //        ImageView bossView = new ImageView(GameInitializerMap.class.getResource("/org/example/demo/sprites/kondoria_dead (1).png").toExternalForm());
 //        Boss boss = new Boss();
 //        boss.initMap(BombermanApp.map, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT);
@@ -219,5 +220,11 @@ public class GameInitializerMap {
                 .collidable()
                 .with(new Boss())
                 .buildAndAttach();
+
+        for (int i = 6; i <= 8; i++) {
+            for (int j = 6; j <= 8; j++) {
+                BombermanApp.map[i][j]=6;
+            }
+        }
     }
 }

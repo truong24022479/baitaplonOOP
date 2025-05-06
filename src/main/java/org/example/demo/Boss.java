@@ -102,12 +102,14 @@ public class Boss extends Enemy {
         bomb.activate(DELAY_BOMB_TIME);
     }
 
-    public void spawnEnemy() {
-        if (health == 15) {
-            GameInitializerMap.spawnBalloom(3);
-        } else if (health == 10) {
-            GameInitializerMap.spawnOneal(3);
-        } else if (health == 5) {
+    public static void spawnEnemy() {
+        if (health <= 15) {
+            GameInitializerMap.spawnBalloom(2);
+        }
+        if (health <= 10) {
+            GameInitializerMap.spawnOneal(2);
+        }
+        if (health <= 5) {
             GameInitializerMap.spawnMinvo(2);
         }
     }

@@ -98,7 +98,7 @@ public class Bomb {
                         || nx + direction[0] < 0 || nx + direction[0] >= map[0].length)
                         || (map[ny + direction[1]][nx + direction[0]] == 1);
                 hitBomb(nx, ny, killed);
-
+                bossHitBomb(nx, ny);
                 if (map[ny][nx] == 0) {
                     bombAnimation.showExplosion(nx * BombermanApp.TILE_SIZE, ny * BombermanApp.TILE_SIZE, false, isLast, directionStr);
                 } else if (map[ny][nx] == 2) {
@@ -106,6 +106,18 @@ public class Bomb {
                     changeBrickToGrass(nx, ny);
                     bombAnimation.showExplosion(nx * BombermanApp.TILE_SIZE, ny * BombermanApp.TILE_SIZE, false, isLast, directionStr);
                     break;
+                }
+            }
+        }
+    }
+
+    public static void bossHitBomb(int nx, int ny) {
+        for (int i = 6; i <= 8; i++) {
+            for (int j = 6; j <= 8; j++) {
+                if (nx == i && ny == j) {
+                    Boss.health--;
+                    System.out.println("Boss health " + Boss.health);
+                    Boss.spawnEnemy();
                 }
             }
         }
@@ -234,11 +246,11 @@ public class Bomb {
         grassView.setFitHeight(TILE_SIZE);
         grassView.setPreserveRatio(false);
 
-       entityBuilder().type(EntityType.GRASS)
-               .at(nx * TILE_SIZE, ny * TILE_SIZE)
-               .zIndex(0)
-               .viewWithBBox(grassView)
-               .buildAndAttach();
+        entityBuilder().type(EntityType.GRASS)
+                .at(nx * TILE_SIZE, ny * TILE_SIZE)
+                .zIndex(0)
+                .viewWithBBox(grassView)
+                .buildAndAttach();
 //
 //        // int totalItemsNeeded = 7;
 //        int itemsRemaining = (remainingBuffsToSpawn + (portalSpawned ? 0 : 1));
