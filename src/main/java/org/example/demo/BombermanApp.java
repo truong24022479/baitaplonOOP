@@ -14,8 +14,12 @@ import java.io.IOException;
 
 import static com.almasb.fxgl.dsl.FXGL.entityBuilder;
 import static com.almasb.fxgl.dsl.FXGL.getGameScene;
+import static com.almasb.fxgl.dsl.FXGLForKtKt.getDialogService;
+import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameController;
 import static org.example.demo.Buff.availableBuffs;
 import static org.example.demo.Buff.resetBuff;
+import static org.example.demo.EndGame.handleGameOver;
+import static org.example.demo.EndGame.handleVictory;
 
 /// ///////////////////long
 public class BombermanApp extends GameApplication {
@@ -173,7 +177,7 @@ public class BombermanApp extends GameApplication {
 //        }
         if (ENEMY_NUMBERS_LEFT <= 0 && Player.atPortal == true && availableBuffs.size() == 0 && level == 1) {
            // System.out.println("so quai con lai" + ENEMY_NUMBERS_LEFT);
-            FXGL.getDialogService().showMessageBox("\uD83C\uDFC6 VICTORY \uD83C\uDFC6 \n BOSS", () -> {
+            FXGL.getDialogService().showMessageBox("\uD83C\uDFC6 VICTORY \uD83C\uDFC6 \n", () -> {
             });
             level++;
             startNewLevel();
@@ -185,6 +189,7 @@ public class BombermanApp extends GameApplication {
 //                FXGL.getGameController().exit();
 //            });
 //        }
+        handleVictory();
     }
 
     private static void startNewLevel() {
@@ -211,11 +216,12 @@ public class BombermanApp extends GameApplication {
         app.initGame();
     }
 
+
     public static void removePlayer() {
-        //SoundManager.playPlayerDeath();
+//        SoundManager.playPlayerDeath();
 //        getDialogService().showMessageBox("\uD83D\uDC80 Đồ ngu đồ ăn hại \uD83D\uDC80", () -> {
 //            getGameController().exit();
 //        });
-        //handleGameOver();
+        handleGameOver();
     }
 }
