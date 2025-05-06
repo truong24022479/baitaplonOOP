@@ -11,15 +11,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.almasb.fxgl.dsl.FXGL.entityBuilder;
 import static com.almasb.fxgl.dsl.FXGL.getGameScene;
-import static org.example.demo.Bomb.explosionRadius;
 import static org.example.demo.Buff.availableBuffs;
 import static org.example.demo.Buff.resetBuff;
-import static org.example.demo.EndGame.handleGameOver;
 
 /// ///////////////////long
 public class BombermanApp extends GameApplication {
@@ -179,8 +175,9 @@ public class BombermanApp extends GameApplication {
            // System.out.println("so quai con lai" + ENEMY_NUMBERS_LEFT);
             FXGL.getDialogService().showMessageBox("\uD83C\uDFC6 VICTORY \uD83C\uDFC6 \n BOSS", () -> {
             });
-            startNewLevel();
             level++;
+            startNewLevel();
+
             System.out.println("level "+level);
         }
 //        if (level == 2) {
@@ -219,6 +216,6 @@ public class BombermanApp extends GameApplication {
 //        getDialogService().showMessageBox("\uD83D\uDC80 Đồ ngu đồ ăn hại \uD83D\uDC80", () -> {
 //            getGameController().exit();
 //        });
-        handleGameOver();
+        //handleGameOver();
     }
 }
