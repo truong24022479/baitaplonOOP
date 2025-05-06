@@ -343,9 +343,10 @@ public class Minvo extends Enemy {
 
         // Cho hiệu ứng tồn tại 0.5s rồi xoá khỏi map
         FXGL.getGameTimer().runOnceAfter(() -> {
-            if (getEntity().isActive()) {
-                getEntity().removeFromWorld();
-            }
+//            if (getEntity().isActive()) {
+//                getEntity().removeFromWorld();
+//            }
+            getEntity().removeFromWorld();
         }, Duration.seconds(0.5));
         GameInitializerMap.spawnOneal(2);
     }

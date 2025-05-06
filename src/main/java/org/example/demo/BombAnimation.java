@@ -10,6 +10,8 @@ import javafx.util.Duration;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.example.demo.EntityType.BOMB;
+
 public class BombAnimation {
     // Các ImageView cho bom
     public static ImageView bomb;
@@ -48,11 +50,9 @@ public class BombAnimation {
     public static ImageView verticalDownLast2;
 
     private final int[][] map;
-    private final int explosionRadius; // Thêm thuộc tính explosionRadius
 
-    public BombAnimation(int[][] map, int explosionRadius) {
+    public BombAnimation(int[][] map) {
         this.map = map;
-        this.explosionRadius = explosionRadius;
         initialize();
     }
 
@@ -161,10 +161,10 @@ public class BombAnimation {
         String[] dirNames = {"right", "down", "up", "left"};
 
         for (int d = 0; d < dir.length; d++) {
-            for (int i = 1; i <= explosionRadius; i++) {
+            for (int i = 1; i <= Bomb.explosionRadius; i++) {
                 int nx = x + dir[d][0] * i;
                 int ny = y + dir[d][1] * i;
-                if (nx < 0 || nx >= map[0].length || ny < 0 || ny >= map.length || map[ny][nx] == 1) {
+                if (map[ny][nx] == 1) {
                     break;
                 }
                 directions.add(dirNames[d]);
@@ -200,19 +200,24 @@ public class BombAnimation {
     }
 
     // Hàm hiển thị animation trung tâm
-    private void centerExplode(int x, int y) {
+    public static void centerExplode(int x, int y) {
         ImageView[] frames = new ImageView[]{center, center1, center2};
         playAnimation(x, y, frames, "Explosion", "center", Bomb.TIME_SHOW_EXPLOSION);
     }
 
+    public static void horizontalExplode(int x, int y) {
+        ImageView[] frames = new ImageView[]{horizontal, horizontal1, horizontal2};
+        playAnimation(x, y, frames, "Explosion", "center", Bomb.TIME_SHOW_EXPLOSION);
+    }
+
     // Hàm chung để chạy animation
-    private void playAnimation(int x, int y, ImageView[] frames, String type, String direction, double duration) {
+    private static void playAnimation(int x, int y, ImageView[] frames, String type, String direction, double duration) {
         ImageView view = new ImageView();
         view.setFitWidth(BombermanApp.TILE_SIZE);
         view.setFitHeight(BombermanApp.TILE_SIZE);
         view.setPreserveRatio(false);
 
-        Entity entity = FXGL.entityBuilder()
+        Entity entity = FXGL.entityBuilder().type(BOMB)
                 .at(x, y)
                 .view(view)
                 .buildAndAttach();

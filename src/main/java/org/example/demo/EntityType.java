@@ -7,6 +7,6 @@ public enum EntityType {
     WALL,
     BRICK,
     GRASS,
-    PORTAL,
-    BOMB
+    BOMB,
+    PORTAL
 }

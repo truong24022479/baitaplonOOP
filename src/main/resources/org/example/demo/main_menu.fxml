@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Button?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.example.demo.MenuControler" prefWidth="800" prefHeight="600">
-    <VBox alignment="CENTER" spacing="10" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
-          AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0">
-        <Button text="Start Game" onAction="#startGame"/>
-        <Button text="Exit" onAction="#exitGame"/>
-    </VBox>
-</AnchorPane>
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.MenuControler">
+    <children>
+        <!-- Các nút -->
+        <VBox alignment="CENTER" spacing="30.0"> <!-- Tăng spacing để dễ nhìn hơn -->
+            <padding>
+                <Insets bottom="150.0" left="100.0" right="100.0" top="150.0" /> <!-- Tăng padding để có không gian rộng rãi hơn -->
+            </padding>
+            <children>
+                <Label text="Bomberman Game" textFill="white">
+                    <font>
+                        <Font size="60.0" /> <!-- Tăng kích thước font tiêu đề -->
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="60.0" /> <!-- Tăng khoảng cách bên dưới tiêu đề -->
+                    </VBox.margin>
+                </Label>
+                <Button mnemonicParsing="false" onAction="#startGame" style="-fx-font-size: 20px; -fx-text-fill: black; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 2px; -fx-padding: 15px 30px;" text="NEW GAME" />
+                <Button mnemonicParsing="false" onAction="#showGuide" prefHeight="64.0" prefWidth="166.0" style="-fx-font-size: 20px; -fx-text-fill: black; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 2px; -fx-padding: 15px 30px;" text="OPTIONS" />
+                <Button mnemonicParsing="false" onAction="#exitGame" prefWidth="164.0" style="-fx-font-size: 20px; -fx-text-fill: black; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 2px; -fx-padding: 15px 30px;" text="EXIT" />
+            </children>
+        </VBox>
+    </children>
+</StackPane>

@@ -14,26 +14,6 @@ public class GameInitializerMap {
     private static GamePlay controller;
     private static Entity player;
 
-    private static int numOfOneals = 1;
-    private static int numOfBallooms = 5;
-    private static int numOfDolls = 1;
-    private static int numOfMinvos = 1;
-
-    public static int getNumOfBallooms() {
-        return numOfBallooms;
-    }
-
-    public static int getNumOfOneals() {
-        return numOfOneals;
-    }
-
-    public static int getNumOfDolls() {
-        return numOfDolls;
-    }
-
-    public static int getNumOfMinvos() {
-        return numOfMinvos;
-    }
 
     public static void initializeMap() {
         for (int row = 0; row < MAP_HEIGHT; row++) {
@@ -51,24 +31,9 @@ public class GameInitializerMap {
         BombermanApp.map[1][1] = 0;
         BombermanApp.map[1][2] = 0;
         BombermanApp.map[2][1] = 0;
-        //BombermanApp.map[MAP_WIDTH - 2][MAP_HEIGHT - 2] = 4;
-        //int portalRow, portalCol;
-//        do {
-//            Random random = new Random();
-//            portalRow = random.nextInt(MAP_HEIGHT - 4) + 2; // Tránh khu vực khởi đầu
-//            portalCol = random.nextInt(MAP_WIDTH - 4) + 2;
-//        } while (BombermanApp.map[portalRow][portalCol] != 0);
-//        BombermanApp.map[portalRow][portalCol] = 4;
     }
 
     public static void spawnBalloom(int numOfBallooms) {
-//        try {
-//            FXMLLoader loader = new FXMLLoader(GameInitializerMap.class.getResource("/org/example/demo/game_play.fxml"));
-//            Parent root = loader.load();
-//            controller = loader.getController();
-//        } catch (IOException e) {
-//            throw new RuntimeException("Không thể tải file game_play.fxml: " + e.getMessage());
-//        }
         GamePlay controller = BombermanApp.getController();
         Random random = new Random();
 
@@ -98,13 +63,6 @@ public class GameInitializerMap {
     }
 
     public static void spawnOneal(int numOfOneals) {
-//        try {
-//            FXMLLoader loader = new FXMLLoader(GameInitializerMap.class.getResource("/org/example/demo/game_play.fxml"));
-//            Parent root = loader.load();
-//            controller = loader.getController();
-//        } catch (IOException e) {
-//            throw new RuntimeException("Không thể tải file game_play.fxml: " + e.getMessage());
-//        }
         GamePlay controller = BombermanApp.getController();
         Random random = new Random();
 
@@ -209,6 +167,7 @@ public class GameInitializerMap {
     }
 
     public static void spawnBuff(int x, int y, GamePlay controller) {
+        if (Bomb.remainingBuffsToSpawn <= 0) return;
         ImageView buffImage = controller.getBuffImage();
         buffImage.setFitWidth(TILE_SIZE);
         buffImage.setFitHeight(TILE_SIZE);
@@ -222,5 +181,50 @@ public class GameInitializerMap {
                 .buildAndAttach();
         Bomb.remainingBuffsToSpawn--;
         new Buff( x, y, null);
+    }
+
+    public static void initializeBossMap() {
+        Bomb.BRICK_NUMS = 0;
+        // Bản đồ đơn giản hơn, ít gạch, không portal
+        for (int row = 0; row < MAP_HEIGHT; row++) {
+            for (int col = 0; col < MAP_WIDTH; col++) {
+                if (row == 0 || row == MAP_HEIGHT - 1 || col == 0 || col == MAP_WIDTH - 1) {
+                    BombermanApp.map[row][col] = 1; // Tường viền
+                } else {
+                    BombermanApp.map[row][col] = 0;
+                }
+            }
+        }
+        BombermanApp.map[1][1] = 0;
+        BombermanApp.map[1][2] = 0;
+        BombermanApp.map[2][1] = 0;
+    }
+    public static void spawnBoss() {
+        GamePlay controller = BombermanApp.getController();
+        Random random = new Random();
+        int x = 6, y = 6;
+
+
+//        ImageView bossView = new ImageView(GameInitializerMap.class.getResource("/org/example/demo/sprites/kondoria_dead (1).png").toExternalForm());
+//        Boss boss = new Boss();
+//        boss.initMap(BombermanApp.map, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT);
+//        bossView.setFitWidth(3 * TILE_SIZE);
+//        bossView.setFitHeight(3 * TILE_SIZE);
+//        bossView.setPreserveRatio(false);
+
+        entityBuilder()
+                .type(EntityType.ENEMY)
+                .at(y * TILE_SIZE, x * TILE_SIZE)
+                .zIndex(10)
+//                .viewWithBBox(bossView)
+                .collidable()
+                .with(new Boss())
+                .buildAndAttach();
+
+        for (int i = 6; i <= 8; i++) {
+            for (int j = 6; j <= 8; j++) {
+                BombermanApp.map[i][j]=6;
+            }
+        }
     }
 }
