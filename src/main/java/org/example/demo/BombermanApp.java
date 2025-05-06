@@ -2,6 +2,8 @@ package org.example.demo;
 
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
+import com.almasb.fxgl.app.scene.FXGLMenu;
+import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxgl.dsl.FXGL;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -66,6 +68,14 @@ public class BombermanApp extends GameApplication {
         settings.setHeight(MAP_HEIGHT * TILE_SIZE);
         settings.setTitle("Bomberman Game");
         settings.setVersion("1.0");
+
+        settings.setMainMenuEnabled(true); // Bật chức năng menu chính
+        settings.setSceneFactory(new SceneFactory(){
+            @Override
+            public FXGLMenu newMainMenu() {
+                return new ViewMenu();
+            }
+        });
     }
 
     protected void initUI() {
