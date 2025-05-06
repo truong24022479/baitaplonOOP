@@ -2,8 +2,6 @@ package org.example.demo;
 
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
-import com.almasb.fxgl.app.scene.FXGLMenu;
-import com.almasb.fxgl.app.scene.SceneFactory;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
@@ -15,6 +13,7 @@ import java.io.IOException;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 import static org.example.demo.Buff.availableBuffs;
+import static org.example.demo.GameInitializerMap.spawnBoss;
 
 /// ///////////////////long
 public class BombermanApp extends GameApplication {
@@ -24,7 +23,6 @@ public class BombermanApp extends GameApplication {
     public static final int MAP_WIDTH = 15;
     public static final int MAP_HEIGHT = 15;
     private static GamePlay controller;
-    private static boolean inputInitialized = false;
 
     public int[][] getMap() {
         return map;
@@ -57,54 +55,28 @@ public class BombermanApp extends GameApplication {
 
     public static int ENEMY_NUMBERS_LEFT = numOfBallooms + numOfMinvos + numOfDolls + numOfOneals;
 
-    public static void resetGame() {
-        inputInitialized = false;
-        Player.atPortal = false;
-        Player.PLAYER_SPEED = 1;
-        Player.MOVE_ERROR = 10;
-//        Player.lastBombTime = -2000;
-        Buff.timeSetBomb = 1000;
-        Buff.availableBuffs.clear();
-//        Bomb.bombCount = 1;
-
-        // Đặt lại trạng thái phím bằng cách sử dụng getter
-        if (player != null && player.getKeyHandle() != null) {
-            KeyHandle keyHandle = player.getKeyHandle();
-            keyHandle.upPressed = false;
-            keyHandle.downPressed = false;
-            keyHandle.leftPressed = false;
-            keyHandle.rightPressed = false;
-        }
-
-        ENEMY_NUMBERS_LEFT = numOfBallooms + numOfMinvos + numOfDolls + numOfOneals;
-
-        System.out.println("Game state reset.");
-    }
-
     @Override
     protected void initSettings(GameSettings settings) {
         settings.setWidth(MAP_WIDTH * TILE_SIZE);
         settings.setHeight(MAP_HEIGHT * TILE_SIZE);
         settings.setTitle("Bomberman Game");
         settings.setVersion("1.0");
-        settings.setMainMenuEnabled(true); // Bật chức năng menu chính
-        settings.setSceneFactory(new SceneFactory() {
-            @Override
-            public FXGLMenu newMainMenu() {
-                return new ViewMenu(); // Sử dụng ViewMenu làm menu chính
-            }
-        });
     }
 
     protected void initUI() {
         //GameInitializerMap.initUI();
     }
 
-    @Override
     protected void initGame() {
         getGameScene().setBackgroundColor(Color.DEEPPINK);
-        map = new int [MAP_HEIGHT][MAP_WIDTH];
-        initializeMap();
+        map = new int[MAP_HEIGHT][MAP_WIDTH];
+        if (level == 2) {
+            initializeBossMap();
+        } else {
+            initializeMap();
+        }
+        //initializeMap();
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/game_play.fxml"));
             Parent root = loader.load();
@@ -118,13 +90,13 @@ public class BombermanApp extends GameApplication {
                 ImageView view;
                 EntityType type;
 
-                if (map [row][col] == 1) {
+                if (map[row][col] == 1) {
                     view = controller.getWall();
                     type = EntityType.WALL;
-                } else if (map [row][col] == 2) {
+                } else if (map[row][col] == 2) {
                     view = controller.getBrick();
                     type = EntityType.BRICK;
-                } else if (map [row][col] == 4) {
+                } else if (map[row][col] == 4) {
                     view = controller.getPortal();
                     type = EntityType.PORTAL;
                 } else {
@@ -139,51 +111,96 @@ public class BombermanApp extends GameApplication {
             }
         }
 
-        PlayerAnimation playerAnimation = new PlayerAnimation();
-        playerAnimation.initialize();
 
         Bomb.bombAnimation = new BombAnimation(map);
-
-        player = new Player(TILE_SIZE, MAP_WIDTH, MAP_HEIGHT, Player.MOVE_ERROR);
+        PlayerAnimation playerAnimation = new PlayerAnimation();
+        playerAnimation.initialize();
+//        player = new Player(TILE_SIZE, MAP_WIDTH, MAP_HEIGHT, Player.MOVE_ERROR);
         player.setMap(map);
         player.spawnPlayer();
-
-        if (!inputInitialized) {
-            player.initInput();
-            inputInitialized = true;
+//        player.initInput();
+        if (level == 1) {
+            GameInitializerMap.spawnBalloom(numOfBallooms);
+            GameInitializerMap.spawnOneal(numOfOneals);
+            GameInitializerMap.spawnDoll(numOfDolls);
+            GameInitializerMap.spawnMinvo(numOfMinvos);
+        } else {
+           // spawnBoss();
+            ENEMY_NUMBERS_LEFT = 1;
         }
-
-        GameInitializerMap.spawnBalloom(numOfBallooms);
-        GameInitializerMap.spawnOneal(numOfOneals);
-        GameInitializerMap.spawnDoll(numOfDolls);
-        GameInitializerMap.spawnMinvo(numOfMinvos);
     }
+
+    private void initializeBossMap() {
+        GameInitializerMap.initializeBossMap();
+    }
+
     private void initializeMap() {
         GameInitializerMap.initializeMap();
+    }
+
+    protected void initInput() {
+        // Khởi tạo input cho người chơi một lần duy nhất
+        player = new Player(TILE_SIZE, MAP_WIDTH, MAP_HEIGHT, Player.MOVE_ERROR);
+        player.initInput();
+//        PlayerAnimation playerAnimation = new PlayerAnimation();
+//        playerAnimation.initialize();
     }
 
     @Override
     protected void onUpdate(double tpf) {
         player.onUpdate(tpf);
     }
-
-//    public static void GG() {
-//        if (ENEMY_NUMBERS_LEFT <= 0 && Player.atPortal == true && availableBuffs.size() == 0) {
-//            System.out.println("so quai con lai" + ENEMY_NUMBERS_LEFT);
-//            FXGL.getDialogService().showMessageBox("\uD83C\uDFC6 VICTORY \uD83C\uDFC6", () -> {
+////////////////////////////////////////////////////////
+    static int level = 2;
+////////////////////////////////////////////////////////
+    public static void GG() {
+//        if (ENEMY_NUMBERS_LEFT <= 0 && Player.atPortal == true && availableBuffs.size() > 0) {
+//            getDialogService().showMessageBox("You need to find " + availableBuffs.size() + " buffs left.", () -> {
+//            });
+//        }
+        if (ENEMY_NUMBERS_LEFT <= 0 && Player.atPortal == true && availableBuffs.size() == 0 && level == 1) {
+           // System.out.println("so quai con lai" + ENEMY_NUMBERS_LEFT);
+            FXGL.getDialogService().showMessageBox("\uD83C\uDFC6 VICTORY \uD83C\uDFC6 \n BOSS", () -> {
+            });
+            startNewLevel();
+            level++;
+            System.out.println("level "+level);
+        }
+//        if (level == 2) {
+//            FXGL.getDialogService().showMessageBox("\uD83C\uDFC6 VICTORY \uD83C\uDFC6 \n BOSS", () -> {
 //                FXGL.getGameController().exit();
 //            });
 //        }
-//    }
-    public static void GG() {
-        if (Player.atPortal) {
-            System.out.println("Người chơi đã vào cổng!");
-            EndGame.handleVictory(); // Gọi hàm xử lý chiến thắng từ EndGame
-        }
+    }
+
+    private static void startNewLevel() {
+        // Gọi onRemoved()
+        FXGL.getGameWorld().getEntitiesByType(EntityType.ENEMY).forEach(enemy -> {
+            if (enemy.hasComponent(Balloom.class)) {
+                enemy.getComponent(Balloom.class).onRemoved();
+            } else if (enemy.hasComponent(Oneal.class)) {
+                enemy.getComponent(Oneal.class).onRemoved();
+            } else if (enemy.hasComponent(Doll.class)) {
+                enemy.getComponent(Doll.class).onRemoved();
+            } else if (enemy.hasComponent(Minvo.class)) {
+                enemy.getComponent(Minvo.class).onRemoved();
+            }
+        });
+        // Xóa tất cả thực thể hiện tại
+        FXGL.getGameWorld().removeEntities(FXGL.getGameWorld().getEntitiesByType(
+                EntityType.PLAYER, EntityType.ENEMY, EntityType.BOMB, EntityType.BRICK,
+                EntityType.GRASS, EntityType.WALL, EntityType.PORTAL, EntityType.BUFF
+        ));
+
+        // Khởi tạo lại game
+        BombermanApp app = (BombermanApp) FXGL.getApp();
+        app.initGame();
     }
 
     public static void removePlayer() {
         //SoundManager.playPlayerDeath();
-        EndGame.handleGameOver(); // Gọi hàm xử lý thua cuộc từ EndGame
+//        getDialogService().showMessageBox("\uD83D\uDC80 Đồ ngu đồ ăn hại \uD83D\uDC80", () -> {
+//            getGameController().exit();
+//        });
     }
 }

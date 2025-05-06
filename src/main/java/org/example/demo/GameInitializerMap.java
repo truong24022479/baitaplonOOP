@@ -167,6 +167,7 @@ public class GameInitializerMap {
     }
 
     public static void spawnBuff(int x, int y, GamePlay controller) {
+        if (Bomb.remainingBuffsToSpawn <= 0) return;
         ImageView buffImage = controller.getBuffImage();
         buffImage.setFitWidth(TILE_SIZE);
         buffImage.setFitHeight(TILE_SIZE);
@@ -180,5 +181,44 @@ public class GameInitializerMap {
                 .buildAndAttach();
         Bomb.remainingBuffsToSpawn--;
         new Buff( x, y, null);
+    }
+
+    public static void initializeBossMap() {
+        Bomb.BRICK_NUMS = 0;
+        // Bản đồ đơn giản hơn, ít gạch, không portal
+        for (int row = 0; row < MAP_HEIGHT; row++) {
+            for (int col = 0; col < MAP_WIDTH; col++) {
+                if (row == 0 || row == MAP_HEIGHT - 1 || col == 0 || col == MAP_WIDTH - 1) {
+                    BombermanApp.map[row][col] = 1; // Tường viền
+                } else {
+                    BombermanApp.map[row][col] = 0;
+                }
+            }
+        }
+        BombermanApp.map[1][1] = 0;
+        BombermanApp.map[1][2] = 0;
+        BombermanApp.map[2][1] = 0;
+    }
+    public static void spawnBoss() {
+        GamePlay controller = BombermanApp.getController();
+        Random random = new Random();
+        int x, y;
+        do {
+            x = random.nextInt(MAP_HEIGHT);
+            y = random.nextInt(MAP_WIDTH);
+        } while (BombermanApp.map[x][y] != 0 || (x == 1 && y == 1) || (x == 1 && y == 2) || (x == 2 && y == 1));
+
+        ImageView bossView = new ImageView(GameInitializerMap.class.getResource("/org/example/demo/sprites/boss.png").toExternalForm());
+        bossView.setFitWidth(TILE_SIZE);
+        bossView.setFitHeight(TILE_SIZE);
+        bossView.setPreserveRatio(false);
+
+        entityBuilder()
+                .type(EntityType.ENEMY)
+                .at(y * TILE_SIZE, x * TILE_SIZE)
+                .zIndex(10)
+                .viewWithBBox(bossView)
+                //.with(new Boss())
+                .buildAndAttach();
     }
 }
