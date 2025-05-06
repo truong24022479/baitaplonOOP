@@ -150,9 +150,9 @@ public class BombermanApp extends GameApplication {
     protected void onUpdate(double tpf) {
         player.onUpdate(tpf);
     }
-
+////////////////////////////////////////////////////////
     static int level = 2;
-
+////////////////////////////////////////////////////////
     public static void GG() {
 //        if (ENEMY_NUMBERS_LEFT <= 0 && Player.atPortal == true && availableBuffs.size() > 0) {
 //            getDialogService().showMessageBox("You need to find " + availableBuffs.size() + " buffs left.", () -> {
