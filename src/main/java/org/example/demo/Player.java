@@ -18,15 +18,19 @@ public class Player implements EntityFactory {
     private static double x;
     private static double y;
     public static double PLAYER_SPEED = 1;
-    private int TILE_SIZE = BombermanApp.TILE_SIZE;
-    private int MAP_WIDTH = BombermanApp.MAP_WIDTH;
-    private int MAP_HEIGHT = BombermanApp.MAP_HEIGHT;
+    private final int TILE_SIZE;
+    private final int MAP_WIDTH;
+    private final int MAP_HEIGHT;
     public static int MOVE_ERROR = 10;
-    private KeyHandle keyH;
+    private final KeyHandle keyH;
     private int[][] map;
     public static boolean atPortal;
+    private boolean inputInitialized = false;
 
     private PlayerSpriteManager spriteManager;
+    public KeyHandle getKeyHandle() {
+        return keyH;
+    }
 
     public Entity getPlayerEntity() {
         return player;
@@ -64,7 +68,6 @@ public class Player implements EntityFactory {
 
     public void spawnPlayer() {
         spriteManager = new PlayerSpriteManager();
-
         // Lấy ImageView từ PlayerSpriteManager
         ImageView playerView = spriteManager.getPlayerImageView();
         if (playerView == null) {
@@ -84,72 +87,76 @@ public class Player implements EntityFactory {
 
         // Gán player cho spriteManager để quản lý animation
         spriteManager.setPlayer(player);
+
+        // KHÔNG GỌI initInput() Ở ĐÂY NỮA
     }
 
     protected void initInput() {
-        FXGL.getInput().clearAll(); // Xóa tất cả binding cũ
+        if (!inputInitialized) {
+            FXGL.getInput().clearAll(); // Xóa tất cả binding cũ
 
-        FXGL.getInput().addAction(new UserAction("Move Up") {
-            @Override
-            protected void onAction() {
-                keyH.upPressed = true;
-            }
-
-            @Override
-            protected void onActionEnd() {
-                keyH.upPressed = false;
-            }
-        }, KeyCode.W);
-
-        FXGL.getInput().addAction(new UserAction("Move Down") {
-            @Override
-            protected void onAction() {
-                keyH.downPressed = true;
-            }
-
-            @Override
-            protected void onActionEnd() {
-                keyH.downPressed = false;
-            }
-        }, KeyCode.S);
-
-        FXGL.getInput().addAction(new UserAction("Move Left") {
-            @Override
-            protected void onAction() {
-                keyH.leftPressed = true;
-            }
-
-            @Override
-            protected void onActionEnd() {
-                keyH.leftPressed = false;
-            }
-        }, KeyCode.A);
-
-        FXGL.getInput().addAction(new UserAction("Move Right") {
-            @Override
-            protected void onAction() {
-                keyH.rightPressed = true;
-            }
-
-            @Override
-            protected void onActionEnd() {
-                keyH.rightPressed = false;
-            }
-        }, KeyCode.D);
-
-        getInput().addAction(new UserAction("Đặt bom") {
-
-
-            public static long lastBombTime = -2000; // Thời gian đặt bom lần cuối (miligiây)
-
-            protected void onActionBegin() {
-                long currentTime = System.currentTimeMillis(); // Lấy thời gian hiện tại (miligiây)
-                if (currentTime - lastBombTime >= timeSetBomb) { // Kiểm tra nếu đã đủ 2 giây
-                    Bomb.setBomb(player, map, 1, Bomb.DELAY_BOMB_TIME); // Đặt bom
-                    lastBombTime = currentTime; // Cập nhật thời gian đặt bom
+            FXGL.getInput().addAction(new UserAction("Move Up") {
+                @Override
+                protected void onAction() {
+                    keyH.upPressed = true;
                 }
-            }
-        }, KeyCode.SPACE);
+
+                @Override
+                protected void onActionEnd() {
+                    keyH.upPressed = false;
+                }
+            }, KeyCode.W);
+
+            FXGL.getInput().addAction(new UserAction("Move Down") {
+                @Override
+                protected void onAction() {
+                    keyH.downPressed = true;
+                }
+
+                @Override
+                protected void onActionEnd() {
+                    keyH.downPressed = false;
+                }
+            }, KeyCode.S);
+
+            FXGL.getInput().addAction(new UserAction("Move Left") {
+                @Override
+                protected void onAction() {
+                    keyH.leftPressed = true;
+                }
+
+                @Override
+                protected void onActionEnd() {
+                    keyH.leftPressed = false;
+                }
+            }, KeyCode.A);
+
+            FXGL.getInput().addAction(new UserAction("Move Right") {
+                @Override
+                protected void onAction() {
+                    keyH.rightPressed = true;
+                }
+
+                @Override
+                protected void onActionEnd() {
+                    keyH.rightPressed = false;
+                }
+            }, KeyCode.D);
+
+            getInput().addAction(new UserAction("Đặt bom") {
+                public static long lastBombTime = -2000; // Thời gian đặt bom lần cuối (miligiây)
+
+                @Override
+                protected void onActionBegin() {
+                    long currentTime = System.currentTimeMillis(); // Lấy thời gian hiện tại (miligiây)
+                    if (currentTime - lastBombTime >= timeSetBomb) { // Kiểm tra nếu đã đủ thời gian
+                        Bomb.setBomb(player, map, 1, Bomb.DELAY_BOMB_TIME); // Đặt bom
+                        lastBombTime = currentTime; // Cập nhật thời gian đặt bom
+                    }
+                }
+            }, KeyCode.SPACE);
+            inputInitialized = true;
+        }
     }
 
     protected void onUpdate(double tpf) {
@@ -209,7 +216,7 @@ public class Player implements EntityFactory {
 
         for (int ty = topTile; ty <= bottomTile; ty++) {
             for (int tx = leftTile; tx <= rightTile; tx++) {
-                if (map[ty][tx] != 0 && map[ty][tx] != 4 && map[ty][tx] != 5) {
+                if (map != null && ty >= 0 && ty < map.length && tx >= 0 && tx < map [ty].length && map [ty][tx] != 0 && map [ty][tx] != 4 && map [ty][tx] != 5) {
                     return;
                 }
             }
@@ -218,16 +225,20 @@ public class Player implements EntityFactory {
         //System.out.println("at "+ newX+","+newY+"\nat portal "+atPortal);
         int tileX = (int) (newX / BombermanApp.TILE_SIZE);
         int tileY = (int) (newY / BombermanApp.TILE_SIZE);
-        if (map[tileY][tileX] == 4) {
+        if (map != null && tileY >= 0 && tileY < map.length && tileX >= 0 && tileX < map [tileY].length && map [tileY][tileX] == 4) {
             atPortal = true;
             BombermanApp.GG();
         } else atPortal = false;
-        if (map[tileY][tileX] == 5) {
+        if (map != null && tileY >= 0 && tileY < map.length && tileX >= 0 && tileX < map [tileY].length && map [tileY][tileX] == 5) {
             Buff.ChangeBuffToGrass(tileX, tileY);
-            map[tileY][tileX] = 0;
+            if (map != null && tileY >= 0 && tileY < map.length && tileX >= 0 && tileX < map [tileY].length) {
+                map [tileY][tileX] = 0;
+            }
             System.out.println("recieve buff at " + tileX + " " + tileY + "\n Buff left " + remainingBuffsToSpawn);
             receiveBuff();
         }
-        player.setPosition(newX, newY);
+        if (player != null) {
+            player.setPosition(newX, newY);
+        }
     }
 }

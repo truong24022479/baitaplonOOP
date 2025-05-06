@@ -2,6 +2,8 @@ package org.example.demo;
 
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
+import com.almasb.fxgl.app.scene.FXGLMenu;
+import com.almasb.fxgl.app.scene.SceneFactory;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
@@ -22,6 +24,7 @@ public class BombermanApp extends GameApplication {
     public static final int MAP_WIDTH = 15;
     public static final int MAP_HEIGHT = 15;
     private static GamePlay controller;
+    private static boolean inputInitialized = false;
 
     public int[][] getMap() {
         return map;
@@ -54,23 +57,54 @@ public class BombermanApp extends GameApplication {
 
     public static int ENEMY_NUMBERS_LEFT = numOfBallooms + numOfMinvos + numOfDolls + numOfOneals;
 
+    public static void resetGame() {
+        inputInitialized = false;
+        Player.atPortal = false;
+        Player.PLAYER_SPEED = 1;
+        Player.MOVE_ERROR = 10;
+//        Player.lastBombTime = -2000;
+        Buff.timeSetBomb = 1000;
+        Buff.availableBuffs.clear();
+//        Bomb.bombCount = 1;
+
+        // Đặt lại trạng thái phím bằng cách sử dụng getter
+        if (player != null && player.getKeyHandle() != null) {
+            KeyHandle keyHandle = player.getKeyHandle();
+            keyHandle.upPressed = false;
+            keyHandle.downPressed = false;
+            keyHandle.leftPressed = false;
+            keyHandle.rightPressed = false;
+        }
+
+        ENEMY_NUMBERS_LEFT = numOfBallooms + numOfMinvos + numOfDolls + numOfOneals;
+
+        System.out.println("Game state reset.");
+    }
+
     @Override
     protected void initSettings(GameSettings settings) {
         settings.setWidth(MAP_WIDTH * TILE_SIZE);
         settings.setHeight(MAP_HEIGHT * TILE_SIZE);
         settings.setTitle("Bomberman Game");
         settings.setVersion("1.0");
+        settings.setMainMenuEnabled(true); // Bật chức năng menu chính
+        settings.setSceneFactory(new SceneFactory() {
+            @Override
+            public FXGLMenu newMainMenu() {
+                return new ViewMenu(); // Sử dụng ViewMenu làm menu chính
+            }
+        });
     }
 
     protected void initUI() {
         //GameInitializerMap.initUI();
     }
 
+    @Override
     protected void initGame() {
         getGameScene().setBackgroundColor(Color.DEEPPINK);
-        map = new int[MAP_HEIGHT][MAP_WIDTH];
+        map = new int [MAP_HEIGHT][MAP_WIDTH];
         initializeMap();
-
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/game_play.fxml"));
             Parent root = loader.load();
@@ -84,13 +118,13 @@ public class BombermanApp extends GameApplication {
                 ImageView view;
                 EntityType type;
 
-                if (map[row][col] == 1) {
+                if (map [row][col] == 1) {
                     view = controller.getWall();
                     type = EntityType.WALL;
-                } else if (map[row][col] == 2) {
+                } else if (map [row][col] == 2) {
                     view = controller.getBrick();
                     type = EntityType.BRICK;
-                } else if (map[row][col] == 4) {
+                } else if (map [row][col] == 4) {
                     view = controller.getPortal();
                     type = EntityType.PORTAL;
                 } else {
@@ -113,14 +147,17 @@ public class BombermanApp extends GameApplication {
         player = new Player(TILE_SIZE, MAP_WIDTH, MAP_HEIGHT, Player.MOVE_ERROR);
         player.setMap(map);
         player.spawnPlayer();
-        player.initInput();
+
+        if (!inputInitialized) {
+            player.initInput();
+            inputInitialized = true;
+        }
 
         GameInitializerMap.spawnBalloom(numOfBallooms);
         GameInitializerMap.spawnOneal(numOfOneals);
         GameInitializerMap.spawnDoll(numOfDolls);
         GameInitializerMap.spawnMinvo(numOfMinvos);
     }
-
     private void initializeMap() {
         GameInitializerMap.initializeMap();
     }
@@ -130,19 +167,23 @@ public class BombermanApp extends GameApplication {
         player.onUpdate(tpf);
     }
 
+//    public static void GG() {
+//        if (ENEMY_NUMBERS_LEFT <= 0 && Player.atPortal == true && availableBuffs.size() == 0) {
+//            System.out.println("so quai con lai" + ENEMY_NUMBERS_LEFT);
+//            FXGL.getDialogService().showMessageBox("\uD83C\uDFC6 VICTORY \uD83C\uDFC6", () -> {
+//                FXGL.getGameController().exit();
+//            });
+//        }
+//    }
     public static void GG() {
-        if (ENEMY_NUMBERS_LEFT <= 0 && Player.atPortal == true && availableBuffs.size() == 0) {
-            System.out.println("so quai con lai" + ENEMY_NUMBERS_LEFT);
-            FXGL.getDialogService().showMessageBox("\uD83C\uDFC6 VICTORY \uD83C\uDFC6", () -> {
-                FXGL.getGameController().exit();
-            });
+        if (Player.atPortal) {
+            System.out.println("Người chơi đã vào cổng!");
+            EndGame.handleVictory(); // Gọi hàm xử lý chiến thắng từ EndGame
         }
     }
 
     public static void removePlayer() {
         //SoundManager.playPlayerDeath();
-        getDialogService().showMessageBox("\uD83D\uDC80 Đồ ngu đồ ăn hại \uD83D\uDC80", () -> {
-            getGameController().exit();
-        });
+        EndGame.handleGameOver(); // Gọi hàm xử lý thua cuộc từ EndGame
     }
 }
