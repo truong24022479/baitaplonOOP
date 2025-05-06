@@ -2,18 +2,22 @@ package org.example.demo;
 
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
+import com.almasb.fxgl.dsl.FXGL;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
-import com.almasb.fxgl.dsl.FXGL;
-
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-import static com.almasb.fxgl.dsl.FXGL.*;
+import static com.almasb.fxgl.dsl.FXGL.entityBuilder;
+import static com.almasb.fxgl.dsl.FXGL.getGameScene;
+import static org.example.demo.Bomb.explosionRadius;
 import static org.example.demo.Buff.availableBuffs;
-import static org.example.demo.GameInitializerMap.spawnBoss;
+import static org.example.demo.Buff.resetBuff;
+import static org.example.demo.EndGame.handleGameOver;
 
 /// ///////////////////long
 public class BombermanApp extends GameApplication {
@@ -55,6 +59,7 @@ public class BombermanApp extends GameApplication {
 
     public static int ENEMY_NUMBERS_LEFT = numOfBallooms + numOfMinvos + numOfDolls + numOfOneals;
 
+
     @Override
     protected void initSettings(GameSettings settings) {
         settings.setWidth(MAP_WIDTH * TILE_SIZE);
@@ -74,6 +79,8 @@ public class BombermanApp extends GameApplication {
             initializeBossMap();
         } else {
             initializeMap();
+            resetBuff();
+            Buff.createBuff();
         }
         //initializeMap();
 
@@ -151,7 +158,7 @@ public class BombermanApp extends GameApplication {
         player.onUpdate(tpf);
     }
 ////////////////////////////////////////////////////////
-    static int level = 2;
+    static int level = 1;
 ////////////////////////////////////////////////////////
     public static void GG() {
 //        if (ENEMY_NUMBERS_LEFT <= 0 && Player.atPortal == true && availableBuffs.size() > 0) {
@@ -202,5 +209,6 @@ public class BombermanApp extends GameApplication {
 //        getDialogService().showMessageBox("\uD83D\uDC80 Đồ ngu đồ ăn hại \uD83D\uDC80", () -> {
 //            getGameController().exit();
 //        });
+        handleGameOver();
     }
 }

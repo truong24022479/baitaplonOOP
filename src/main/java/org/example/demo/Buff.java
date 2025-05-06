@@ -11,7 +11,7 @@ import java.util.Random;
 import static com.almasb.fxgl.dsl.FXGL.entityBuilder;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getDialogService;
 import static org.example.demo.Bomb.explosionRadius;
-import static org.example.demo.BombermanApp.ENEMY_NUMBERS_LEFT;
+import static org.example.demo.BombermanApp.*;
 
 public class Buff {
     private int x, y;
@@ -22,10 +22,27 @@ public class Buff {
     static List<Integer> availableBuffs = new ArrayList<>();
 
     // Khởi tạo danh sách với các số từ 1 đến 6
-    static {
+//    static {
+//        for (int i = 1; i <= 6; i++) {
+//            availableBuffs.add(i);
+//        }
+//    }
+
+    public static void createBuff(){
+        availableBuffs.clear();
         for (int i = 1; i <= 6; i++) {
             availableBuffs.add(i);
         }
+    }
+    public static void resetBuff(){
+        Player.PLAYER_SPEED=1;
+        ENEMY_NUMBERS_LEFT = numOfBallooms + numOfMinvos + numOfDolls + numOfOneals;
+        Buff.timeSetBomb = 2000;
+        Buff.playerStrong = false;
+        explosionRadius = 1;
+        Bomb.portalSpawned = false;
+        Bomb.BRICK_NUMS = 0;
+        Bomb.remainingBuffsToSpawn = 6;
     }
 
     public static void printBuff(String s) {

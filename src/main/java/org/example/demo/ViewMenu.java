@@ -34,7 +34,7 @@ public class ViewMenu extends FXGLMenu {
 
         Button newGameButton = new Button("NEW GAME");
         newGameButton.setOnAction(e ->{
-            BombermanApp.resetGame(); // Gọi resetGame() trước khi bắt đầu mới
+           // BombermanApp.resetGame(); // Gọi resetGame() trước khi bắt đầu mới
             FXGL.getGameController().startNewGame();
         });
         styleButton(newGameButton, Color.RED);
