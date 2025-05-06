@@ -29,7 +29,7 @@ public class Boss extends Enemy {
     private static final double BOMB_SPAWN = 5;
     private double bombTimer = 0;
 
-    public void onAdded () {
+    public void onAdded() {
         boss = getEntity();
 //        view = new ImageView(getClass().getResource("/org/example/demo/sprites/kondoria_dead.png").toExternalForm());
 //        view.setFitHeight(3 * TILE_SIZE);
@@ -39,7 +39,7 @@ public class Boss extends Enemy {
 
         BossAnimation anim = new BossAnimation();
         anim.initializeImageView();
-        leftFrames =new ImageView[]{BossAnimation.left1, BossAnimation.left2, BossAnimation.left3};
+        leftFrames = new ImageView[]{BossAnimation.left1, BossAnimation.left2, BossAnimation.left3};
         rightFrames = new ImageView[]{BossAnimation.right1, BossAnimation.right2, BossAnimation.right3};
 
 //        for (ImageView imgage : leftFrames) {
@@ -62,7 +62,7 @@ public class Boss extends Enemy {
         initMap(app.getMap(), app.TILE_SIZE, app.MAP_WIDTH, app.MAP_HEIGHT);
     }
 
-    public void onUpdate (double tpf) {
+    public void onUpdate(double tpf) {
         frameTimer += tpf;
         if (frameTimer >= FRAME_DURATION) {
             frameIndex = (frameIndex + 1) % 3;
@@ -95,7 +95,7 @@ public class Boss extends Enemy {
         do {
             x = random.nextInt(MAP_HEIGHT);
             y = random.nextInt(MAP_WIDTH);
-        } while(BombermanApp.map[x][y] != 0);
+        } while (BombermanApp.map[x][y] != 0);
 
         Bomb bomb = new Bomb(x, y, DELAY_BOMB_TIME, boss, map);
         bombAnimation.showBombAnimation(x * TILE_SIZE, y * TILE_SIZE);
@@ -114,13 +114,29 @@ public class Boss extends Enemy {
         }
     }
 
+    //    public void bossDie() {
+//        Image deadImage = new Image(getClass().getResource("/org/example/demo/sprites/kondoria_dead (1).png").toExternalForm());
+//        view.setImage(deadImage);
+//
+//        // Cho hiệu ứng tồn tại 0.5s rồi xoá khỏi map
+//        FXGL.getGameTimer().runOnceAfter(() -> {
+//            getEntity().removeFromWorld();
+//        }, Duration.seconds(0.5));
+//    }
     public void bossDie() {
         Image deadImage = new Image(getClass().getResource("/org/example/demo/sprites/kondoria_dead (1).png").toExternalForm());
         view.setImage(deadImage);
-
-        // Cho hiệu ứng tồn tại 0.5s rồi xoá khỏi map
+        for (int i = 6; i <= 8; i++) {
+            for (int j = 6; j <= 8; j++) {
+                BombermanApp.map[i][j]=0;
+            }
+        }
         FXGL.getGameTimer().runOnceAfter(() -> {
-            getEntity().removeFromWorld();
+            if (getEntity() != null && getEntity().isActive()) {
+                getEntity().removeFromWorld();
+            } else {
+                System.err.println("Cảnh báo: Entity của Boss là null hoặc không hoạt động trong bossDie");
+            }
         }, Duration.seconds(0.5));
     }
 }

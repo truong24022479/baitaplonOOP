@@ -112,6 +112,7 @@ public class Bomb {
     }
 
     public static void bossHitBomb(int nx, int ny) {
+        if(level==1) return;
         for (int i = 6; i <= 8; i++) {
             for (int j = 6; j <= 8; j++) {
                 if (nx == i && ny == j) {

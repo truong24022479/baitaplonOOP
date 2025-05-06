@@ -16,6 +16,7 @@ import static com.almasb.fxgl.dsl.FXGL.entityBuilder;
 import static com.almasb.fxgl.dsl.FXGL.getGameScene;
 import static org.example.demo.Buff.availableBuffs;
 import static org.example.demo.Buff.resetBuff;
+import static org.example.demo.GameInitializerMap.spawnBoss;
 
 /// ///////////////////long
 public class BombermanApp extends GameApplication {
@@ -138,7 +139,7 @@ public class BombermanApp extends GameApplication {
             GameInitializerMap.spawnDoll(numOfDolls);
             GameInitializerMap.spawnMinvo(numOfMinvos);
         } else {
-           // spawnBoss();
+            spawnBoss();
             ENEMY_NUMBERS_LEFT = 1;
         }
     }
@@ -163,28 +164,26 @@ public class BombermanApp extends GameApplication {
     protected void onUpdate(double tpf) {
         player.onUpdate(tpf);
     }
-////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
     static int level = 1;
-////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
     public static void GG() {
 //        if (ENEMY_NUMBERS_LEFT <= 0 && Player.atPortal == true && availableBuffs.size() > 0) {
 //            getDialogService().showMessageBox("You need to find " + availableBuffs.size() + " buffs left.", () -> {
 //            });
 //        }
-        if (ENEMY_NUMBERS_LEFT <= 0 && Player.atPortal == true && availableBuffs.size() == 0 && level == 1) {
-           // System.out.println("so quai con lai" + ENEMY_NUMBERS_LEFT);
+        if (ENEMY_NUMBERS_LEFT <= 0 && Player.atPortal == true && level == 1) {
+            if(availableBuffs.size() > 0){
+                FXGL.getDialogService().showMessageBox("You need to find "+availableBuffs.size()+" left.", () -> {
+                });
+            }
+            System.out.println("so quai con lai" + ENEMY_NUMBERS_LEFT);
             FXGL.getDialogService().showMessageBox("\uD83C\uDFC6 VICTORY \uD83C\uDFC6 \n BOSS", () -> {
             });
             level++;
             startNewLevel();
-
-            System.out.println("level "+level);
+           // System.out.println("level "+level);
         }
-//        if (level == 2) {
-//            FXGL.getDialogService().showMessageBox("\uD83C\uDFC6 VICTORY \uD83C\uDFC6 \n BOSS", () -> {
-//                FXGL.getGameController().exit();
-//            });
-//        }
     }
 
     private static void startNewLevel() {

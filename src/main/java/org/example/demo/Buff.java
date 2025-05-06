@@ -36,13 +36,17 @@ public class Buff {
     }
     public static void resetBuff(){
         Player.PLAYER_SPEED=1;
-        ENEMY_NUMBERS_LEFT = numOfBallooms + numOfMinvos + numOfDolls + numOfOneals;
+        explosionRadius = 1;
         Buff.timeSetBomb = 2000;
         Buff.playerStrong = false;
-        explosionRadius = 1;
+        ENEMY_NUMBERS_LEFT = numOfBallooms + numOfMinvos + numOfDolls + numOfOneals;
         Bomb.portalSpawned = false;
         Bomb.BRICK_NUMS = 0;
         Bomb.remainingBuffsToSpawn = 6;
+
+//        Player.PLAYER_SPEED=2;
+//        Buff.timeSetBomb = 500;
+//        explosionRadius = 2;
     }
 
     public static void printBuff(String s) {
