@@ -125,7 +125,7 @@ public class BombermanApp extends GameApplication {
             GameInitializerMap.spawnDoll(numOfDolls);
             GameInitializerMap.spawnMinvo(numOfMinvos);
         } else {
-           // spawnBoss();
+            spawnBoss();
             ENEMY_NUMBERS_LEFT = 1;
         }
     }

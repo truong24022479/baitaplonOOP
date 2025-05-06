@@ -22,7 +22,7 @@ public class Bomb {
     public static int explosionRadius = 1; // Bán kính nổ
     private boolean isExploded; // Trạng thái bom
     private Entity owner; // Người đặt bom
-    private int[][] map; // Tham chiếu tới bản đồ
+    protected static int[][] map; // Tham chiếu tới bản đồ
     private static int TILE_SIZE = BombermanApp.TILE_SIZE;
 
     public static int DELAY_BOMB_TIME = 2;
@@ -151,6 +151,7 @@ public class Bomb {
                 }
             }
         });
+
     }
 
     public static void hitCenterBomb(int nx, int ny, Set<Object> killed) {
@@ -188,6 +189,9 @@ public class Bomb {
                         enemy.getComponent(Minvo.class).minvoDie();
                         ENEMY_NUMBERS_LEFT--;
                         System.out.println("Kill Minvo\nenemy left " + ENEMY_NUMBERS_LEFT);
+                    } else if (enemy.hasComponent(Boss.class)) {
+                        Boss.health--;
+                        System.out.println("Boss health: " + Boss.health);
                     }
                 }
             }

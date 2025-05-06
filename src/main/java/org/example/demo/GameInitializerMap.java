@@ -202,23 +202,22 @@ public class GameInitializerMap {
     public static void spawnBoss() {
         GamePlay controller = BombermanApp.getController();
         Random random = new Random();
-        int x, y;
-        do {
-            x = random.nextInt(MAP_HEIGHT);
-            y = random.nextInt(MAP_WIDTH);
-        } while (BombermanApp.map[x][y] != 0 || (x == 1 && y == 1) || (x == 1 && y == 2) || (x == 2 && y == 1));
+        int x = 6, y = 6;
 
-        ImageView bossView = new ImageView(GameInitializerMap.class.getResource("/org/example/demo/sprites/boss.png").toExternalForm());
-        bossView.setFitWidth(TILE_SIZE);
-        bossView.setFitHeight(TILE_SIZE);
-        bossView.setPreserveRatio(false);
+//        ImageView bossView = new ImageView(GameInitializerMap.class.getResource("/org/example/demo/sprites/kondoria_dead (1).png").toExternalForm());
+//        Boss boss = new Boss();
+//        boss.initMap(BombermanApp.map, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT);
+//        bossView.setFitWidth(3 * TILE_SIZE);
+//        bossView.setFitHeight(3 * TILE_SIZE);
+//        bossView.setPreserveRatio(false);
 
         entityBuilder()
                 .type(EntityType.ENEMY)
                 .at(y * TILE_SIZE, x * TILE_SIZE)
                 .zIndex(10)
-                .viewWithBBox(bossView)
-                //.with(new Boss())
+//                .viewWithBBox(bossView)
+                .collidable()
+                .with(new Boss())
                 .buildAndAttach();
     }
 }
