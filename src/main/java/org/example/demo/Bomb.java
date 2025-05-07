@@ -116,9 +116,16 @@ public class Bomb {
         for (int i = 6; i <= 8; i++) {
             for (int j = 6; j <= 8; j++) {
                 if (nx == i && ny == j) {
-                    Boss.health--;
-                    System.out.println("Boss health " + Boss.health);
-                    Boss.spawnEnemy();
+                    Entity bossEntity = FXGL.getGameWorld().getEntitiesByType(EntityType.ENEMY).stream()
+                            .filter(e -> e.hasComponent(Boss.class))
+                            .findFirst()
+                            .orElse(null);
+                    if (bossEntity != null) {
+                        Boss boss = bossEntity.getComponent(Boss.class);
+                        boss.decreaseHealth(1); // Decrease health using the method in Boss
+                        System.out.println("Boss health: " + boss.getHealth());
+                        Boss.spawnEnemy();
+                    }
                 }
             }
         }
@@ -202,9 +209,9 @@ public class Bomb {
                         enemy.getComponent(Minvo.class).minvoDie();
                         ENEMY_NUMBERS_LEFT--;
                         System.out.println("Kill Minvo\nenemy left " + ENEMY_NUMBERS_LEFT);
-                    } else if (enemy.hasComponent(Boss.class)) {
-                        Boss.health--;
-                        System.out.println("Boss health: " + Boss.health);
+//                    } else if (enemy.hasComponent(Boss.class)) {
+//                        Boss.health--;
+//                        System.out.println("Boss health: " + Boss.health);
                     }
                 }
             }

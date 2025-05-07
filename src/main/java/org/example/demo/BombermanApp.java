@@ -5,10 +5,13 @@ import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxgl.dsl.FXGL;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import com.almasb.fxgl.entity.Entity;
+import javafx.scene.control.ProgressBar;
 
 import java.io.IOException;
 
@@ -29,6 +32,10 @@ public class BombermanApp extends GameApplication {
 
     public int[][] getMap() {
         return map;
+    }
+
+    public static double getWidth() {
+        return MAP_WIDTH * TILE_SIZE;
     }
 
     public static GamePlay getController() {
@@ -77,6 +84,7 @@ public class BombermanApp extends GameApplication {
 
     protected void initUI() {
         //GameInitializerMap.initUI();
+        Boss.bossHealthBar();
     }
 
     protected void initGame() {
@@ -165,7 +173,7 @@ public class BombermanApp extends GameApplication {
         player.onUpdate(tpf);
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////
-    static int level = 1;
+    static int level = 2;
 ////////////////////////////////////////////////////////////////////////////////////////////////
     public static void GG() {
 //        if (ENEMY_NUMBERS_LEFT <= 0 && Player.atPortal == true && availableBuffs.size() > 0) {

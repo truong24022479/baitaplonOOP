@@ -226,5 +226,6 @@ public class GameInitializerMap {
                 BombermanApp.map[i][j]=6;
             }
         }
+        Boss.bossHealthBar();
     }
 }
