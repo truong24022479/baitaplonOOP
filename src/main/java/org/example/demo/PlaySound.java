@@ -63,7 +63,7 @@ public class PlaySound {
 
     public static void main(String[] args) throws Exception {
         // Gọi hàm để phát âm thanh với âm lượng (0.0 đến 1.0, ngoài khoảng là lỗi)
-       // playExplosionSound(0.5f); // Âm lượng 50%
-        playPlayerDeathSound(0.7f); // Âm lượng 70%
+        playExplosionSound(0.5f); // Âm lượng 50%
+        //playPlayerDeathSound(0.7f); // Âm lượng 70%
     }
 }
