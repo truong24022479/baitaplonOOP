@@ -72,6 +72,7 @@ public class Bomb {
         isExploded = true;
 //        SoundManager.playExplosion();
         affectSurrounding(); // Gây ảnh hưởng đến xung quanh
+        System.out.println("enemy left " + ENEMY_NUMBERS_LEFT);
     }
 
     private void affectSurrounding() {
@@ -109,15 +110,18 @@ public class Bomb {
                 }
             }
         }
+        GG();
     }
 
     public static void bossHitBomb(int nx, int ny) {
-        if(level==1) return;
+        if (level == 1) return;
+        if (Boss.health < 0) return;
         for (int i = 6; i <= 8; i++) {
             for (int j = 6; j <= 8; j++) {
                 if (nx == i && ny == j) {
                     Boss.health--;
                     System.out.println("Boss health " + Boss.health);
+                    if(Boss.health==0)ENEMY_NUMBERS_LEFT--;
                     Boss.spawnEnemy();
                 }
             }
@@ -147,19 +151,19 @@ public class Bomb {
                     if (enemy.hasComponent(Balloom.class)) {
                         enemy.getComponent(Balloom.class).balloomDie();
                         ENEMY_NUMBERS_LEFT--;
-                        System.out.println("Kill Balloom\nenemy left " + ENEMY_NUMBERS_LEFT);
+                        //    System.out.println("Kill Balloom\nenemy left " + ENEMY_NUMBERS_LEFT);
                     } else if (enemy.hasComponent(Oneal.class)) {
                         enemy.getComponent(Oneal.class).onealDie();
                         ENEMY_NUMBERS_LEFT--;
-                        System.out.println("Kill Oneal\nenemy left " + ENEMY_NUMBERS_LEFT);
+                        //    System.out.println("Kill Oneal\nenemy left " + ENEMY_NUMBERS_LEFT);
                     } else if (enemy.hasComponent(Doll.class)) {
                         enemy.getComponent(Doll.class).dollDie();
                         ENEMY_NUMBERS_LEFT--;
-                        System.out.println("Kill Doll\nenemy left " + ENEMY_NUMBERS_LEFT);
+                        //   System.out.println("Kill Doll\nenemy left " + ENEMY_NUMBERS_LEFT);
                     } else if (enemy.hasComponent(Minvo.class)) {
                         enemy.getComponent(Minvo.class).minvoDie();
                         ENEMY_NUMBERS_LEFT--;
-                        System.out.println("Kill Minvo\nenemy left " + ENEMY_NUMBERS_LEFT);
+                        //   System.out.println("Kill Minvo\nenemy left " + ENEMY_NUMBERS_LEFT);
                     }
                 }
             }
@@ -189,22 +193,19 @@ public class Bomb {
                     if (enemy.hasComponent(Balloom.class)) {
                         enemy.getComponent(Balloom.class).balloomDie();
                         ENEMY_NUMBERS_LEFT--;
-                        System.out.println("Kill Balloom\nenemy left " + ENEMY_NUMBERS_LEFT);
+                        //    System.out.println("Kill Balloom\nenemy left " + ENEMY_NUMBERS_LEFT);
                     } else if (enemy.hasComponent(Oneal.class)) {
                         enemy.getComponent(Oneal.class).onealDie();
                         ENEMY_NUMBERS_LEFT--;
-                        System.out.println("Kill Oneal tại\nenemy left " + ENEMY_NUMBERS_LEFT);
+                        //    System.out.println("Kill Oneal tại\nenemy left " + ENEMY_NUMBERS_LEFT);
                     } else if (enemy.hasComponent(Doll.class)) {
                         enemy.getComponent(Doll.class).dollDie();
                         ENEMY_NUMBERS_LEFT--;
-                        System.out.println("Kill Doll\nenemy left " + ENEMY_NUMBERS_LEFT);
+                        //    System.out.println("Kill Doll\nenemy left " + ENEMY_NUMBERS_LEFT);
                     } else if (enemy.hasComponent(Minvo.class)) {
                         enemy.getComponent(Minvo.class).minvoDie();
                         ENEMY_NUMBERS_LEFT--;
-                        System.out.println("Kill Minvo\nenemy left " + ENEMY_NUMBERS_LEFT);
-                    } else if (enemy.hasComponent(Boss.class)) {
-                        Boss.health--;
-                        System.out.println("Boss health: " + Boss.health);
+                        //    System.out.println("Kill Minvo\nenemy left " + ENEMY_NUMBERS_LEFT);
                     }
                 }
             }

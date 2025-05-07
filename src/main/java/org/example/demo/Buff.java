@@ -21,12 +21,6 @@ public class Buff {
 
     static List<Integer> availableBuffs = new ArrayList<>();
 
-    // Khởi tạo danh sách với các số từ 1 đến 6
-//    static {
-//        for (int i = 1; i <= 6; i++) {
-//            availableBuffs.add(i);
-//        }
-//    }
 
     public static void createBuff(){
         availableBuffs.clear();
@@ -50,7 +44,7 @@ public class Buff {
     }
 
     public static void printBuff(String s) {
-        if (availableBuffs.isEmpty()) {
+        if (availableBuffs.size()==1) {
             System.out.println();
             getDialogService().showMessageBox(s + "No more buffs available!" + "\nPress OK to continue.", () -> {
             });
@@ -138,7 +132,8 @@ public class Buff {
      */
     public static void applyWallPass() {
         // Bạn sẽ tự viết logic cho WALL_PASS
-        printBuff("Strings");
+        printBuff("Nothing. Lucky next time!");
+
     }
 
     public static void receiveBuff() {

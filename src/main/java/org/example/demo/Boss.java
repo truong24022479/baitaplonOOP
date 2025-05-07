@@ -10,6 +10,7 @@ import java.util.Random;
 
 import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 import static org.example.demo.Bomb.*;
+import static org.example.demo.BombermanApp.ENEMY_NUMBERS_LEFT;
 
 public class Boss extends Enemy {
     private Entity boss;
@@ -84,7 +85,7 @@ public class Boss extends Enemy {
             bombTimer = 0;
         }
 
-        if (health == 0) {
+        if (health <= 0) {
             bossDie();
         }
     }
@@ -103,14 +104,17 @@ public class Boss extends Enemy {
     }
 
     public static void spawnEnemy() {
-        if (health <= 15) {
-            GameInitializerMap.spawnBalloom(2);
+        if (health <= 15&&health>10) {
+            GameInitializerMap.spawnBalloom(1);
+            ENEMY_NUMBERS_LEFT++;
         }
-        if (health <= 10) {
-            GameInitializerMap.spawnOneal(2);
+        if (health <= 10&&health>4) {
+            GameInitializerMap.spawnOneal(1);
+            ENEMY_NUMBERS_LEFT++;
         }
-        if (health <= 5) {
-            GameInitializerMap.spawnMinvo(2);
+        if (health <= 4&&health>0) {
+            GameInitializerMap.spawnMinvo(1);
+            ENEMY_NUMBERS_LEFT++;
         }
     }
 

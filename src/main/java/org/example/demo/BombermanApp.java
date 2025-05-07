@@ -16,6 +16,7 @@ import static com.almasb.fxgl.dsl.FXGL.entityBuilder;
 import static com.almasb.fxgl.dsl.FXGL.getGameScene;
 import static org.example.demo.Buff.availableBuffs;
 import static org.example.demo.Buff.resetBuff;
+import static org.example.demo.EndGame.handleVictory;
 import static org.example.demo.GameInitializerMap.spawnBoss;
 
 /// ///////////////////long
@@ -183,6 +184,9 @@ public class BombermanApp extends GameApplication {
             level++;
             startNewLevel();
            // System.out.println("level "+level);
+        }
+        if(level==2&&ENEMY_NUMBERS_LEFT <= 0){
+            handleVictory();
         }
     }
 
