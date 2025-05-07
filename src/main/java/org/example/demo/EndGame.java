@@ -14,6 +14,7 @@ public class EndGame {
 
         FXGL.getDialogService().showBox("\uD83C\uDFC6 CHIẾN THẮNG \uD83C\uDFC6", btnHome, btnExit);
         // Có thể thêm logic xử lý điểm số, hiển thị màn hình victory phức tạp hơn tại đây
+        SoundManager.playVictory();
     }
 
     public static void handleGameOver() {
@@ -29,6 +30,7 @@ public class EndGame {
 
         FXGL.getDialogService().showBox("\uD83D\uDC80 Thua rồi gà ơi \uD83D\uDC80", btnHome, btnExit);
         // Có thể thêm logic xử lý điểm số, hiển thị màn hình game over phức tạp hơn tại đây
+        SoundManager.playGameOver();
     }
 
     // Bạn có thể thêm các phương thức khác liên quan đến việc kết thúc game ở đây

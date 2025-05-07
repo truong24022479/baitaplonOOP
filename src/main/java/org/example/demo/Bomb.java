@@ -70,7 +70,7 @@ public class Bomb {
     // Phương thức phát nổ
     private void explode() {
         isExploded = true;
-//        SoundManager.playExplosion();
+        SoundManager.playExplosion();
         affectSurrounding(); // Gây ảnh hưởng đến xung quanh
     }
 

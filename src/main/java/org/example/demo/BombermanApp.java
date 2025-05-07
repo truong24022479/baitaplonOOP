@@ -19,6 +19,7 @@ import static com.almasb.fxgl.dsl.FXGL.entityBuilder;
 import static com.almasb.fxgl.dsl.FXGL.getGameScene;
 import static org.example.demo.Buff.availableBuffs;
 import static org.example.demo.Buff.resetBuff;
+import static org.example.demo.EndGame.handleGameOver;
 import static org.example.demo.GameInitializerMap.spawnBoss;
 
 /// ///////////////////long
@@ -173,7 +174,7 @@ public class BombermanApp extends GameApplication {
         player.onUpdate(tpf);
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////
-    static int level = 2;
+    static int level = 1;
 ////////////////////////////////////////////////////////////////////////////////////////////////
     public static void GG() {
 //        if (ENEMY_NUMBERS_LEFT <= 0 && Player.atPortal == true && availableBuffs.size() > 0) {
@@ -216,13 +217,15 @@ public class BombermanApp extends GameApplication {
         // Khởi tạo lại game
         BombermanApp app = (BombermanApp) FXGL.getApp();
         app.initGame();
+        SoundManager.playNewLevel();
     }
 
     public static void removePlayer() {
-        //SoundManager.playPlayerDeath();
 //        getDialogService().showMessageBox("\uD83D\uDC80 Đồ ngu đồ ăn hại \uD83D\uDC80", () -> {
 //            getGameController().exit();
 //        });
-        //handleGameOver();
+        level = 1;
+        handleGameOver();
+        SoundManager.playPlayerDeath();
     }
 }

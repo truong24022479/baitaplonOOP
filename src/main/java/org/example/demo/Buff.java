@@ -174,6 +174,7 @@ public class Buff {
         }
 
         availableBuffs.remove(index);
+        SoundManager.playGetBuffs();
         System.out.println("Buffs remaining: " + availableBuffs.size());
     }
 }
