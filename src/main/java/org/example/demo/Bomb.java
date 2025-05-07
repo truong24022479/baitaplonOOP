@@ -79,7 +79,6 @@ public class Bomb {
         int[][] dir = {{1, 0}, {0, 1}, {0, -1}, {-1, 0}};
         String[] directions = {"right", "down", "up", "left"};
         Set<Object> killed = new HashSet<>();
-
         BombAnimation.centerExplode(x * BombermanApp.TILE_SIZE, y * BombermanApp.TILE_SIZE);
         hitCenterBomb(x, y, killed);
 
