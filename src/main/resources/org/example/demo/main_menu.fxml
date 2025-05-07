@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.MenuControler">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.MenuControler">
     <children>
+      <ImageView fitHeight="538.0" fitWidth="729.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../textures/menu.jpg" />
+         </image>
+      </ImageView>
         <!-- Các nút -->
         <VBox alignment="CENTER" spacing="30.0"> <!-- Tăng spacing để dễ nhìn hơn -->
             <padding>
                 <Insets bottom="150.0" left="100.0" right="100.0" top="150.0" /> <!-- Tăng padding để có không gian rộng rãi hơn -->
             </padding>
             <children>
-                <Label text="Bomberman Game" textFill="white">
+                <Label text="Bomberman Game" textFill="#0f5ece">
                     <font>
                         <Font size="60.0" /> <!-- Tăng kích thước font tiêu đề -->
                     </font>
