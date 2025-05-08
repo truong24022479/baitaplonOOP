@@ -52,30 +52,6 @@ public class PlaySound {
         timeline.play();
     }
 
-    public static void playFootStep(double volume) {
-        URL soundURL = PlaySound.class.getResource("/org/example/demo/sounds/footstep.wav");
-        if (soundURL == null) {
-            System.out.println("Không tìm thấy file âm thanh theme_converted.wav!");
-            return;
-        }
-
-        // Dừng theme cũ (nếu có)
-       // stopThemeClip();
-
-        themeClip = new AudioClip(soundURL.toExternalForm());
-        themeClip.setVolume(volume);
-        themeClip.setCycleCount(AudioClip.INDEFINITE); // Lặp lại vô hạn
-        themeClip.play();
-        System.out.println("Theme sound đang phát...");
-
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(themeClip.getSource().length()), e -> {
-            if (!themeClip.isPlaying()) {
-                themeClip.play();
-            }
-        }));
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
-    }
     // Dừng hiệu ứng âm thanh
     private static void stopEffectClip() {
         if (effectClip != null) {

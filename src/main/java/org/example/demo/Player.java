@@ -29,6 +29,10 @@ public class Player implements EntityFactory {
     private boolean inputInitialized = false;
 
     private PlayerSpriteManager spriteManager;
+
+    private long lastFootstepTime = 0;
+    private final long FOOTSTEP_INTERVAL = 250;
+
     public KeyHandle getKeyHandle() {
         return keyH;
     }
@@ -162,13 +166,35 @@ public class Player implements EntityFactory {
 
     protected void onUpdate(double tpf) {
         double dx = 0, dy = 0;
-        if (keyH.upPressed) dy -= PLAYER_SPEED;
-        if (keyH.downPressed) dy += PLAYER_SPEED;
-        if (keyH.leftPressed) dx -= PLAYER_SPEED;
-        if (keyH.rightPressed) dx += PLAYER_SPEED;
+        boolean isMoving = false;
+
+        if (keyH.upPressed) {
+            dy -= PLAYER_SPEED;
+            isMoving = true;
+        }
+        if (keyH.downPressed) {
+            dy += PLAYER_SPEED;
+            isMoving = true;
+        }
+        if (keyH.leftPressed) {
+            dx -= PLAYER_SPEED;
+            isMoving = true;
+        }
+        if (keyH.rightPressed) {
+            dx += PLAYER_SPEED;
+            isMoving = true;
+        }
         //cap nhat animation trc khi di chuyen
         spriteManager.updateAnimation(tpf, keyH.upPressed, keyH.downPressed, keyH.leftPressed, keyH.rightPressed);
+        // Phát âm thanh bước chân nếu đang di chuyển
 
+        if (isMoving) {
+            long currentTime = System.currentTimeMillis();
+            if (currentTime - lastFootstepTime > FOOTSTEP_INTERVAL) {
+                playFootStep(0.3f); // Gọi hàm phát âm thanh từ SoundManager
+                lastFootstepTime = currentTime;
+            }
+        }
         movePlayer(dx, dy);
 
         int playerTileX = (int) (player.getX() / TILE_SIZE);
@@ -217,7 +243,7 @@ public class Player implements EntityFactory {
 
         for (int ty = topTile; ty <= bottomTile; ty++) {
             for (int tx = leftTile; tx <= rightTile; tx++) {
-                if (map != null && ty >= 0 && ty < map.length && tx >= 0 && tx < map [ty].length && map [ty][tx] != 0 && map [ty][tx] != 4 && map [ty][tx] != 5) {
+                if (map != null && ty >= 0 && ty < map.length && tx >= 0 && tx < map[ty].length && map[ty][tx] != 0 && map[ty][tx] != 4 && map[ty][tx] != 5) {
                     return;
                 }
             }
@@ -226,14 +252,14 @@ public class Player implements EntityFactory {
         //System.out.println("at "+ newX+","+newY+"\nat portal "+atPortal);
         int tileX = (int) (newX / BombermanApp.TILE_SIZE);
         int tileY = (int) (newY / BombermanApp.TILE_SIZE);
-        if (map != null && tileY >= 0 && tileY < map.length && tileX >= 0 && tileX < map [tileY].length && map [tileY][tileX] == 4) {
+        if (map != null && tileY >= 0 && tileY < map.length && tileX >= 0 && tileX < map[tileY].length && map[tileY][tileX] == 4) {
             atPortal = true;
             BombermanApp.GG();
         } else atPortal = false;
-        if (map != null && tileY >= 0 && tileY < map.length && tileX >= 0 && tileX < map [tileY].length && map [tileY][tileX] == 5) {
+        if (map != null && tileY >= 0 && tileY < map.length && tileX >= 0 && tileX < map[tileY].length && map[tileY][tileX] == 5) {
             Buff.ChangeBuffToGrass(tileX, tileY);
-            if (map != null && tileY >= 0 && tileY < map.length && tileX >= 0 && tileX < map [tileY].length) {
-                map [tileY][tileX] = 0;
+            if (map != null && tileY >= 0 && tileY < map.length && tileX >= 0 && tileX < map[tileY].length) {
+                map[tileY][tileX] = 0;
             }
             System.out.println("recieve buff at " + tileX + " " + tileY + "\n Buff left " + remainingBuffsToSpawn);
             receiveBuff();

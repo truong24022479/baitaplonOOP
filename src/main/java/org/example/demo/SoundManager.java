@@ -54,8 +54,9 @@ public class SoundManager {
         }
     }
 
-    public static void playFootStep() {
+    public static void playFootStep(float volume) {
         if (footstep != null) {
+            footstep.setVolume(volume); // volume từ 0.0 (im re) đến 1.0 (max volume)
             footstep.play();
         }
     }
