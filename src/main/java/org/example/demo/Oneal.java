@@ -9,7 +9,7 @@ import javafx.util.Duration;
 public class Oneal extends Enemy {
     private Entity oneal;
     private Entity player;
-    private static final double ONEAL_SPEED = 30;
+    public static double ONEAL_SPEED = 30;
 
     private double vX = 0;
     private double vY = 0;

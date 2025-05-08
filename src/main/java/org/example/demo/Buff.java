@@ -10,6 +10,7 @@ import java.util.Random;
 
 import static com.almasb.fxgl.dsl.FXGL.entityBuilder;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getDialogService;
+import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameWorld;
 import static org.example.demo.Bomb.explosionRadius;
 import static org.example.demo.BombermanApp.*;
 
@@ -22,21 +23,27 @@ public class Buff {
     static List<Integer> availableBuffs = new ArrayList<>();
 
 
-    public static void createBuff(){
+    public static void createBuff() {
         availableBuffs.clear();
         for (int i = 1; i <= 6; i++) {
             availableBuffs.add(i);
         }
     }
-    public static void resetBuff(){
-        Player.PLAYER_SPEED=1;
+
+    public static void resetBuff() {
+        Player.PLAYER_SPEED = 1;
         explosionRadius = 1;
-        Buff.timeSetBomb = 2000;
+        //Buff.timeSetBomb = 2000;
         Buff.playerStrong = false;
         ENEMY_NUMBERS_LEFT = numOfBallooms + numOfMinvos + numOfDolls + numOfOneals;
         Bomb.portalSpawned = false;
         Bomb.BRICK_NUMS = 0;
         Bomb.remainingBuffsToSpawn = 6;
+
+        Enemy.ENEMY_SPEED = 15;
+        Oneal.ONEAL_SPEED = 30;
+        Doll.DOLL_SPEED = 15;
+        Minvo.MINVO_SPEED = 40;
 
 //        Player.PLAYER_SPEED=2;
 //        Buff.timeSetBomb = 500;
@@ -44,9 +51,9 @@ public class Buff {
     }
 
     public static void printBuff(String s) {
-        if (availableBuffs.size()==1) {
+        if (availableBuffs.size() == 1) {
             System.out.println();
-            getDialogService().showMessageBox(s + "No more buffs available!" + "\nPress OK to continue.", () -> {
+            getDialogService().showMessageBox(s + "\nNo more buffs available!" + "\nPress OK to continue.", () -> {
             });
             return;
         }
@@ -121,10 +128,30 @@ public class Buff {
 
     public static long timeSetBomb = 2000;
 
-    public static void applyTimeSetBomb() {
+    public static void speedDown() {
         // Bạn sẽ tự viết logic cho DETONATOR
-        printBuff("You can set bomb each 0.5 sec.");
-        timeSetBomb = 500;
+        printBuff("Enemy will be faster in next 1 minute.");
+        final long DURATION_MS = 15 * 1000; // 1 phút = 60 giây
+        Enemy.ENEMY_SPEED *= 3;
+        Oneal.ONEAL_SPEED += 20;
+        Doll.DOLL_SPEED *= 3;
+        Minvo.MINVO_SPEED *= 1.5;
+
+        new Thread(() -> {
+            try {
+                Thread.sleep(DURATION_MS);
+                javafx.application.Platform.runLater(() -> {
+                    // Khôi phục tốc độ ban đầu
+                    Enemy.ENEMY_SPEED /= 3;
+                    Oneal.ONEAL_SPEED -= 20;
+                    Doll.DOLL_SPEED /= 3;
+                    Minvo.MINVO_SPEED /= 1.5;
+                });
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.err.println("Thread interrupted while restoring player speed: " + e.getMessage());
+            }
+        }).start();
     }
 
     /**
@@ -161,7 +188,7 @@ public class Buff {
                 applySpawnEnemies();
                 break;
             case 5:
-                applyTimeSetBomb();
+                speedDown();
                 break;
             case 6:
                 applyWallPass();

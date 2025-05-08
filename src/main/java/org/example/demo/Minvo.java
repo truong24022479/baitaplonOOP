@@ -11,7 +11,7 @@ import java.util.*;
 public class Minvo extends Enemy {
     private Entity minvo;
     private Entity player;
-    private static final double MINVO_SPEED = 40;
+    public static double MINVO_SPEED = 40;
 
     private double vX = 0;
     private double vY = 0;
@@ -349,5 +349,6 @@ public class Minvo extends Enemy {
             getEntity().removeFromWorld();
         }, Duration.seconds(0.5));
         GameInitializerMap.spawnOneal(2);
+        BombermanApp.ENEMY_NUMBERS_LEFT+=2;
     }
 }

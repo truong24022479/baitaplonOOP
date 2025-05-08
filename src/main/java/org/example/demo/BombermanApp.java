@@ -30,6 +30,10 @@ public class BombermanApp extends GameApplication {
     public static final int MAP_HEIGHT = 15;
     private static GamePlay controller;
 
+    public static double getWidth() {
+        return MAP_WIDTH * TILE_SIZE;
+    }
+
     public int[][] getMap() {
         return map;
     }
@@ -70,7 +74,7 @@ public class BombermanApp extends GameApplication {
         settings.setVersion("1.0");
 
         settings.setMainMenuEnabled(true); // Bật chức năng menu chính
-        settings.setSceneFactory(new SceneFactory(){
+        settings.setSceneFactory(new SceneFactory() {
             @Override
             public FXGLMenu newMainMenu() {
                 return new ViewMenu();
@@ -168,17 +172,19 @@ public class BombermanApp extends GameApplication {
     protected void onUpdate(double tpf) {
         player.onUpdate(tpf);
     }
-/////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// //////////////////////////////////////////////////////////////////////////////////////////////
     static int level = 1;
-////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// /////////////////////////////////////////////////////////////////////////////////////////////
     public static void GG() {
 //        if (ENEMY_NUMBERS_LEFT <= 0 && Player.atPortal == true && availableBuffs.size() > 0) {
 //            getDialogService().showMessageBox("You need to find " + availableBuffs.size() + " buffs left.", () -> {
 //            });
 //        }
         if (ENEMY_NUMBERS_LEFT <= 0 && Player.atPortal == true && level == 1) {
-            if(availableBuffs.size() > 0){
-                FXGL.getDialogService().showMessageBox("You need to find "+availableBuffs.size()+" left.", () -> {
+            if (availableBuffs.size() > 0) {
+                FXGL.getDialogService().showMessageBox("You need to find " + availableBuffs.size() + " left.", () -> {
                 });
             }
             System.out.println("so quai con lai" + ENEMY_NUMBERS_LEFT);
@@ -186,9 +192,9 @@ public class BombermanApp extends GameApplication {
             });
             level++;
             startNewLevel();
-           // System.out.println("level "+level);
+            // System.out.println("level "+level);
         }
-        if(level==2&&ENEMY_NUMBERS_LEFT <= 0){
+        if (level == 2 && ENEMY_NUMBERS_LEFT <= 0) {
             level--;
             handleVictory();
 
@@ -224,7 +230,7 @@ public class BombermanApp extends GameApplication {
 //        getDialogService().showMessageBox("\uD83D\uDC80 Đồ ngu đồ ăn hại \uD83D\uDC80", () -> {
 //            getGameController().exit();
 //        });
-        level=1;
+        level = 1;
         handleGameOver();
     }
 }

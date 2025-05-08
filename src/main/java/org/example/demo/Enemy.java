@@ -10,7 +10,7 @@ public abstract class Enemy extends Component {
     protected int[][] map;
     protected int MAP_WIDTH;
     protected int MAP_HEIGHT;
-    public static final double ENEMY_SPEED=15;
+    public static double ENEMY_SPEED=15;
     protected boolean isMoving = false;
     protected boolean isDead = false;
 

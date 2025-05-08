@@ -109,14 +109,17 @@ public class Boss extends Enemy {
     }
 
     public static void spawnEnemy() {
-        if (getHealth() <= 15) {
-            GameInitializerMap.spawnBalloom(2);
+        if (getHealth() <= 15 && getHealth() > 10) {
+            GameInitializerMap.spawnBalloom(1);
+            BombermanApp.ENEMY_NUMBERS_LEFT++;
         }
-        if (getHealth() <= 10) {
-            GameInitializerMap.spawnOneal(2);
+        if (getHealth() <= 10 && getHealth() > 4) {
+            GameInitializerMap.spawnOneal(1);
+            BombermanApp.ENEMY_NUMBERS_LEFT++;
         }
-        if (getHealth() <= 5) {
-            GameInitializerMap.spawnMinvo(2);
+        if (getHealth() < 5 && getHealth() > 0) {
+            GameInitializerMap.spawnMinvo(1);
+            BombermanApp.ENEMY_NUMBERS_LEFT++;
         }
     }
 
@@ -134,7 +137,7 @@ public class Boss extends Enemy {
         view.setImage(deadImage);
         for (int i = 6; i <= 8; i++) {
             for (int j = 6; j <= 8; j++) {
-                BombermanApp.map[i][j]=0;
+                BombermanApp.map[i][j] = 0;
             }
         }
 

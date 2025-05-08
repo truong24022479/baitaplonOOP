@@ -15,7 +15,7 @@ public class Doll extends Enemy {
     private boolean isDead = false;
     private ImageView view;
 
-    private static final double DOLL_SPEED = 15;
+    public static double DOLL_SPEED = 15;
     private ImageView[] leftFrames;
     private ImageView[] rightFrames;
     private int frameIndex = 0;

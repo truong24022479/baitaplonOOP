@@ -116,14 +116,24 @@ public class Bomb {
 
     public static void bossHitBomb(int nx, int ny) {
         if (level == 1) return;
-        if (Boss.health < 0) return;
+        if (Boss.getHealth() < 0) return;
         for (int i = 6; i <= 8; i++) {
             for (int j = 6; j <= 8; j++) {
                 if (nx == i && ny == j) {
-                    Boss.health--;
-                    System.out.println("Boss health " + Boss.health);
-                    if(Boss.health==0)ENEMY_NUMBERS_LEFT--;
-                    Boss.spawnEnemy();
+                    // Boss.health--;
+                    //  System.out.println("Boss health " + Boss.health);
+                    if (Boss.getHealth() == 0) ENEMY_NUMBERS_LEFT--;
+                    // Boss.spawnEnemy();
+                    Entity bossEntity = FXGL.getGameWorld().getEntitiesByType(EntityType.ENEMY).stream()
+                            .filter(e -> e.hasComponent(Boss.class))
+                            .findFirst()
+                            .orElse(null);
+                    if (bossEntity != null) {
+                        Boss boss = bossEntity.getComponent(Boss.class);
+                        boss.decreaseHealth(1); // Decrease health using the method in Boss
+                        System.out.println("Boss health: " + boss.getHealth());
+                        Boss.spawnEnemy();
+                    }
                 }
             }
         }
