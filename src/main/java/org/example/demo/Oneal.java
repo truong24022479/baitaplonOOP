@@ -24,15 +24,14 @@ public class Oneal extends Enemy {
     private double frameTimer = 0;
     private final double FRAME_DURATION = 0.2;
 
+    @Override
     public void onAdded() {
         oneal = getEntity();
         view = new ImageView(getClass().getResource("/org/example/demo/sprites/oneal_dead (1).png").toExternalForm());
-        // hoặc image mặc định
         view.setFitWidth(TILE_SIZE);
         view.setFitHeight(TILE_SIZE);
-        view.setPreserveRatio(false); // hoặc true nếu cần
-        getEntity().getViewComponent().addChild(view); // rất quan trọng!
-
+        view.setPreserveRatio(false);
+        getEntity().getViewComponent().addChild(view);
 
         OnealAnimation anim = new OnealAnimation();
         anim.initializeImageView();
@@ -44,16 +43,11 @@ public class Oneal extends Enemy {
         initMap(app.getMap(), app.TILE_SIZE, app.MAP_WIDTH, app.MAP_HEIGHT);
     }
 
+    @Override
     public void onUpdate(double tpf) {
         if (isDead) {
             return;
         }
-
-        double distX = player.getX() - oneal.getX();
-        double distY = player.getY() - oneal.getY();
-        double distance = Math.sqrt(distX * distX + distY * distY);
-
-        double onealSpeed = (distance < 5 * TILE_SIZE) ? ONEAL_SPEED : ENEMY_SPEED;
 
         if (isMoving) {
             oneal.translateX(vX * tpf);
@@ -75,14 +69,23 @@ public class Oneal extends Enemy {
                 oneal.setPosition(moveTargetX, moveTargetY); // snap to tile
                 isMoving = false;
             }
-            return;
+        } else {
+            moveOneal();
         }
+    }
+
+    public void moveOneal() {
+        double distX = player.getX() - oneal.getX();
+        double distY = player.getY() - oneal.getY();
+        double distance = Math.sqrt(distX * distX + distY * distY);
+
+        double onealSpeed = (distance < 5 * TILE_SIZE) ? ONEAL_SPEED : ENEMY_SPEED;
 
         int onealTileX = (int) (oneal.getX() / TILE_SIZE);
         int onealTileY = (int) (oneal.getY() / TILE_SIZE);
 
-        int playerTileX = (int) player.getX() / TILE_SIZE;
-        int playerTileY = (int) player.getY() / TILE_SIZE;
+        int playerTileX = (int) (player.getX() / TILE_SIZE);
+        int playerTileY = (int) (player.getY() / TILE_SIZE);
 
         int dx = Integer.compare(playerTileX, onealTileX);
         int dy = Integer.compare(playerTileY, onealTileY);
@@ -106,21 +109,16 @@ public class Oneal extends Enemy {
             vY = ((moveTargetY - oneal.getY()) / length) * onealSpeed;
             isMoving = true;
         }
-
-
     }
 
     public void onealDie() {
-        isMoving = false; // dừng di chuyển
+        isMoving = false;
         if (isDead) return;
         isDead = true;
 
-        // Cập nhật hình ảnh thành oneal_dead.png
-//        enemyDie();
         Image deadImage = new Image(getClass().getResource("/org/example/demo/sprites/oneal_dead (1).png").toExternalForm());
         view.setImage(deadImage);
 
-        // Cho hiệu ứng tồn tại 0.5s rồi xoá khỏi map
         FXGL.getGameTimer().runOnceAfter(() -> {
             if (getEntity().isActive()) {
                 getEntity().removeFromWorld();

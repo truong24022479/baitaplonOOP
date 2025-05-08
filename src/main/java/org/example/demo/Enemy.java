@@ -1,6 +1,7 @@
 package org.example.demo;
 
 import com.almasb.fxgl.dsl.FXGL;
+import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.component.Component;
 import javafx.util.Duration;
 
@@ -21,15 +22,23 @@ public abstract class Enemy extends Component {
     }
 
     public boolean canMove(int tileX, int tileY) {
-        if (tileX >= 0 && tileX < MAP_WIDTH && tileY >= 0 && tileY < MAP_HEIGHT) {
-            if (map[tileY][tileX] == 0 || map[tileY][tileX] == 4 || map[tileY][tileX] == 5) return true;
-//            if (map[tileY][tileX] == 1 || map[tileY][tileX] == 2 || map[tileY][tileX] == 3) return false;
+        if (tileX < 0 || tileX >= MAP_WIDTH || tileY < 0 || tileY >= MAP_HEIGHT) {
+            return false;
         }
-        return false;
-    }
 
-//    public void removeEnemy() {
-//        FXGL.getGameWorld().removeEntity(getEntity());
+        if (map[tileY][tileX] == 1 || map[tileY][tileX] == 2 || map[tileY][tileX] == 4) {
+            return false;
+        }
+
+        for (Entity bomb : FXGL.getGameWorld().getEntitiesByType(EntityType.BOMB)) {
+            int bombX = (int) (bomb.getX() / TILE_SIZE);
+            int bombY = (int) (bomb.getY() / TILE_SIZE);
+            if (bombX == tileX && bombY == tileY) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     public void enemyDie() {
         isMoving = false; // dừng di chuyển

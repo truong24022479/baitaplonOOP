@@ -2,21 +2,26 @@ package org.example.demo;
 
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 import java.util.Random;
 
+import static com.almasb.fxgl.dsl.FXGL.getGameScene;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.*;
 import static org.example.demo.Bomb.*;
-import static org.example.demo.BombermanApp.ENEMY_NUMBERS_LEFT;
 
 public class Boss extends Enemy {
     private Entity boss;
     protected static int x;
     protected static int y;
-    protected static int health = 20;
+    private static IntegerProperty health = new SimpleIntegerProperty(20);
+    private static ProgressBar healthBar;
 
     private ImageView view;
     private ImageView[] leftFrames;
@@ -85,7 +90,7 @@ public class Boss extends Enemy {
             bombTimer = 0;
         }
 
-        if (health <= 0) {
+        if (getHealth() <= 0) {
             bossDie();
         }
     }
@@ -104,17 +109,14 @@ public class Boss extends Enemy {
     }
 
     public static void spawnEnemy() {
-        if (health <= 15&&health>10) {
-            GameInitializerMap.spawnBalloom(1);
-            ENEMY_NUMBERS_LEFT++;
+        if (getHealth() <= 15) {
+            GameInitializerMap.spawnBalloom(2);
         }
-        if (health <= 10&&health>4) {
-            GameInitializerMap.spawnOneal(1);
-            ENEMY_NUMBERS_LEFT++;
+        if (getHealth() <= 10) {
+            GameInitializerMap.spawnOneal(2);
         }
-        if (health <= 4&&health>0) {
-            GameInitializerMap.spawnMinvo(1);
-            ENEMY_NUMBERS_LEFT++;
+        if (getHealth() <= 5) {
+            GameInitializerMap.spawnMinvo(2);
         }
     }
 
@@ -135,6 +137,12 @@ public class Boss extends Enemy {
                 BombermanApp.map[i][j]=0;
             }
         }
+
+        if (healthBar != null) {
+            getGameScene().removeUINode(healthBar);
+            healthBar = null; // Clear the reference
+        }
+
         FXGL.getGameTimer().runOnceAfter(() -> {
             if (getEntity() != null && getEntity().isActive()) {
                 getEntity().removeFromWorld();
@@ -142,5 +150,55 @@ public class Boss extends Enemy {
                 System.err.println("Cảnh báo: Entity của Boss là null hoặc không hoạt động trong bossDie");
             }
         }, Duration.seconds(0.5));
+    }
+
+
+    // Thêm getter và setter cho sức khỏe
+    public IntegerProperty healthProperty() {
+        return health;
+    }
+
+    public static int getHealth() {
+        return health.get();
+    }
+
+    public void setHealth(int value) {
+        health.set(value);
+    }
+
+    public void decreaseHealth(int amount) {
+        setHealth(getHealth() - amount);
+    }
+
+    public static void bossHealthBar() {
+        // Thêm thanh máu cho boss
+        healthBar = new ProgressBar();
+        Entity bossEntity = FXGL.getGameWorld().getEntitiesByType(EntityType.ENEMY).stream()
+                .filter(e -> e.hasComponent(Boss.class))
+                .findFirst()
+                .orElse(null);
+        if (bossEntity != null) {
+            Boss boss = bossEntity.getComponent(Boss.class);
+            if (boss != null) {
+                // Sử dụng Bindings để tạo binding với healthProperty
+                healthBar.progressProperty().bind(Bindings.createDoubleBinding(
+                        () -> boss.getHealth() / 20.0,
+                        boss.healthProperty()
+                ));
+                healthBar.setPrefWidth(200);
+                healthBar.setPrefHeight(20);
+                healthBar.setTranslateX((BombermanApp.getWidth() - 200) / 2);
+                healthBar.setTranslateY(30); // Đặt ở trên cùng
+                // Tùy chỉnh màu sắc (tùy chọn)
+                healthBar.setStyle("-fx-accent: red;"); // Thanh máu màu đỏ
+                getGameScene().addUINode(healthBar);
+            } else {
+                System.err.println("Boss component not found!");
+            }
+        } else {
+            System.err.println("Boss entity not found!");
+        }
+
+
     }
 }
