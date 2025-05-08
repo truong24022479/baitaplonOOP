@@ -12,6 +12,7 @@ import static org.example.demo.Bomb.remainingBuffsToSpawn;
 import static org.example.demo.BombermanApp.removePlayer;
 import static org.example.demo.Buff.receiveBuff;
 import static org.example.demo.Buff.timeSetBomb;
+import static org.example.demo.SoundManager.playFootStep;
 
 public class Player implements EntityFactory {
     private static Entity player;

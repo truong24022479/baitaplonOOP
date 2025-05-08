@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
 
@@ -88,7 +89,7 @@ public class BombermanApp extends GameApplication {
     }
 
     protected void initGame() {
-        playThemeSound(0.5);
+        playThemeSound(0.3);
         getGameScene().setBackgroundColor(Color.DEEPPINK);
         map = new int[MAP_HEIGHT][MAP_WIDTH];
         if (level == 2) {
@@ -107,30 +108,61 @@ public class BombermanApp extends GameApplication {
         } catch (IOException e) {
             throw new RuntimeException("Không thể tải file game_play.fxml: " + e.getMessage());
         }
+        if (level == 2) {
+            for (int row = 0; row < MAP_HEIGHT; row++) {
+                for (int col = 0; col < MAP_WIDTH; col++) {
+                    ImageView view;
+                    EntityType type;
 
-        for (int row = 0; row < MAP_HEIGHT; row++) {
-            for (int col = 0; col < MAP_WIDTH; col++) {
-                ImageView view;
-                EntityType type;
+                    if (map[row][col] == 1) {
+                        view = controller.getWall();
+                        type = EntityType.WALL;
+                        entityBuilder().type(type)
+                                .at(col * TILE_SIZE, row * TILE_SIZE)
+                                .viewWithBBox(view)
+                                .buildAndAttach();
+                    } else {
+                        type = EntityType.GRASS;
 
-                if (map[row][col] == 1) {
-                    view = controller.getWall();
-                    type = EntityType.WALL;
-                } else if (map[row][col] == 2) {
-                    view = controller.getBrick();
-                    type = EntityType.BRICK;
-                } else if (map[row][col] == 4) {
-                    view = controller.getPortal();
-                    type = EntityType.PORTAL;
-                } else {
-                    view = controller.getGrass();
-                    type = EntityType.GRASS;
+                        // Tạo màu xen kẽ ô cờ
+                        Color color = (row + col) % 2 == 1 ? Color.DARKSLATEGRAY : Color.LIGHTBLUE;
+                        //Color color = (row + col) % 2 == 1 ? Color.web("#0D0221") : Color.web("#00FFF7");
+
+                        // Tạo hình chữ nhật có kích thước bằng 1 tile, tô màu tương ứng
+                        Rectangle rect = new Rectangle(TILE_SIZE, TILE_SIZE, color);
+
+                        // Gán Rectangle làm view
+                        entityBuilder()
+                                .type(type)
+                                .at(col * TILE_SIZE, row * TILE_SIZE)
+                                .viewWithBBox(rect)
+                                .buildAndAttach();
+                    }
                 }
+            }
+        }
+        if (level == 1) {
+            for (int row = 0; row < MAP_HEIGHT; row++) {
+                for (int col = 0; col < MAP_WIDTH; col++) {
+                    ImageView view;
+                    EntityType type;
 
-                entityBuilder().type(type)
-                        .at(col * TILE_SIZE, row * TILE_SIZE)
-                        .viewWithBBox(view)
-                        .buildAndAttach();
+                    if (map[row][col] == 1) {
+                        view = controller.getWall();
+                        type = EntityType.WALL;
+                    } else if (map[row][col] == 2) {
+                        view = controller.getBrick();
+                        type = EntityType.BRICK;
+                    } else if (map[row][col] == 4) {
+                        view = controller.getPortal();
+                        type = EntityType.PORTAL;
+                    } else {
+                        view = controller.getGrass();
+                        type = EntityType.GRASS;
+                    }
+
+                    entityBuilder().type(type).at(col * TILE_SIZE, row * TILE_SIZE).viewWithBBox(view).buildAndAttach();
+                }
             }
         }
 
@@ -175,7 +207,8 @@ public class BombermanApp extends GameApplication {
     }
 
     /// //////////////////////////////////////////////////////////////////////////////////////////////
-    static int level = 1;
+    static int level = 2;
+
     /// /////////////////////////////////////////////////////////////////////////////////////////////
     public static void GG() {
 //        if (ENEMY_NUMBERS_LEFT <= 0 && Player.atPortal == true && availableBuffs.size() > 0) {
@@ -215,10 +248,7 @@ public class BombermanApp extends GameApplication {
             }
         });
         // Xóa tất cả thực thể hiện tại
-        FXGL.getGameWorld().removeEntities(FXGL.getGameWorld().getEntitiesByType(
-                EntityType.PLAYER, EntityType.ENEMY, EntityType.BOMB, EntityType.BRICK,
-                EntityType.GRASS, EntityType.WALL, EntityType.PORTAL, EntityType.BUFF
-        ));
+        FXGL.getGameWorld().removeEntities(FXGL.getGameWorld().getEntitiesByType(EntityType.PLAYER, EntityType.ENEMY, EntityType.BOMB, EntityType.BRICK, EntityType.GRASS, EntityType.WALL, EntityType.PORTAL, EntityType.BUFF));
 
         // Khởi tạo lại game
         BombermanApp app = (BombermanApp) FXGL.getApp();

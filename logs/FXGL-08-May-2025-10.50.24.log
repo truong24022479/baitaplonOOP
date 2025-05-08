@@ -1,0 +1,560 @@
+10:50:13.160 [main                     ] DEBUG Logger               - Configured Logger
+10:50:13.195 [main                     ] DEBUG GameApplication      - Logging settings
+Title: Bomberman Game
+Version: 1.0
+Width: 480
+Height: 480
+Fullscreen: false
+Intro: false
+Profiling: false
+Single step:false
+App Mode: DEVELOPER
+Menu Key: ESCAPE
+Stage Style: DECORATED
+Scene Factory: class org.example.demo.BombermanApp$1
+
+10:50:13.617 [JavaFX Application Thread] DEBUG FXGLApplication      - Initializing FXGL
+10:50:13.622 [JavaFX Application Thread] INFO  Engine               - FXGL-17.3 (30.03.2023 11.49) on WINDOWS (J:23.0.2 FX:17.0.6)
+10:50:13.622 [JavaFX Application Thread] DEBUG Engine               - JRE Vendor Name: Oracle Corporation
+10:50:13.623 [JavaFX Application Thread] DEBUG Engine               - Running on OS: Windows 11 version 10.0
+10:50:13.623 [JavaFX Application Thread] DEBUG Engine               - Architecture: amd64
+10:50:13.623 [JavaFX Application Thread] INFO  Engine               - Source code and latest versions at: https://github.com/AlmasB/FXGL
+10:50:13.623 [JavaFX Application Thread] INFO  Engine               -       Ask questions and discuss at: https://github.com/AlmasB/FXGL/discussions
+10:50:13.623 [JavaFX Application Thread] INFO  Engine               -              Join the FXGL chat at: https://gitter.im/AlmasB/FXGL
+10:50:13.743 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Creating a JavaFX scene
+10:50:13.810 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Target settings size: 480.0 x 480.0
+10:50:13.811 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Scaled scene size:    480.0 x 480.0
+10:50:13.811 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Scaled ratio: (1.0, 1.0)
+10:50:13.812 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Set initial scene to FXGLStartupScene
+10:50:13.822 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Opening main window
+10:50:13.933 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Window border size: (14.666656494140625, 37.33331298828125)
+10:50:13.934 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Scaled size: 480.0 x 480.0
+10:50:13.934 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Scaled ratio: (1.0, 1.0)
+10:50:13.935 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Scene size: 480.0 x 480.0
+10:50:13.935 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Stage size: 494.6666564941406 x 517.3333129882812
+10:50:13.943 [FXGL Background Thread 1 ] DEBUG Engine               - Initializing environment variables
+10:50:14.048 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - User app class for loading assets: class org.example.demo.HelloApplication
+10:50:14.048 [FXGL Background Thread 1 ] DEBUG GameApplicationServi - Applying CSS: fxgl_dark.css
+10:50:14.049 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///C:/Users/admin/.m2/repository/com/github/almasb/fxgl/17.3/fxgl-17.3.jar!/fxglassets/ui/css/fxgl_dark.css
+10:50:14.114 [FXGL Background Thread 1 ] DEBUG GameApplicationServi - Initializing application scenes
+10:50:14.175 [FXGL Background Thread 1 ] DEBUG GameWorld            - Game world initialized
+10:50:14.296 [FXGL Background Thread 1 ] DEBUG PhysicsWorld         - Physics world initialized: appHeight=480, physics.ppm=50.0
+10:50:14.296 [FXGL Background Thread 1 ] DEBUG PhysicsWorld         - Using strategy: BRUTE_FORCE
+10:50:14.302 [FXGL Background Thread 1 ] DEBUG GameScene            - Game scene initialized: 480x480
+10:50:14.328 [FXGL Background Thread 1 ] WARN  FXGL.DefaultMenu     - FXGLDefaultMenu is not designed for resolutions < 800x600
+10:50:14.328 [FXGL Background Thread 1 ] DEBUG FXGL.DefaultMenu     - createMenuBodyGameMenu()
+10:50:14.344 [FXGL Background Thread 1 ] DEBUG FXGL.DefaultMenu     - createOptionsMenu()
+10:50:14.359 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///C:/Users/admin/.m2/repository/com/github/almasb/fxgl/17.3/fxgl-17.3.jar!/fxglassets/textures/particles/smoke.png
+10:50:14.489 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///C:/Users/admin/.m2/repository/com/github/almasb/fxgl/17.3/fxgl-17.3.jar!/fxglassets/textures/particles/trace_horizontal.png
+10:50:14.532 [FXGL Background Thread 1 ] DEBUG GameApplicationServi - Application scenes initialized
+10:50:14.548 [FXGL Background Thread 1 ] DEBUG SystemBundleService  - Loading FXGL system data
+10:50:14.553 [FXGL Background Thread 1 ] DEBUG FileSystemAccess     - Reading from: C:\Users\admin\OneDrive\Máy tính\btl\baitaplonOOP\system\fxgl.bundle
+10:50:14.567 [FXGL Background Thread 1 ] DEBUG SystemBundleService  - Bundle FXGL: {}
+10:50:14.567 [FXGL Background Thread 1 ] DEBUG UpdaterService       - Checking for updates
+10:50:14.574 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Loading fonts
+10:50:14.574 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///C:/Users/admin/.m2/repository/com/github/almasb/fxgl/17.3/fxgl-17.3.jar!/fxglassets/ui/fonts/VarelaRound-Regular.ttf
+10:50:14.574 [FXGL Background Thread 1 ] DEBUG FXGLApplication      - Loading default localization
+10:50:14.575 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///C:/Users/admin/.m2/repository/com/github/almasb/fxgl/17.3/fxgl-17.3.jar!/fxglassets/languages/english.lang
+10:50:14.602 [FXGL Background Thread 1 ] INFO  FXGLApplication      - FXGL initialization took: 0.658 sec
+10:50:14.608 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+10:50:14.622 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Move Up - W
+10:50:14.622 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Move Down - S
+10:50:14.622 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Move Left - A
+10:50:14.622 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Move Right - D
+10:50:14.623 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Đặt bom - Space
+10:50:14.624 [JavaFX Application Thread] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///C:/Users/admin/.m2/repository/com/github/almasb/fxgl/17.3/fxgl-17.3.jar!/fxglassets/textures/fxgl_icon.png
+10:50:14.645 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///C:/Users/admin/.m2/repository/com/github/almasb/fxgl/17.3/fxgl-17.3.jar!/fxglassets/ui/fonts/Abel-Regular.ttf
+10:50:14.654 [JavaFX Application Thread] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///C:/Users/admin/.m2/repository/com/github/almasb/fxgl/17.3/fxgl-17.3.jar!/fxglassets/textures/fxgl_default_cursor.png
+10:50:14.659 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Screenshot - CTRL+8
+10:50:14.660 [JavaFX Application Thread] DEBUG Input                - Registered new binding: System info dump - CTRL+9
+10:50:14.660 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Restart - CTRL+R
+10:50:14.661 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Toggle Debug Camera - CTRL+7
+10:50:14.665 [JavaFX Application Thread] DEBUG LoopRunner           - Starting loop
+10:50:14.665 [JavaFX Application Thread] DEBUG LoopRunner           - Initializing JavaFX AnimationTimerLoop
+10:50:14.668 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+10:50:14.670 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///C:/Users/admin/.m2/repository/com/github/almasb/fxgl/17.3/fxgl-17.3.jar!/fxglassets/ui/fonts/TerminalLandMono-Regular.otf
+10:50:14.679 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLStartupScene and adding to FXGLMainMenuDummyScene
+10:50:14.679 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLStartupScene -> FXGLMainMenuDummyScene
+10:50:14.680 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Push state: ViewMenu
+10:50:14.680 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+10:50:14.691 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLMainMenuDummyScene and adding to ViewMenu
+10:50:14.691 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///C:/Users/admin/.m2/repository/com/github/almasb/fxgl/17.3/fxgl-17.3.jar!/fxglassets/ui/fonts/Courier-Prime.ttf
+10:50:14.692 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLMainMenuDummyScene -> ViewMenu
+10:50:14.805 [JavaFX Application Thread] DEBUG FXGLApplication      - Registering font factories with UI factory
+10:50:15.791 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+10:50:15.791 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Pop state: ViewMenu
+10:50:15.791 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+10:50:15.792 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from ViewMenu and adding to FXGLMainMenuDummyScene
+10:50:15.792 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLMainMenuDummyScene <- ViewMenu
+10:50:15.793 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+10:50:15.801 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLMainMenuDummyScene and adding to FXGLLoadingScene
+10:50:15.801 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLMainMenuDummyScene -> FXGLLoadingScene
+10:50:15.801 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+10:50:15.801 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+10:50:15.801 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+10:50:15.801 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+10:50:15.805 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+10:50:16.151 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.152 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.188 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.188 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.190 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.190 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.192 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.192 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.194 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.195 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.197 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.197 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.199 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.200 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.202 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.203 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.205 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.205 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.206 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.206 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.207 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.207 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.208 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.208 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.210 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.210 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.213 [FXGL Background Thread 2 ] INFO  UpdaterService       - Your current version:  17.3
+10:50:16.213 [FXGL Background Thread 2 ] INFO  UpdaterService       - Latest stable version: 21.1
+10:50:16.215 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.215 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.217 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.218 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.220 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.220 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.222 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.222 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.223 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.224 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.225 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.225 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.227 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.227 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.229 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.229 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.231 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.231 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.232 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.232 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.233 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.233 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.233 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.233 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.234 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.234 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.236 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.236 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.236 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.237 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.237 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.237 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.239 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.239 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.239 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.240 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.240 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.241 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.242 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.242 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.244 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.244 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.246 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.247 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.248 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.248 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.249 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.249 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.250 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.250 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.251 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.251 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.253 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.253 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.254 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.254 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.255 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.255 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.256 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.256 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.257 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.258 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.258 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.259 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.260 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.261 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.262 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.262 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.265 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.265 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.268 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.268 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.269 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.270 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.271 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.272 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.273 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.273 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.275 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.275 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.277 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.277 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.279 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.280 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.282 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.282 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.283 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.283 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.286 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.286 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.287 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.287 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.288 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.289 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.289 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.289 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.290 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.291 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.292 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.292 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.294 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.295 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.297 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.297 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.299 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.299 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.300 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.300 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.301 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.301 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.304 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.304 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.305 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.305 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.306 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.306 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.307 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.307 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.308 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.308 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.310 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.310 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.313 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.313 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.315 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.315 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.315 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.316 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.316 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.317 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.318 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.318 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.319 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.319 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.320 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.320 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.321 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.321 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.322 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.322 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.322 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.322 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.323 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.323 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.324 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.324 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.324 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.324 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.325 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.325 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.326 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.326 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.328 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.329 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.330 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.330 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.332 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.332 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.333 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.333 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.334 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.334 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.335 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.335 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.336 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.336 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.337 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.337 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.338 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.338 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.338 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.339 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.339 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.339 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.340 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.340 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.341 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.341 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.342 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.342 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.343 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.343 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.347 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.347 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.348 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.348 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.349 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.350 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.350 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.350 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.351 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.351 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.352 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.352 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.353 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.353 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.353 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.354 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.354 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.354 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.355 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.355 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.355 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.356 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.356 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.356 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.358 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.358 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.360 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.360 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.362 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.362 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.363 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.363 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.364 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.364 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.364 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.365 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.365 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.365 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.367 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.367 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.367 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.368 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.368 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.369 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.369 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.369 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.370 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.370 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.371 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.371 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.372 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.372 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.372 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.372 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.373 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.373 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.373 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.373 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.374 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.374 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.374 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.374 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.375 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.375 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.376 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.376 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.377 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.378 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.379 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.379 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.379 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.379 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.381 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.381 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.382 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.382 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.383 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.383 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.384 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.384 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.385 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.385 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.385 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.386 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.386 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.386 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.387 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.387 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.388 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.388 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.389 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.389 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.390 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.390 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.390 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.390 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.391 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.391 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.391 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.392 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.392 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.394 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.395 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.395 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.397 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.397 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.398 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.398 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.398 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.398 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.398 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.398 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.399 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.399 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.399 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.399 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.400 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.400 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.400 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.401 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.401 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.401 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.403 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.403 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.403 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.403 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.404 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.404 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.404 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Asset "/assets/textures/0x0000ffff" was not found!
+10:50:16.404 [FXGL Background Thread 4 ] WARN  FXGLAssetLoaderServi - Failed to load IMAGE
+10:50:16.564 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.759 sec
+10:50:16.580 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+10:50:16.615 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+10:50:16.615 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+10:50:17.573 [FXGL Background Thread 3 ] DEBUG Engine               - Logging environment variables
+10:50:17.574 [FXGL Background Thread 3 ] DEBUG Engine               - achievements: []
+10:50:17.574 [FXGL Background Thread 3 ] DEBUG Engine               - actualHeight: 480.0
+10:50:17.574 [FXGL Background Thread 3 ] DEBUG Engine               - actualHeightProperty: ReadOnlyDoubleProperty [value: 480.0]
+10:50:17.574 [FXGL Background Thread 3 ] DEBUG Engine               - actualWidth: 480.0
+10:50:17.574 [FXGL Background Thread 3 ] DEBUG Engine               - actualWidthProperty: ReadOnlyDoubleProperty [value: 480.0]
+10:50:17.574 [FXGL Background Thread 3 ] DEBUG Engine               - appIcon: fxgl_icon.png
+10:50:17.574 [FXGL Background Thread 3 ] DEBUG Engine               - applicationMode: DEVELOPER
+10:50:17.574 [FXGL Background Thread 3 ] DEBUG Engine               - cSSList: [fxgl_dark.css]
+10:50:17.574 [FXGL Background Thread 3 ] DEBUG Engine               - collisionDetectionStrategy: BRUTE_FORCE
+10:50:17.575 [FXGL Background Thread 3 ] DEBUG Engine               - configClass: Optional.empty
+10:50:17.575 [FXGL Background Thread 3 ] DEBUG Engine               - credits: []
+10:50:17.576 [FXGL Background Thread 3 ] DEBUG Engine               - defaultCursor: CursorInfo(imageName=fxgl_default_cursor.png, hotspotX=7.0, hotspotY=6.0)
+10:50:17.576 [FXGL Background Thread 3 ] DEBUG Engine               - devBBoxColorProperty: ObjectProperty [value: 0xff0000ff]
+10:50:17.576 [FXGL Background Thread 3 ] DEBUG Engine               - devEnableDebugCameraProperty: BooleanProperty [value: false]
+10:50:17.576 [FXGL Background Thread 3 ] DEBUG Engine               - devSensorColorProperty: ObjectProperty [value: 0xffff00ff]
+10:50:17.576 [FXGL Background Thread 3 ] DEBUG Engine               - devShowBBoxProperty: BooleanProperty [value: false]
+10:50:17.578 [FXGL Background Thread 3 ] DEBUG Engine               - devShowPositionProperty: BooleanProperty [value: false]
+10:50:17.578 [FXGL Background Thread 3 ] DEBUG Engine               - enabledMenuItems: []
+10:50:17.578 [FXGL Background Thread 3 ] DEBUG Engine               - engineServices: [class com.almasb.fxgl.app.services.FXGLAssetLoaderService, class com.almasb.fxgl.app.FXGLApplication$GameApplicationService, class com.almasb.fxgl.app.services.FXGLDialogService, class com.almasb.fxgl.app.services.IOTaskExecutorService, class com.almasb.fxgl.io.FileSystemService, class com.almasb.fxgl.localization.LocalizationService, class com.almasb.fxgl.app.services.SystemBundleService, class com.almasb.fxgl.profile.SaveLoadService, class com.almasb.fxgl.ui.FXGLUIFactoryServiceProvider, class com.almasb.fxgl.ui.FXGLDialogFactoryServiceProvider, class com.almasb.fxgl.audio.AudioPlayer, class com.almasb.fxgl.notification.impl.NotificationServiceProvider, class com.almasb.fxgl.achievement.AchievementService, class com.almasb.fxgl.cutscene.CutsceneService, class com.almasb.fxgl.minigames.MiniGameService, class com.almasb.fxgl.net.NetService, class com.almasb.fxgl.app.services.UpdaterService, class com.almasb.fxgl.dev.DevService]
+10:50:17.578 [FXGL Background Thread 3 ] DEBUG Engine               - fontGame: Abel-Regular.ttf
+10:50:17.578 [FXGL Background Thread 3 ] DEBUG Engine               - fontMono: TerminalLandMono-Regular.otf
+10:50:17.578 [FXGL Background Thread 3 ] DEBUG Engine               - fontSizeScaleUI: 1.0
+10:50:17.578 [FXGL Background Thread 3 ] DEBUG Engine               - fontText: Courier-Prime.ttf
+10:50:17.578 [FXGL Background Thread 3 ] DEBUG Engine               - fontUI: VarelaRound-Regular.ttf
+10:50:17.578 [FXGL Background Thread 3 ] DEBUG Engine               - fullScreen: BooleanProperty [value: false]
+10:50:17.578 [FXGL Background Thread 3 ] DEBUG Engine               - gameDifficulty: MEDIUM
+10:50:17.578 [FXGL Background Thread 3 ] DEBUG Engine               - gameDifficultyProperty: ObjectProperty [value: MEDIUM]
+10:50:17.578 [FXGL Background Thread 3 ] DEBUG Engine               - globalMusicVolume: 0.5
+10:50:17.579 [FXGL Background Thread 3 ] DEBUG Engine               - globalMusicVolumeProperty: DoubleProperty [value: 0.5]
+10:50:17.579 [FXGL Background Thread 3 ] DEBUG Engine               - globalSoundVolume: 0.5
+10:50:17.579 [FXGL Background Thread 3 ] DEBUG Engine               - globalSoundVolumeProperty: DoubleProperty [value: 0.5]
+10:50:17.579 [FXGL Background Thread 3 ] DEBUG Engine               - height: 480
+10:50:17.579 [FXGL Background Thread 3 ] DEBUG Engine               - is3D: false
+10:50:17.579 [FXGL Background Thread 3 ] DEBUG Engine               - isAndroid: false
+10:50:17.579 [FXGL Background Thread 3 ] DEBUG Engine               - isBrowser: false
+10:50:17.579 [FXGL Background Thread 3 ] DEBUG Engine               - isClickFeedbackEnabled: false
+10:50:17.579 [FXGL Background Thread 3 ] DEBUG Engine               - isCloseConfirmation: false
+10:50:17.579 [FXGL Background Thread 3 ] DEBUG Engine               - isDesktop: true
+10:50:17.579 [FXGL Background Thread 3 ] DEBUG Engine               - isDeveloperMenuEnabled: false
+10:50:17.579 [FXGL Background Thread 3 ] DEBUG Engine               - isEmbedded: false
+10:50:17.579 [FXGL Background Thread 3 ] DEBUG Engine               - isEntityPreloadEnabled: true
+10:50:17.579 [FXGL Background Thread 3 ] DEBUG Engine               - isExperimentalTiledLargeMap: false
+10:50:17.579 [FXGL Background Thread 3 ] DEBUG Engine               - isFileSystemWriteAllowed: true
+10:50:17.579 [FXGL Background Thread 3 ] DEBUG Engine               - isFullScreenAllowed: false
+10:50:17.579 [FXGL Background Thread 3 ] DEBUG Engine               - isFullScreenFromStart: false
+10:50:17.579 [FXGL Background Thread 3 ] DEBUG Engine               - isGameMenuEnabled: true
+10:50:17.579 [FXGL Background Thread 3 ] DEBUG Engine               - isIOS: false
+10:50:17.579 [FXGL Background Thread 3 ] DEBUG Engine               - isIntroEnabled: false
+10:50:17.579 [FXGL Background Thread 3 ] DEBUG Engine               - isLinux: false
+10:50:17.579 [FXGL Background Thread 3 ] DEBUG Engine               - isMac: false
+10:50:17.579 [FXGL Background Thread 3 ] DEBUG Engine               - isMainMenuEnabled: true
+10:50:17.579 [FXGL Background Thread 3 ] DEBUG Engine               - isManualResizeEnabled: false
+10:50:17.579 [FXGL Background Thread 3 ] DEBUG Engine               - isMobile: false
+10:50:17.581 [FXGL Background Thread 3 ] DEBUG Engine               - isNative: false
+10:50:17.581 [FXGL Background Thread 3 ] DEBUG Engine               - isPauseMusicWhenMinimized: true
+10:50:17.581 [FXGL Background Thread 3 ] DEBUG Engine               - isPreserveResizeRatio: false
+10:50:17.581 [FXGL Background Thread 3 ] DEBUG Engine               - isProfilingEnabled: false
+10:50:17.581 [FXGL Background Thread 3 ] DEBUG Engine               - isScaleAffectedOnResize: true
+10:50:17.581 [FXGL Background Thread 3 ] DEBUG Engine               - isSingleStep: false
+10:50:17.581 [FXGL Background Thread 3 ] DEBUG Engine               - isUserProfileEnabled: false
+10:50:17.581 [FXGL Background Thread 3 ] DEBUG Engine               - isWindows: true
+10:50:17.581 [FXGL Background Thread 3 ] DEBUG Engine               - language: ObjectProperty [value: ENGLISH]
+10:50:17.581 [FXGL Background Thread 3 ] DEBUG Engine               - menuKey: ESCAPE
+10:50:17.581 [FXGL Background Thread 3 ] DEBUG Engine               - mouseSensitivity: 0.2
+10:50:17.582 [FXGL Background Thread 3 ] DEBUG Engine               - notificationViewClass: class com.almasb.fxgl.notification.view.XboxNotificationView
+10:50:17.582 [FXGL Background Thread 3 ] DEBUG Engine               - pixelsPerMeter: 50.0
+10:50:17.582 [FXGL Background Thread 3 ] DEBUG Engine               - platform: WINDOWS
+10:50:17.582 [FXGL Background Thread 3 ] DEBUG Engine               - prefHeightProperty: ReadOnlyDoubleProperty [value: 480.0]
+10:50:17.582 [FXGL Background Thread 3 ] DEBUG Engine               - prefWidthProperty: ReadOnlyDoubleProperty [value: 480.0]
+10:50:17.582 [FXGL Background Thread 3 ] DEBUG Engine               - profileDir: profiles/
+10:50:17.582 [FXGL Background Thread 3 ] DEBUG Engine               - profileName: StringProperty [value: DEFAULT]
+10:50:17.582 [FXGL Background Thread 3 ] DEBUG Engine               - randomSeed: -1
+10:50:17.582 [FXGL Background Thread 3 ] DEBUG Engine               - runtimeInfo: RuntimeInfo(platform=WINDOWS, version=17.3, build=30.03.2023 11.49)
+10:50:17.582 [FXGL Background Thread 3 ] DEBUG Engine               - saveFileExt: sav
+10:50:17.582 [FXGL Background Thread 3 ] DEBUG Engine               - scaledHeightProp$fxgl: DoubleProperty [bound, value: 480.0]
+10:50:17.582 [FXGL Background Thread 3 ] DEBUG Engine               - scaledWidthProp$fxgl: DoubleProperty [bound, value: 480.0]
+10:50:17.582 [FXGL Background Thread 3 ] DEBUG Engine               - sceneFactory: org.example.demo.BombermanApp$1@25b8acce
+10:50:17.582 [FXGL Background Thread 3 ] DEBUG Engine               - secondsIn24h: 60
+10:50:17.582 [FXGL Background Thread 3 ] DEBUG Engine               - soundMenuBack: menu/back.wav
+10:50:17.582 [FXGL Background Thread 3 ] DEBUG Engine               - soundMenuPress: menu/press.wav
+10:50:17.582 [FXGL Background Thread 3 ] DEBUG Engine               - soundMenuSelect: menu/select.wav
+10:50:17.582 [FXGL Background Thread 3 ] DEBUG Engine               - soundNotification: core/notification.wav
+10:50:17.582 [FXGL Background Thread 3 ] DEBUG Engine               - stageStyle: DECORATED
+10:50:17.582 [FXGL Background Thread 3 ] DEBUG Engine               - supportedLanguages: [ENGLISH, FRENCH, GERMAN, HUNGARIAN, RUSSIAN]
+10:50:17.583 [FXGL Background Thread 3 ] DEBUG Engine               - ticksPerSecond: -1
+10:50:17.583 [FXGL Background Thread 3 ] DEBUG Engine               - title: Bomberman Game
+10:50:17.583 [FXGL Background Thread 3 ] DEBUG Engine               - urlGithub: https://github.com/AlmasB/FXGL
+10:50:17.583 [FXGL Background Thread 3 ] DEBUG Engine               - urlLeaderboard: http://fxgl-top.herokuapp.com/
+10:50:17.583 [FXGL Background Thread 3 ] DEBUG Engine               - urlPOM: https://raw.githubusercontent.com/AlmasB/FXGL/release/README.md
+10:50:17.583 [FXGL Background Thread 3 ] DEBUG Engine               - userAppClass: class org.example.demo.HelloApplication
+10:50:17.583 [FXGL Background Thread 3 ] DEBUG Engine               - version: 1.0
+10:50:17.583 [FXGL Background Thread 3 ] DEBUG Engine               - versionCheckDays: 7
+10:50:17.583 [FXGL Background Thread 3 ] DEBUG Engine               - width: 480
+10:50:17.583 [FXGL Background Thread 3 ] DEBUG Engine               - Logging services
+10:50:17.583 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.app.services.FXGLAssetLoaderService
+10:50:17.583 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.app.FXGLApplication$GameApplicationService
+10:50:17.583 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.app.services.FXGLDialogService
+10:50:17.583 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.app.services.IOTaskExecutorService
+10:50:17.583 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.io.FileSystemService
+10:50:17.583 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.localization.LocalizationService
+10:50:17.583 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.app.services.SystemBundleService
+10:50:17.583 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.profile.SaveLoadService
+10:50:17.583 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.ui.FXGLUIFactoryServiceProvider
+10:50:17.583 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.ui.FXGLDialogFactoryServiceProvider
+10:50:17.583 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.audio.AudioPlayer
+10:50:17.583 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.notification.impl.NotificationServiceProvider
+10:50:17.583 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.achievement.AchievementService
+10:50:17.583 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.cutscene.CutsceneService
+10:50:17.583 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.minigames.MiniGameService
+10:50:17.583 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.net.NetService
+10:50:17.583 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.app.services.UpdaterService
+10:50:17.583 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.dev.DevService
+10:50:24.239 [JavaFX Application Thread] DEBUG FXGLApplication      - Exiting FXGL
+10:50:24.239 [JavaFX Application Thread] DEBUG LoopRunner           - Stopping loop
+10:50:24.239 [JavaFX Application Thread] DEBUG SystemBundleService  - Saving FXGL system data
+10:50:24.242 [JavaFX Application Thread] DEBUG FileSystemAccess     - Writing to: C:\Users\admin\OneDrive\Máy tính\btl\baitaplonOOP\system\fxgl.bundle
+10:50:24.246 [JavaFX Application Thread] DEBUG Async                - Shutting down background threads
+10:50:24.246 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Closing main window
+10:50:24.268 [JavaFX Application Thread] DEBUG Logger               - Closing Logger
