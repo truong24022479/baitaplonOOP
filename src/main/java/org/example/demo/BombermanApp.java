@@ -19,6 +19,7 @@ import static org.example.demo.Buff.resetBuff;
 import static org.example.demo.EndGame.handleGameOver;
 import static org.example.demo.EndGame.handleVictory;
 import static org.example.demo.GameInitializerMap.spawnBoss;
+import static org.example.demo.PlaySound.playThemeSound;
 
 /// ///////////////////long
 public class BombermanApp extends GameApplication {
@@ -82,6 +83,7 @@ public class BombermanApp extends GameApplication {
     }
 
     protected void initGame() {
+        playThemeSound(0.5);
         getGameScene().setBackgroundColor(Color.DEEPPINK);
         map = new int[MAP_HEIGHT][MAP_WIDTH];
         if (level == 2) {

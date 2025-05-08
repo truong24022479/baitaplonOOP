@@ -16,6 +16,7 @@ import static org.example.demo.BombermanApp.*;
 import static org.example.demo.Buff.playerStrong;
 import static org.example.demo.GameInitializerMap.spawnBuff;
 import static org.example.demo.GameInitializerMap.spawnPortal;
+import static org.example.demo.PlaySound.playExplosionSound;
 
 public class Bomb {
     private int x, y; // Tọa độ bom
@@ -73,6 +74,7 @@ public class Bomb {
 //        SoundManager.playExplosion();
         affectSurrounding(); // Gây ảnh hưởng đến xung quanh
         System.out.println("enemy left " + ENEMY_NUMBERS_LEFT);
+        playExplosionSound(1.0);
     }
 
     private void affectSurrounding() {
