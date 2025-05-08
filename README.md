@@ -15,6 +15,9 @@ Bomberman là một trò chơi 2D kinh điển được phát triển bằng Jav
 4. Âm thanh cho các hoạt động trong game như bước chân, vụ nổ, và khi nhân vật chết.
 5. Cốt truyện hấp dẫn, tạo thêm động lực khi chơi game.
 
+## Cây kế thừa
+![image](https://github.com/user-attachments/assets/bc9b194e-2721-41d4-b8e7-1455e4cbdea6)
+
 
 ## Cài đặt
 1. Tải dự án từ kho lưu trữ.
