@@ -20,6 +20,7 @@ import static org.example.demo.EndGame.handleGameOver;
 import static org.example.demo.EndGame.handleVictory;
 import static org.example.demo.GameInitializerMap.spawnBoss;
 import static org.example.demo.PlaySound.playThemeSound;
+import static org.example.demo.SoundManager.*;
 
 /// ///////////////////long
 public class BombermanApp extends GameApplication {
@@ -175,7 +176,6 @@ public class BombermanApp extends GameApplication {
 
     /// //////////////////////////////////////////////////////////////////////////////////////////////
     static int level = 1;
-
     /// /////////////////////////////////////////////////////////////////////////////////////////////
     public static void GG() {
 //        if (ENEMY_NUMBERS_LEFT <= 0 && Player.atPortal == true && availableBuffs.size() > 0) {
@@ -197,7 +197,7 @@ public class BombermanApp extends GameApplication {
         if (level == 2 && ENEMY_NUMBERS_LEFT <= 0) {
             level--;
             handleVictory();
-
+            playVictory();
         }
     }
 
@@ -223,6 +223,7 @@ public class BombermanApp extends GameApplication {
         // Khởi tạo lại game
         BombermanApp app = (BombermanApp) FXGL.getApp();
         app.initGame();
+        playNewLevel();
     }
 
     public static void removePlayer() {
@@ -232,5 +233,12 @@ public class BombermanApp extends GameApplication {
 //        });
         level = 1;
         handleGameOver();
+        playPlayerDeath();
+        try {
+            Thread.sleep(1000); // Chờ 1 giây
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        playGameOver();
     }
 }

@@ -59,4 +59,12 @@ public class SoundManager {
             gameOver.play();
         }
     }
+
+    public static void main(String[] args) {
+        //playPlayerDeath();
+        //playGetBuffs();
+        //playNewLevel();
+        //playVictory();
+        //playGameOver();
+    }
 }
